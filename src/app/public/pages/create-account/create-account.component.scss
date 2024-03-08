@@ -1,0 +1,52 @@
+.singup-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  margin-left: 40%;
+  .style-form {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
+  .container-form {
+    h1 {
+      text-align: center;
+    }
+    padding: 16px;
+    position: relative;
+    display: grid;
+    flex-direction: column;
+    input {
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      display: inline-block;
+      border: none;
+      background: #f1f1f1;
+      &:focus {
+        background-color: #ddd;
+        outline: none;
+      }
+    }
+    hr {
+      border: 1px solid black;
+      margin-bottom: 25px;
+    }
+    .btn {
+      border: none;
+      button {
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 20px;
+        opacity: 0.9;
+        &:hover {
+          opacity: 1;
+          filter: brightness(1.2);
+        }
+        &:active {
+          transform: scale(0.9);
+        }
+      }
+    }
+  }
+}

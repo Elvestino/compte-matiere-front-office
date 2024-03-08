@@ -1,0 +1,104 @@
+<main class="entree">
+  <!-- ----------------------entree------------------------- -->
+  <section class="form-component w-100">
+    <div class="component-title">
+      <h1 class="title">Enregistrement materiels d'entree</h1>
+
+      <hr />
+      <form class="component-form">
+        <div class="component">
+          <label for="">Numero d'entree</label>
+          <input type="text" name="numEntree" id="numEntree" />
+        </div>
+        <div class="component">
+          <label for="numFolioGL">Numero Folio du Grand Livre</label>
+          <input type="text" name="numFolioGL" id="numFolioGL" />
+        </div>
+        <div class="component">
+          <label for="nomenclature">Nomenclature</label>
+          <select name="nomenclature" id="nomenclature">
+            <option value=""></option>
+          </select>
+        </div>
+        <div class="component">
+          <label for="designation">Designation</label>
+          <input type="text" name="designation" id="designation" />
+        </div>
+        <div class="component">
+          <label for="espaceUnitaire">Espace Unitaire</label>
+          <select name="espaceUnitaire" id="espaceUnitaire">
+            <option value=""></option>
+          </select>
+        </div>
+        <div class="component">
+          <label for="quantite">Quantite</label>
+          <input type="text" name="quantite" id="quantite" />
+        </div>
+        <div class="component">
+          <label for="prix">Prix</label>
+          <input type="text" name="prix" id="prix" />
+        </div>
+      </form>
+    </div>
+  </section>
+  <!-- ----------------------Grand livre------------------------- -->
+  <section class="form-component w-100">
+    <div class="component-title">
+      <h1 class="title">Grand Livre</h1>
+      <hr />
+      <form class="component-form">
+        <div class="component">
+          <label for="AnneeGL">Annee</label>
+          <select name="AnneeGL" id="AnneeGL">
+            <option value=""></option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <!-- ----------------------facture------------------------- -->
+    <div class="component-title">
+      <h1 class="title">Facture</h1>
+      <hr />
+      <div class="component-form">
+        <div class="component">
+          <label for="numFacture">Facture</label>
+          <select name="numOrdre" id="numFacture">
+            <option value=""></option>
+          </select>
+        </div>
+        <div class="component">
+          <label for="destination">Destination</label>
+          <input type="text" name="destination" id="destination" disabled />
+        </div>
+        <div class="addEntree">
+          <button type="button" class="btn btn-primary w-100">Confirmer</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ----------------------table------------------------- -->
+  <section class="table">
+    <table class="section-table-entree">
+      <thead class="table-heading-entree">
+        <tr class="heading">
+          <th>Numero</th>
+          <th>Numero Folio</th>
+          <th>Nomenclature</th>
+          <th>Designation</th>
+          <th>Espace Unitaire</th>
+          <th>Quantite</th>
+          <th>Prix</th>
+          <th>Anne Grand Livre</th>
+          <th>Facture N°</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="print">
+      <button type="button" class="btn btn-dark">
+        <i class="fa fa-print" aria-hidden="true"> </i> Imprimer
+      </button>
+    </div>
+  </section>
+</main>

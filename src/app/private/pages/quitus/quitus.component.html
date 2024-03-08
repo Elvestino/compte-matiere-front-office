@@ -1,0 +1,121 @@
+<main class="quitus-header">
+  <div class="list-header">
+    <h1 class="header-title">Liste des Quitus</h1>
+  </div>
+  <!-- -------------------open FORM-QUITUS--------------- -->
+
+  <div class="form-add-quitus">
+    <form class="form">
+      <h2 class="add-title">{{ add }}</h2>
+      <hr />
+
+      <div class="form-add-section">
+        <div class="service">
+          <!-- -----------------Num service--------------- -->
+          <label for="Numservice">Numero du service </label>
+          <select name="Numservice" id="Numservice">
+            <option value="Numservice"></option>
+          </select>
+          <!-- -----------------Nom service--------------- -->
+          <label for="Nomservice">Nom du service </label>
+          <select name="Nomservice" id="Nomservice" disabled>
+            <option value="Nomservice"></option>
+          </select>
+          <!-- -----------------Libelle--------------- -->
+          <label for="libelle">Libelle </label>
+          <select name="libelle" class="libelle" disabled>
+            <option value="libelle"></option>
+          </select>
+        </div>
+        <div class="quitus-formulaire">
+          <!-- -----------------numero quitus--------------- -->
+          <label for="nom">Numero </label>
+          <input type="text" name="numQuitus" placeholder="ex: 123" />
+          <!-- -----------------reference--------------- -->
+          <label for="reference">Reference </label>
+          <input
+            type="text"
+            name="reference"
+            placeholder="ex: numero 103-15/MC/SG/DGCI"
+          />
+          <!-- -----------------objet--------------- -->
+          <label for="objet">Objet </label>
+          <input
+            type="text"
+            name="objet"
+            placeholder="ex: approbation du compte bancaire"
+          />
+          <!-- -----------------montant--------------- -->
+          <label for="montant">Montant </label>
+          <input type="text" name="montant" placeholder="ex: 10000" />
+          <label for="ar">Ar</label>
+          <!-- -----------------exercice--------------- -->
+          <label for="exercice">Exercice(Annee) </label>
+          <input type="text" name="exercice" placeholder="ex: 2023" />
+          <!-- -----------------date--------------- -->
+          <label for="dateQuitus">Date </label>
+          <input type="date" name="dateQuitus" id="dateQuitus" />
+          <!-- -----------------observation--------------- -->
+          <label for="observation">Observation </label>
+          <input
+            type="text"
+            name="observation"
+            placeholder="ex: RAMANAMAHEFA Jean Justin"
+          />
+        </div>
+        <div class="btn">
+          <button type="button" class="btn btn-primary">Confirmer</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <table class="section-table">
+    <thead class="table-heading">
+      <tr class="heading">
+        <th>Numero de Service</th>
+        <th>Numero de Quitus</th>
+        <th>Objet</th>
+        <th>Reference</th>
+        <th>Date</th>
+        <th>Exercice</th>
+        <th>Montant</th>
+        <th>Observation</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody class="table-body">
+      <tr class="data">
+        <td>djkdfjkdfjdk</td>
+        <td>djkdfjkdfjdk</td>
+        <td>djkdfjkdfjdk</td>
+        <td>djkdfjkdfjdk</td>
+        <td>djkdfjkdfjdk</td>
+        <td>djkdfjkdfjdk</td>
+        <td>djkdfjkdfjdk</td>
+        <td>djkdfjkdfjdk</td>
+        <td class="data-control">
+          <button class="btn btn-success" aria-label="modif">
+            <i class="fa-solid fa-pencil"></i>
+          </button>
+
+          <button class="btn btn-danger" aria-label="delete">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="component-total">
+    <div class="total">
+      <label for="total" class="total-quitus">Nombre total des quitus : </label>
+      <p class="nbr-total">3</p>
+    </div>
+    <div class="btn-print">
+      <button type="button" class="btn btn-dark">
+        <i class="fa fa-print"> </i> Imprimer
+      </button>
+    </div>
+  </div>
+</main>

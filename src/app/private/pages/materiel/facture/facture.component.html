@@ -1,0 +1,132 @@
+<main class="facture">
+  <!-- ----------------------facture------------------------- -->
+  <section class="form-component w-100">
+    <div class="component-title">
+      <h1 class="title">Enregistrement d'un facture</h1>
+
+      <hr />
+      <form class="component-form">
+        <div class="component">
+          <label for="numFacture">Numero</label>
+          <input type="text" name="numFacture" id="numFacture" />
+        </div>
+        <div class="component">
+          <label for="date">Date</label>
+          <input type="date" name="date" id="date" />
+        </div>
+        <div class="component">
+          <label for="destination">Destination</label>
+          <input type="text" name="destination" id="destination" />
+        </div>
+        <div class="component">
+          <label for="objet">Objet</label>
+          <input type="text" name="objet" id="objet" />
+        </div>
+        <div class="component">
+          <label for="lieu">Lieu</label>
+          <input type="text" name="lieu" id="lieu" />
+        </div>
+        <div class="component">
+          <label for="montant">Montant</label>
+          <input type="text" name="montant" id="montant" />
+        </div>
+        <div class="component">
+          <label for="type">Type</label>
+          <input type="text" name="type" id="type" />
+        </div>
+      </form>
+    </div>
+  </section>
+  <!-- ----------------------fournisseur------------------------- -->
+  <section class="form-component w-100">
+    <div class="component-title">
+      <h1 class="title">Fournisseur</h1>
+      <hr />
+      <form class="component-form">
+        <div class="component">
+          <label for="numFournisseur">Numero</label>
+          <select name="numFournisseur" id="numFournisseur">
+            <option value=""></option>
+          </select>
+        </div>
+        <div class="component">
+          <label for="nomFournisseur">Nom</label>
+          <input
+            type="text"
+            name="nomFournisseur"
+            id="nomFournisseur"
+            disabled
+          />
+        </div>
+        <div class="component">
+          <label for="prenomFournisseur">Prenom</label>
+          <input
+            type="text"
+            name="prenomFournisseur"
+            id="prenomFournisseur"
+            disabled
+          />
+        </div>
+        <div class="component">
+          <label for="adrsFournisseur">Adresse</label>
+          <input
+            type="text"
+            name="adrsFournisseur"
+            id="adrsFournisseur"
+            disabled
+          />
+        </div>
+        <div class="component">
+          <label for="telFournisseur">Contact</label>
+          <input
+            type="text"
+            name="telFournisseur"
+            id="telFournisseur"
+            disabled
+          />
+        </div>
+      </form>
+    </div>
+    <!-- ----------------------ordre------------------------- -->
+    <div class="component-title">
+      <h1 class="title">Ordre</h1>
+      <hr />
+      <div class="component-form">
+        <div class="component">
+          <label for="numOrdre">Ordre</label>
+          <select name="numOrdre" id="numOrdre">
+            <option value=""></option>
+          </select>
+        </div>
+        <div class="addFacture">
+          <button type="button" class="btn btn-primary w-100">Confirmer</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ----------------------table------------------------- -->
+  <section class="table">
+    <table class="section-table-facture">
+      <thead class="table-heading-facture">
+        <tr class="heading">
+          <th>Numero</th>
+          <th>Date</th>
+          <th>Destination</th>
+          <th>Objet</th>
+          <th>Lieu</th>
+          <th>Montant</th>
+          <th>Type</th>
+          <th>Fournisseur N°</th>
+          <th>Ordre N°</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="print">
+      <button type="button" class="btn btn-dark">
+        <i class="fa fa-print" aria-hidden="true"> </i> Imprimer
+      </button>
+    </div>
+  </section>
+</main>

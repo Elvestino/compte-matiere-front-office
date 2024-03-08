@@ -1,0 +1,70 @@
+<main class="singup-form">
+  <form class="style-form" [formGroup]="Formulaire" (submit)="onSubmit()">
+    <div class="container-form">
+      <h1>Enregistrement</h1>
+      <hr />
+
+      <label for="immatricule">Immatricule </label>
+      <input
+        type="text"
+        placeholder="Enter un immatricule"
+        name="immatricule"
+        formControlName="immatricule"
+        required
+      />
+      <label for="nomComplet">Nom Complet </label>
+      <input
+        type="text"
+        placeholder="Enter votre nom complet"
+        name="nomComplet"
+        formControlName="nomComplet"
+        required
+      />
+      <label for="grade">Grade </label>
+      <input
+        type="text"
+        placeholder="Enter votre grade"
+        name="grade"
+        formControlName="grade"
+        required
+      />
+
+      <label for="pswd">Mot de passe</label>
+      <input
+        type="password"
+        placeholder="Enter votre mot de passe"
+        name="pswd"
+        formControlName="password"
+        required
+      />
+
+      <!-- <label for="pswd-repeat">Confirmer votre mot de passe</label>
+      <input
+        type="password"
+        placeholder="Repeter votre  mot de passe"
+        name="pswd-repeat"
+        required
+      /> -->
+
+      <!-- <label for="file">Votre photo</label>
+      <input type="file" id="myFile" name="filename" /> -->
+      <div class="btn">
+        <button
+          type="button"
+          class="btn btn-primary cancel"
+          [routerLink]="['/']"
+          routerLinkActive="router-link-active"
+        >
+          Retour
+        </button>
+        <button
+          type="submit"
+          class="btn btn-success add"
+          [disabled]="Formulaire.invalid"
+        >
+          Confirmer
+        </button>
+      </div>
+    </div>
+  </form>
+</main>

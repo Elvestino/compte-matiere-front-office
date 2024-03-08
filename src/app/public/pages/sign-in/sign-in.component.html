@@ -1,0 +1,58 @@
+<main class="sign-in fill-view">
+  <div class="auth-form w-100 form-hero">
+    <h1 class="title-home">Comptabilite des Materiels</h1>
+    <p class="title-no-acount">Vous n'avez pas de compte ?</p>
+    <button
+      type="button"
+      class="btn btn-primary auth-inscription"
+      [routerLink]="['/create-account']"
+      routerLinkActive="router-link-active"
+    >
+      Inscription
+    </button>
+  </div>
+  <div class="auth-form w-100 form-content">
+    <form class="form-container">
+      <h1>Authentification</h1>
+      <hr />
+      <label for="immatricule">Immatricule</label>
+      <input
+        type="text"
+        placeholder="Enter un immatricule"
+        name="immatricule"
+        required
+      />
+
+      <label for="password">Mot de passe</label>
+      <input
+        type="{{ showPassword ? 'text' : 'password' }}"
+        placeholder="Enter votre mot de passe"
+        name="password"
+        required
+      />
+      <div class="forgot-password">
+        <input
+          type="checkbox"
+          name="showPassword"
+          id="showPassword"
+          (change)="PassordVisible()"
+        />
+        <label for="showPassword">Afficher mot de passe</label>
+        <a href="#">Mot de passe oublier ?</a>
+      </div>
+      <button type="submit" class="btn btn-primary submit">Connection</button>
+      <div class="plateform">
+        <p class="form-plateform">Les plateformes disponibles</p>
+        <a href="#" class="plateform-link" aria-label="facebook"
+          ><i class="fa-brands fa-facebook"></i
+        ></a>
+        <a href="#" class="plateform-link" aria-label="twitter"
+          ><i class="fa-brands fa-twitter"></i
+        ></a>
+        <a href="#" class="plateform-link" aria-label="github"
+          ><i class="fa-brands fa-github"></i
+        ></a>
+      </div>
+    </form>
+  </div>
+</main>

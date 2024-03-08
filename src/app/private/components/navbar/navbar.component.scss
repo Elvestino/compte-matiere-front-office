@@ -1,0 +1,63 @@
+.btn {
+  border: none;
+  .btn-nav {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: 0;
+    outline: 0;
+    color: white;
+    background: #0b0b0b;
+    left: 80px;
+    &:hover {
+      opacity: 1;
+      filter: brightness(1.2);
+    }
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
+.app-navbar {
+  width: 130px;
+  height: 100vh;
+  background: whitesmoke;
+  border-right: 1px solid #eee;
+  color: #0b0b0b;
+  position: relative;
+  .btn-nav-control {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: 0;
+    outline: 0;
+    color: white;
+    background: #0b0b0b;
+    top: calc(50% - 15px);
+    left: 115px;
+  }
+  .nav-link {
+    width: 130px;
+    padding: 10px;
+    &:hover {
+      color: #0b0b0b70;
+      background-color: #eeeeeeb7;
+    }
+    &.active {
+      font-weight: bold;
+
+      color: blue;
+    }
+  }
+  button {
+    &:hover {
+      opacity: 1;
+      filter: brightness(1.2);
+    }
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}

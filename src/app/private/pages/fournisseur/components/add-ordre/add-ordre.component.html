@@ -1,0 +1,38 @@
+<main class="add-ordre fill-view">
+  <div class="form-container">
+    <button
+      class="btn-close-form"
+      type="button"
+      aria-label="close buttton"
+      (click)="closeForm()"
+    >
+      <i class="fa fa-times"></i>
+    </button>
+    <form class="style-form">
+      <div class="container-form">
+        <h1>{{ title }}</h1>
+        <hr />
+        <label for="numero">Numero </label>
+        <input type="text" placeholder="ex: 1" name="numero" required />
+        <label for="date">Date </label>
+        <input type="date" name="date" id="date" />
+        <label for="numService">Numero du service </label>
+        <select name="numService" id="numService">
+          <option value="numService"></option>
+        </select>
+        <label for="nomService">Nom su service</label>
+        <select name="nomService" id="nomService">
+          <option value="nomService" disabled>sdsd</option>
+        </select>
+
+        <label for="AnnJournal">Annee du Journal </label>
+        <select name="AnnJournal" id="AnnJournal">
+          <option value="AnnJournal" disabled>2023</option>
+        </select>
+        <div class="btn">
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>

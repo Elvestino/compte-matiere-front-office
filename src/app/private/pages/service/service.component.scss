@@ -1,0 +1,121 @@
+.service {
+  padding: 30px;
+  width: 100%;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  .service-form {
+    border-radius: 8px;
+    padding: 30px;
+    background-color: #f1f1f1;
+    .service-title {
+      .title {
+        font-size: 26px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      hr {
+        max-width: 300px;
+        border: 1px solid black;
+        margin-bottom: 25px;
+        width: 100%;
+      }
+    }
+    .service-form-containt {
+      padding: 10px;
+      labeL {
+        padding: 3px;
+        font-size: 20px;
+      }
+      input {
+        border: none;
+        display: inline-block;
+        background: #fff;
+        padding: 15px;
+
+        border-radius: 8px;
+        width: 100%;
+        &:focus {
+          outline: none;
+        }
+      }
+      .btn {
+        border: none;
+        button {
+          margin: 20px 0;
+          padding: 8px 20px;
+          font-size: 16px;
+          font-weight: bold;
+          opacity: 0.9;
+
+          &:hover {
+            opacity: 1;
+            filter: brightness(1.2);
+          }
+          &:active {
+            transform: scale(0.9);
+          }
+        }
+      }
+    }
+  }
+  .tab-service {
+    .row {
+      table {
+        border: 1px solid #ddd;
+        .thead-service {
+          background-color: #f2f2f2;
+          th {
+            padding: 16px;
+            &:first-child {
+              width: 100px;
+            }
+            &:nth-child(2) {
+              width: 100px;
+            }
+            &:nth-child(3) {
+              width: 300px;
+            }
+            &:nth-child(4) {
+              width: 200px;
+            }
+            &:nth-child(5) {
+              width: 300px;
+            }
+
+            &:last-child {
+              width: 150px;
+            }
+          }
+        }
+        .tbody-service {
+          td {
+            padding: 16px;
+          }
+        }
+        tr:nth-child(even) {
+          background-color: #f2f2f2;
+        }
+      }
+    }
+    .print {
+      margin: 20px 10px;
+      border: none;
+      button {
+        padding: 8px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        opacity: 0.9;
+
+        &:hover {
+          opacity: 1;
+          filter: brightness(1.2);
+        }
+        &:active {
+          transform: scale(0.9);
+        }
+      }
+    }
+  }
+}

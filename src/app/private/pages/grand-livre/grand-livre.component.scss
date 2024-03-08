@@ -1,0 +1,216 @@
+.head-title {
+  h1 {
+    margin: 20px;
+    text-align: center;
+    font-size: 39px;
+  }
+}
+.journal {
+  padding: 20px;
+  .form-journal {
+    border-radius: 8px;
+    background-color: #f1f1f1;
+    .AnneeAndFacture {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      justify-content: center;
+      align-items: center;
+      gap: 500px;
+      .anneeJournal {
+        border-radius: 8px;
+        margin: 20px 0 0 50px;
+        padding: 10px 0 20px 0;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        display: grid;
+        label {
+          font-size: 23px;
+        }
+        select {
+          text-align: center;
+          width: 100%;
+          max-width: 100px;
+          padding: 5px;
+          border-radius: 4px;
+          font-size: 20px;
+        }
+      }
+      .facture {
+        border-radius: 8px;
+        padding: 10px 0 20px 0;
+        margin: 20px 90px 0 0;
+        background-color: #fff;
+        justify-content: center;
+        align-items: center;
+        padding-left: 40px;
+        display: grid;
+        label {
+          font-size: 23px;
+        }
+        select {
+          text-align: center;
+          width: 100%;
+          max-width: 100px;
+          padding: 5px;
+          border-radius: 4px;
+          font-size: 20px;
+        }
+      }
+    }
+    .addJournal {
+      margin-top: 10px;
+      h1 {
+        font-size: 23px;
+      }
+      hr {
+        width: 150px;
+      }
+      .form-show-journal {
+        padding: 0 0 20px 0;
+        .form-content {
+          align-items: center;
+          padding: 0 10px 0 20px;
+          labeL {
+            padding: 3px;
+            font-size: 20px;
+          }
+          span {
+            font-size: 20px;
+          }
+          input {
+            width: 100%;
+            background-color: #eee;
+            max-width: 250px;
+            padding: 15px;
+            border-radius: 8px;
+
+            &:focus {
+              background-color: #fff;
+              outline: none;
+            }
+          }
+          &:first-child {
+            width: 120px;
+          }
+          &:nth-child(2) {
+            width: 200px;
+          }
+          &:nth-child(3) {
+            width: 150px;
+          }
+          &:nth-child(4) {
+            width: 250px;
+          }
+          &:nth-child(5) {
+            width: 150px;
+          }
+          &:nth-child(6) {
+            width: 150px;
+          }
+          &:nth-child(7) {
+            width: 250px;
+          }
+        }
+      }
+      .addNouvelleAnee {
+        border: none;
+        button {
+          font-size: 19px;
+          width: 100%;
+          color: white;
+          padding: 10px;
+          opacity: 0.9;
+
+          &:hover {
+            opacity: 1;
+            filter: brightness(1.2);
+          }
+          &:active {
+            transform: scale(0.9);
+          }
+        }
+      }
+    }
+  }
+  .table-journal {
+    padding: 30px;
+    h1 {
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .section-table {
+      width: 100%;
+      .table-heading {
+        width: 100%;
+        .heading {
+          background-color: #f1f1f1;
+          th {
+            padding: 20px;
+            &:nth-child(1) {
+              width: 200px;
+            }
+            &:nth-child(2) {
+              width: 100px;
+            }
+            &:nth-child(3) {
+              width: 250px;
+            }
+            &:nth-child(4) {
+              width: 250px;
+            }
+            &:nth-child(5) {
+              width: 150px;
+            }
+            &:nth-child(6) {
+              width: 100px;
+            }
+            &:last-child {
+              width: 150px;
+            }
+          }
+        }
+      }
+      .table-body {
+        .data {
+          border-bottom: 1px solid #eee;
+          td {
+            padding: 8px 20px;
+            border: 1px solid #eee;
+            &:last-child {
+              display: flex;
+              justify-content: space-between;
+              border: none;
+            }
+          }
+          &:nth-child(even) {
+            background-color: #eee;
+          }
+        }
+      }
+    }
+    .print {
+      margin: 20px 10px;
+      border: none;
+      i {
+        background: none;
+        color: #fff;
+      }
+      button {
+        padding: 8px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        opacity: 0.9;
+
+        &:hover {
+          opacity: 1;
+          filter: brightness(1.2);
+        }
+        &:active {
+          transform: scale(0.9);
+        }
+      }
+    }
+  }
+}

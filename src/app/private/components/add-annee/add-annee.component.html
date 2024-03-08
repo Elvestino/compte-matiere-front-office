@@ -1,0 +1,25 @@
+<main class="add-newYear fill-view">
+  <div class="form-container">
+    <button
+      class="btn-close-form"
+      type="button"
+      aria-label="close button"
+      (click)="closeAdd()"
+    >
+      <i class="fa fa-times"></i>
+    </button>
+    <form class="style-form">
+      <div class="container-form">
+        <h1>Ajout Nouvelle Annee</h1>
+        <hr />
+
+        <label for="newYear">Annee </label>
+        <input type="text" name="newYear" required />
+
+        <div class="btn">
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>

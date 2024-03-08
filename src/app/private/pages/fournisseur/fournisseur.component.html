@@ -1,0 +1,74 @@
+@if (isFournisseurComponentOpen) {
+  <app-addfournisseur (close)="toggleOpenAddFournisseur()"></app-addfournisseur>
+}
+@if (isOrdreComponentOpen) {
+  <app-add-ordre (close)="toggleOpenAddOrdre()"></app-add-ordre>
+}
+<div class="fournisseur-title">
+  <h1>Ministere du Finance et du Budget</h1>
+</div>
+<!-- ------------------------fournisseur--------------------- -->
+<section class="fournisseur">
+  <div class="list-fournisseur">
+    <h2 class="list-fournisseur-title">Fournisseur Enregistree</h2>
+    <button
+      type="button"
+      class="btn btn-success btn-add"
+      (click)="toggleOpenAddFournisseur()"
+    >
+      <i class="fa fa-plus"></i> Ajout nouveau fournisseur
+    </button>
+  </div>
+  <!-- ------------------affichage donnee fournisseur------------------ -->
+  <table class="section-table-fournisseur">
+    <thead class="table-heading-fournisseur">
+      <tr class="heading">
+        <th>Numero</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Adresse</th>
+        <th>Contact</th>
+        <th>Type</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div class="print">
+    <button type="button" class="btn btn-dark">
+      <i class="fa fa-print" aria-hidden="true"> </i> Imprimer
+    </button>
+  </div>
+</section>
+<!-- --------------------ORDRE----------------------- -->
+<section class="fournisseur">
+  <div class="list-fournisseur">
+    <h2 class="list-fournisseur-title">Ordre Enregistree</h2>
+    <button
+      type="button"
+      class="btn btn-success btn-add"
+      (click)="toggleOpenAddOrdre()"
+    >
+      <i class="fa fa-plus"></i> Ajout nouveau Ordre
+    </button>
+  </div>
+  <!-- ------------------affichage donnee ordre------------------ -->
+  <table class="section-table-fournisseur">
+    <thead class="table-heading-fournisseur">
+      <tr class="heading">
+        <th>Numero d'ordre</th>
+        <th>Annee du Journal</th>
+        <th>Date</th>
+        <th>Numero du service</th>
+        <th>Nom du service</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div class="print">
+    <button type="button" class="btn btn-dark">
+      <i class="fa fa-print" aria-hidden="true"> </i> Imprimer
+    </button>
+  </div>
+</section>
