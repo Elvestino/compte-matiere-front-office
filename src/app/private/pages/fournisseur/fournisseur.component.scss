@@ -33,7 +33,11 @@
       padding: 12px 20px;
       font-weight: bold;
       &:active {
-        transform: translateY(4px);
+        transform: scale(0.9);
+      }
+      &:hover {
+        opacity: 1;
+        filter: brightness(1.2);
       }
     }
   }
@@ -42,6 +46,7 @@
     margin-top: 20px;
     .table-heading-fournisseur {
       width: 100%;
+      text-align: center;
       .heading {
         background: #eee;
         &:nth-child(even) {
@@ -70,6 +75,17 @@
           &:last-child {
             width: 150px;
           }
+        }
+      }
+    }
+    .table-body-fournisseur {
+      padding-top: 90px;
+      font-size: 16px;
+      text-align: center;
+      td {
+        &:nth-child(2) {
+          font-weight: bold;
+          text-transform: uppercase;
         }
       }
     }

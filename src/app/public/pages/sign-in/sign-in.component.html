@@ -8,39 +8,79 @@
       [routerLink]="['/create-account']"
       routerLinkActive="router-link-active"
     >
-      Inscription
+      Inscription <i class="fa fa-arrow-right"> </i>
     </button>
   </div>
   <div class="auth-form w-100 form-content">
-    <form class="form-container">
+    <form class="form-container" [formGroup]="loginForm" (submit)="Submit()">
       <h1>Authentification</h1>
       <hr />
-      <label for="immatricule">Immatricule</label>
-      <input
-        type="text"
-        placeholder="Enter un immatricule"
-        name="immatricule"
-        required
-      />
-
-      <label for="password">Mot de passe</label>
-      <input
-        type="{{ showPassword ? 'text' : 'password' }}"
-        placeholder="Enter votre mot de passe"
-        name="password"
-        required
-      />
-      <div class="forgot-password">
+      <div class="form-container-text immatricule-form">
+        <label for="immatricule">Immatricule</label>
         <input
-          type="checkbox"
-          name="showPassword"
-          id="showPassword"
-          (change)="PassordVisible()"
+          type="text"
+          placeholder="Enter un immatricule"
+          formControlName="immatricule"
+          required
         />
-        <label for="showPassword">Afficher mot de passe</label>
+        @if (
+          immatricule?.invalid && (immatricule?.dirty || immatricule?.touched)
+        ) {
+          @if (immatricule?.errors?.["required"]) {
+            <span>Immatricule vide</span>
+          }
+        }
+      </div>
+      <div class="form-container-text password-form">
+        <label for="password">Mot de passe</label>
+        <input
+          type="{{ showPassword ? 'text' : 'password' }}"
+          placeholder="Enter votre mot de passe"
+          formControlName="password"
+          name="password"
+        />
+        @if (password?.invalid && (password?.dirty || password?.touched)) {
+          @if (password?.errors?.["required"]) {
+            <span>Mot de passe vide</span>
+          }
+        }
+        <button
+          class="btn-show-password transition"
+          (click)="PassordVisible()"
+          type="button"
+        >
+          @if (!showPassword) {
+            <i class="fa fa-eye"></i>
+          } @else {
+            <i class="fa fa-eye-slash"></i>
+          }
+        </button>
+      </div>
+      <div class="forgot-password">
         <a href="#">Mot de passe oublier ?</a>
       </div>
-      <button type="submit" class="btn btn-primary submit">Connection</button>
+      <div class="btn-submit">
+        @if (loginForm.valid) {
+          <button
+            class="{{
+              isLoginSuccess
+                ? 'btn-login success transition'
+                : 'btn-login transition'
+            }}"
+            type="submit"
+          >
+            @if (isSubmitting) {
+              <i class="fa fa-circle-notch fa-spin"></i>
+            } @else {
+              @if (isLoginSuccess) {
+                <i class="fa fa-check"></i>
+              } @else {
+                Se connecter
+              }
+            }
+          </button>
+        }
+      </div>
       <div class="plateform">
         <p class="form-plateform">Les plateformes disponibles</p>
         <a href="#" class="plateform-link" aria-label="facebook"

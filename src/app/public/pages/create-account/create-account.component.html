@@ -1,70 +1,143 @@
-<main class="singup-form">
-  <form class="style-form" [formGroup]="Formulaire" (submit)="onSubmit()">
-    <div class="container-form">
-      <h1>Enregistrement</h1>
-      <hr />
-
-      <label for="immatricule">Immatricule </label>
-      <input
-        type="text"
-        placeholder="Enter un immatricule"
-        name="immatricule"
-        formControlName="immatricule"
-        required
-      />
-      <label for="nomComplet">Nom Complet </label>
-      <input
-        type="text"
-        placeholder="Enter votre nom complet"
-        name="nomComplet"
-        formControlName="nomComplet"
-        required
-      />
-      <label for="grade">Grade </label>
-      <input
-        type="text"
-        placeholder="Enter votre grade"
-        name="grade"
-        formControlName="grade"
-        required
-      />
-
-      <label for="pswd">Mot de passe</label>
-      <input
-        type="password"
-        placeholder="Enter votre mot de passe"
-        name="pswd"
-        formControlName="password"
-        required
-      />
-
-      <!-- <label for="pswd-repeat">Confirmer votre mot de passe</label>
-      <input
-        type="password"
-        placeholder="Repeter votre  mot de passe"
-        name="pswd-repeat"
-        required
-      /> -->
-
-      <!-- <label for="file">Votre photo</label>
+<!-- <label for="file">Votre photo</label>
       <input type="file" id="myFile" name="filename" /> -->
-      <div class="btn">
-        <button
-          type="button"
-          class="btn btn-primary cancel"
-          [routerLink]="['/']"
-          routerLinkActive="router-link-active"
-        >
-          Retour
-        </button>
-        <button
-          type="submit"
-          class="btn btn-success add"
-          [disabled]="Formulaire.invalid"
-        >
-          Confirmer
-        </button>
-      </div>
+<!-- <div class="btn"> -->
+
+<main class="signup-form fill-view">
+  <div class="auth-form w-100 form-hero">
+    <h1 class="title-home">Comptabilite des Materiels</h1>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, vero sunt
+      quod dolorum fugit facere fuga vel pariatur. Earum nemo dolorem ex vel est
+      deleniti distinctio maxime molestiae sed suscipit.
+    </p>
+    <div class="return">
+      <button type="button" class="btn btn-primary" [routerLink]="['/']">
+        <i class="fa fa-arrow-left"></i>
+        Retour
+      </button>
     </div>
-  </form>
+  </div>
+  <div class="auth-form w-100 form-content">
+    <form class="style-form" [formGroup]="loginForm" (ngSubmit)="submitData()">
+      <div class="container-form">
+        <h1>Enregistrement</h1>
+        <hr />
+
+        <div class="form-content-contener immatricule">
+          <label for="immatricule">Immatricule </label>
+          <input
+            type="text"
+            placeholder="Enter un immatricule"
+            formControlName="immatricule"
+            required
+          />
+          @if (immatricule?.invalid && immatricule?.touched) {
+            @if (immatricule?.errors?.["required"]) {
+              <span>Immatricule vide</span>
+            }
+          }
+        </div>
+        <div class="form-content-contener nomComplet">
+          <label for="nomComplet">Nom Complet </label>
+          <input
+            type="text"
+            placeholder="Enter votre nom complet"
+            formControlName="nomComplet"
+            required
+          />
+          @if (
+            nomComplet?.invalid && (nomComplet?.dirty || nomComplet?.touched)
+          ) {
+            @if (nomComplet?.errors?.["required"]) {
+              <span>Nom Complet vide</span>
+            }
+          }
+        </div>
+        <div class="form-content-contener grade">
+          <label for="grade">Grade </label>
+          <select name="grade" id="grade" formControlName="grade" required>
+            @for (grade of optionValue; track $index) {
+              <option value="{{ grade }}">{{ grade }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-content-contener password">
+          <label for="password">Mot de passe</label>
+          <input
+            type="{{ showPassword ? 'text' : 'password' }}"
+            placeholder="Enter votre mot de passe"
+            formControlName="password"
+            required
+          />
+          @if (password?.invalid && (password?.dirty || password?.touched)) {
+            @if (password?.errors?.["required"]) {
+              <span>Mot de passe vide</span>
+            }
+            @if (password?.errors?.["minLength"]) {
+              <span>Votre mot de passe doit pas depasser 15 caratere</span>
+            }
+          }
+          <button
+            class="btn-show-password transition"
+            (click)="toggleShowPassword()"
+            type="button"
+          >
+            @if (!showPassword) {
+              <i class="fa fa-eye"></i>
+            } @else {
+              <i class="fa fa-eye-slash"></i>
+            }
+          </button>
+        </div>
+        <div class="form-content-contener password">
+          <label for="confirmpassword">Confirmer votre mot de passe</label>
+          <input
+            type=" {{ showPassword ? 'text' : 'password' }}"
+            placeholder="Repeter votre mot de passe"
+            formControlName="confirmpassword"
+            required
+          />
+          @if (confirmpassword?.value !== "") {
+            <button
+              class="btn-show-password check-state transition"
+              type="button"
+            >
+              @if (password?.value !== confirmpassword?.value) {
+                <i class="fa fa-times-circle false"></i>
+              } @else {
+                <i class="fa fa-circle-check true"></i>
+              }
+            </button>
+          }
+        </div>
+      </div>
+      <div class="btn">
+        @if (
+          loginForm.valid &&
+          loginForm.get("password")?.value ==
+            loginForm.get("confirmpassword")?.value
+        ) {
+          <button
+            class="{{
+              isRegisterSuccess
+                ? 'btn-submit success transition'
+                : 'btn-submit danger transition'
+            }}"
+            type="submit"
+          >
+            @if (isSubmitting) {
+              <i class="fa fa-circle-notch fa-spin"></i>
+            } @else {
+              @if (isRegisterSuccess) {
+                <i class="fa fa-check"></i>
+              } @else {
+                S'inscrire
+              }
+            }
+          </button>
+        }
+      </div>
+    </form>
+  </div>
 </main>

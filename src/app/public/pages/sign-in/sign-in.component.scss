@@ -17,8 +17,16 @@
       flex-direction: column;
       text-align: center;
       border-radius: 8px 0 0 8px;
-
-      background-color: #eee;
+      background-image: linear-gradient(
+          rgba(0, 0, 0, 0.514),
+          rgba(0, 0, 0, 0.514)
+        ),
+        url(../../../../assets/img/MAC_developpement_d_une_application_web.jpg);
+      color: #f1f1f1;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      // background-color: #eee;
       .auth-inscription {
         color: white;
         padding: 14px 20px;
@@ -26,7 +34,9 @@
         opacity: 0.9;
         border: 0;
         outline: 0;
-        border-radius: 30px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
         &:hover {
           opacity: 1;
           filter: brightness(1.2);
@@ -34,6 +44,12 @@
         &:active {
           transform: scale(0.9);
         }
+      }
+      h1 {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        text-transform: uppercase;
       }
     }
 
@@ -48,39 +64,87 @@
         max-width: 330px;
         display: grid;
         flex-direction: column;
+
         h1 {
           text-align: center;
+          font-size: 30px;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+        span {
+          text-transform: uppercase;
+          font-size: 15px;
+          font-weight: bold;
+          color: red;
+          padding: 5px 85px;
         }
 
-        input {
-          padding: 15px;
-          margin: 5px 0 22px 0;
-          display: inline-block;
-          border: none;
-          border-radius: 8px;
-          background: #f1f1f1;
-          transition: all 0.2s ease-in-out;
-          &:focus {
-            border: 1px solid rgb(0, 195, 255);
-            background-color: #ddd;
-            outline: none;
-          }
-        }
         hr {
           border: 1px solid black;
           margin-bottom: 25px;
         }
-        .submit {
-          color: #fff;
-          padding: 8px;
-          opacity: 0.9;
-
-          &:hover {
-            opacity: 1;
-            filter: brightness(1.2);
+        .form-container-text {
+          position: relative;
+          label {
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
           }
-          &:active {
-            transform: scale(0.9);
+
+          input {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            border-radius: 8px;
+            background: #f1f1f1;
+            transition: all 0.2s ease-in-out;
+            &:focus {
+              border: 1px solid rgb(0, 195, 255);
+              background-color: #ddd;
+              outline: none;
+            }
+          }
+          &.password-form {
+            position: relative;
+            button {
+              cursor: pointer;
+              position: absolute;
+              bottom: 25px;
+              right: 7px;
+              width: 40px;
+              height: 42px;
+              background: 0;
+              outline: 0;
+              border: 0;
+              color: rgba(0, 0, 0, 0.4);
+              &:hover {
+                color: #01233e;
+              }
+            }
+          }
+        }
+
+        .btn-submit {
+          .btn-login {
+            width: 100%;
+            color: #fff;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            opacity: 0.9;
+            font-weight: bold;
+            background-color: rgb(0, 129, 250);
+            text-transform: uppercase;
+
+            &:hover {
+              opacity: 1;
+              filter: brightness(1.2);
+            }
+            &:active {
+              transform: scale(0.9);
+            }
           }
         }
         .forgot-password {

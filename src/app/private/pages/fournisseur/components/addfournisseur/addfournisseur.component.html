@@ -8,42 +8,116 @@
     >
       <i class="fa fa-times"></i>
     </button>
-    <form class="style-form">
+    <form
+      class="style-form"
+      [formGroup]="FournisseurForm"
+      (submit)="submitFournisseur()"
+    >
       <div class="container-form">
         <h1>{{ title }}</h1>
         <hr />
+        <div class="container-form numFrns">
+          <label for="numFrns">Numero </label>
+          <input
+            type="text"
+            placeholder="ex: 1"
+            formControlName="numFrns"
+            required
+          />
+          @if (numFrns?.touched && numFrns?.errors?.["required"]) {
+            <span class="error-text">
+              Entrer votre numero, s'il vous plait.
+            </span>
+          }
+        </div>
+        <div class="container-form nomFrns">
+          <label for="nomFrns">Nom </label>
+          <input
+            type="text"
+            placeholder="ex: RASOLOFO "
+            formControlName="nomFrns"
+            required
+          />
+          @if (nomFrns?.touched && nomFrns?.errors?.["required"]) {
+            <span class="error-text"> Entrer votre nom, s'il vous plait. </span>
+          }
+        </div>
+        <div class="container-form prenomFrns">
+          <label for="prenomFrns">Prenom </label>
+          <input
+            type="text"
+            placeholder="ex: Richard Guerdo"
+            formControlName="prenomFrns"
+            required
+          />
+          @if (prenomFrns?.touched && prenomFrns?.errors?.["required"]) {
+            <span class="error-text"> Entrer prenom, s'il vous plait. </span>
+          }
+        </div>
+        <div class="container-form adrsFrns">
+          <label for="adrsFrns">Adresse </label>
+          <input
+            type="text"
+            placeholder="ex: Antananarivo"
+            formControlName="adrsFrns"
+            required
+          />
+          @if (adrsFrns?.touched && adrsFrns?.errors?.["required"]) {
+            <span class="error-text">
+              Entrer votre adresse, s'il vous plait.
+            </span>
+          }
+        </div>
+        <div class="container-form telFrns">
+          <label for="telFrns">Contact</label>
+          <input
+            type="text"
+            placeholder="ex: 0340000000"
+            formControlName="telFrns"
+            required
+          />
+          @if (telFrns?.touched && telFrns?.errors?.["required"]) {
+            <span class="error-text">
+              Entrer votre numero de telephone, s'il vous plait.
+            </span>
+          }
+        </div>
+        <div class="container-form typeFrns">
+          <label for="typeFrns">Fournisseur venant du </label>
+          <input
+            type="type"
+            placeholder="ex : Poste"
+            formControlName="typeFrns"
+            required
+          />
+          @if (typeFrns?.touched && typeFrns?.errors?.["required"]) {
+            <span class="error-text">
+              Entrer d'ou vous venez, s'il vous plait.
+            </span>
+          }
+        </div>
 
-        <label for="numero">Numero </label>
-        <input type="text" placeholder="ex: 1" name="numero" required />
-        <label for="name">Nom </label>
-        <input type="text" placeholder="ex: RASOLOFO " name="name" required />
-        <label for="forname">Prenom </label>
-        <input
-          type="text"
-          placeholder="ex: Richard Guerdo"
-          name="forname"
-          required
-        />
-        <label for="adresse">Adresse </label>
-        <input
-          type="text"
-          placeholder="ex: Antananarivo"
-          name="adresse"
-          required
-        />
-
-        <label for="contact">Contact</label>
-        <input
-          type="text"
-          placeholder="ex: 0340000000"
-          name="contact"
-          required
-        />
-
-        <label for="type">Fournisseur venant du </label>
-        <input type="type" placeholder="ex : Poste" name="type" required />
         <div class="btn">
-          <button type="submit" class="btn btn-primary">Ajouter</button>
+          @if (FournisseurForm.valid) {
+            <button
+              class="{{
+                isRegisterSuccess
+                  ? 'btn-submit success transition'
+                  : 'btn-submit danger transition'
+              }}"
+              type="submit"
+            >
+              @if (isSubmitting) {
+                <i class="fa fa-circle-notch fa-spin"></i>
+              } @else {
+                @if (isRegisterSuccess) {
+                  <i class="fa fa-check"></i>
+                } @else {
+                  Ajouter
+                }
+              }
+            </button>
+          }
         </div>
       </div>
     </form>
