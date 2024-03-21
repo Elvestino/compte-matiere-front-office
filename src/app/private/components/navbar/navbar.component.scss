@@ -1,7 +1,16 @@
-.btn {
+.btn {  
+  position: relative;
+  background-color: whitesmoke;
+  display: grid;
+  gap: 15px;
+  align-items: center;
   border: none;
+  span{
+    left: 10px;
+  }
   .btn-nav {
-    position: relative;
+    border-right: 1px solid #eee;
+    position: absolute;
     width: 30px;
     height: 30px;
     border-radius: 100%;
@@ -9,18 +18,23 @@
     outline: 0;
     color: white;
     background: #0b0b0b;
-    left: 80px;
+    left: 80%;
     &:hover {
       opacity: 1;
+      background-color: #0b0b0b54;
       filter: brightness(1.2);
     }
     &:active {
       transform: scale(0.9);
     }
   }
+  .btn-user{
+   
+    @extend .btn-nav;
+  }
 }
 .app-navbar {
-  width: 130px;
+  width: 190px;
   height: 100vh;
   background: whitesmoke;
   border-right: 1px solid #eee;
@@ -36,10 +50,10 @@
     color: white;
     background: #0b0b0b;
     top: calc(50% - 15px);
-    left: 115px;
+    left: 175px;
   }
   .nav-link {
-    width: 130px;
+    width: 190px;
     padding: 10px;
     &:hover {
       color: #0b0b0b70;
@@ -54,6 +68,7 @@
   button {
     &:hover {
       opacity: 1;
+      background-color: #0b0b0b54;
       filter: brightness(1.2);
     }
     &:active {

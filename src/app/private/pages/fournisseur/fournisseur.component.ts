@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { AddOrdreComponent } from './components/add-ordre/add-ordre.component';
 import { AddfournisseurComponent } from './components/addfournisseur/addfournisseur.component';
-import { PrivateServiceService } from '../../service/private-service.service';
+import { PrivateServiceService } from '../../service/fournisseur.service';
 import { FormBuilder } from '@angular/forms';
 import Swal from 'sweetalert2';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-fournisseur',
@@ -16,8 +18,10 @@ import Swal from 'sweetalert2';
 export class FournisseurComponent implements OnInit {
   constructor(
     private PrivateService: PrivateServiceService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {}
+  @ViewChild('content') content: any;
+
   items: any[] = [];
   isFournisseurComponentOpen: boolean = false;
 
@@ -41,7 +45,6 @@ export class FournisseurComponent implements OnInit {
   modifData(item: any) {
     console.log(item);
     this.toggleOpenAddFournisseur();
-
     this.PrivateService.update(this.Data);
     this.Data();
   }
@@ -89,5 +92,25 @@ export class FournisseurComponent implements OnInit {
           });
         }
       });
+  }
+
+  printFournisseur() {
+    const content = this.content.nativeElement;
+
+    html2canvas(content).then(
+      (canvas: {
+        toDataURL: (arg0: string) => any;
+        height: number;
+        width: number;
+      }) => {
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const image = canvas.toDataURL('img/png');
+        const imgwith = 190;
+        const imgheight = (canvas.height * imgwith) / canvas.width;
+
+        pdf.addImage(image, 'PNG', 10, 10, imgwith, imgheight);
+        pdf.save('Fournisseur.pdf');
+      }
+    );
   }
 }

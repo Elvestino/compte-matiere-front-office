@@ -11,6 +11,10 @@
 <section class="fournisseur">
   <div class="list-fournisseur">
     <h2 class="list-fournisseur-title">Fournisseur Enregistree</h2>
+    <div class="searchbarre">
+      <input type="text" name="search" id="search" placeholder="Recherche...">
+      <!-- <button type="submit"><i class="fa fa-search"></i></button> -->
+    </div>
     <button
       type="button"
       class="btn btn-success btn-add"
@@ -67,15 +71,19 @@
     </tbody>
   </table>
   <div class="print">
-    <button type="button" class="btn btn-dark">
+    <button type="button" class="btn btn-dark" (click)="printFournisseur()">
       <i class="fa fa-print" aria-hidden="true"> </i> Imprimer
     </button>
   </div>
 </section>
 <!-- --------------------ORDRE----------------------- -->
-<!-- <section class="fournisseur">
+<section class="fournisseur">
   <div class="list-fournisseur">
     <h2 class="list-fournisseur-title">Ordre Enregistree</h2>
+    <div class="searchbarre">
+      <input type="text" name="search" id="search" placeholder="Recherche...">
+      <!-- <button type="submit"><i class="fa fa-search"></i></button> -->
+    </div>
     <button
       type="button"
       class="btn btn-success btn-add"
@@ -83,9 +91,9 @@
     >
       <i class="fa fa-plus"></i> Ajout nouveau Ordre
     </button>
-  </div> -->
+  </div>
 <!-- ------------------affichage donnee ordre------------------ -->
-<!-- <table class="section-table-fournisseur">
+<table class="section-table-fournisseur">
     <thead class="table-heading-fournisseur">
       <tr class="heading">
         <th>Numero d'ordre</th>
@@ -96,11 +104,40 @@
         <th>Action</th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody class="table-body-fournisseur">
+      @for (item of items; track $index) {
+        <tr class="data">
+          <td>
+            {{ item.numFrns }}
+          </td>
+          <td>
+            {{ item.nomFrns }}
+          </td>
+          <td>
+            {{ item.prenomFrns }}
+          </td>
+          <td>
+            {{ item.telFrns }}
+          </td>
+          <td>
+            {{ item.typeFrns }}
+          </td>
+          <td class="data-control">
+            <button class="btn btn-success" (click)="modifData(item)">
+              <i class="fa-solid fa-pencil"></i>
+            </button>
+
+            <button class="btn btn-danger" (click)="deleteData(item.numFrns)">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
   </table>
   <div class="print">
     <button type="button" class="btn btn-dark">
       <i class="fa fa-print" aria-hidden="true"> </i> Imprimer
     </button>
   </div>
-</section> -->
+</section>

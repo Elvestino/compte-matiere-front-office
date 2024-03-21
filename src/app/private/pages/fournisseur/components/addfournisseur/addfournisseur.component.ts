@@ -6,12 +6,11 @@ import {
   Output,
   input,
 } from '@angular/core';
-import { PrivateServiceService } from '../../../../service/private-service.service';
+import { PrivateServiceService } from '../../../../service/fournisseur.service';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { HttpClientModule } from '@angular/common/http';
-import { Init } from 'v8';
 
 @Component({
   selector: 'app-addfournisseur',
@@ -23,7 +22,7 @@ import { Init } from 'v8';
 export class AddfournisseurComponent {
   constructor(
     private PrivateService: PrivateServiceService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {}
 
   @Output() close = new EventEmitter();

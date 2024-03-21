@@ -26,6 +26,25 @@
       font-weight: bold;
       text-transform: uppercase;
     }
+    .searchbarre{
+      input[type=text] {
+        width: 200px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: white;
+        background-repeat: no-repeat;
+        padding: 12px 20px 12px 40px;
+        transition: width 0.4s ease-in-out;
+        &:focus {
+          border: 1px solid rgb(0, 217, 255);
+          background-color: #ddd;
+          outline: none;
+          width: 100%;
+        }
+      }
+      
+    }
     .btn-add {
       border: 0;
       outline: 0;
