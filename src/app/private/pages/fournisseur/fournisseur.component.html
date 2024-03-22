@@ -1,8 +1,7 @@
 @if (isFournisseurComponentOpen) {
-  <app-addfournisseur (close)="toggleOpenAddFournisseur()"></app-addfournisseur>
-}
-@if (isOrdreComponentOpen) {
-  <app-add-ordre (close)="toggleOpenAddOrdre()"></app-add-ordre>
+<app-addfournisseur (close)="toggleOpenAddFournisseur()"></app-addfournisseur>
+} @if (isOrdreComponentOpen) {
+<app-add-ordre (close)="toggleOpenAddOrdre()"></app-add-ordre>
 }
 <div class="fournisseur-title">
   <h1>Ministere du Finance et du Budget</h1>
@@ -12,7 +11,7 @@
   <div class="list-fournisseur">
     <h2 class="list-fournisseur-title">Fournisseur Enregistree</h2>
     <div class="searchbarre">
-      <input type="text" name="search" id="search" placeholder="Recherche...">
+      <input type="text" name="search" id="search" placeholder="Recherche..." />
       <!-- <button type="submit"><i class="fa fa-search"></i></button> -->
     </div>
     <button
@@ -24,7 +23,7 @@
     </button>
   </div>
   <!-- ------------------affichage donnee fournisseur------------------ -->
-  <table class="section-table-fournisseur">
+  <table class="section-table-fournisseur" #content>
     <thead class="table-heading-fournisseur">
       <tr class="heading">
         <th>Numero</th>
@@ -38,35 +37,35 @@
     </thead>
     <tbody class="table-body-fournisseur">
       @for (item of items; track $index) {
-        <tr class="data">
-          <td>
-            {{ item.numFrns }}
-          </td>
-          <td>
-            {{ item.nomFrns }}
-          </td>
-          <td>
-            {{ item.prenomFrns }}
-          </td>
-          <td>
-            {{ item.adrsFrns }}
-          </td>
-          <td>
-            {{ item.telFrns }}
-          </td>
-          <td>
-            {{ item.typeFrns }}
-          </td>
-          <td class="data-control">
-            <button class="btn btn-success" (click)="modifData(item)">
-              <i class="fa-solid fa-pencil"></i>
-            </button>
+      <tr class="data">
+        <td>
+          {{ item.numFrns }}
+        </td>
+        <td>
+          {{ item.nomFrns }}
+        </td>
+        <td>
+          {{ item.prenomFrns }}
+        </td>
+        <td>
+          {{ item.adrsFrns }}
+        </td>
+        <td>
+          {{ item.telFrns }}
+        </td>
+        <td>
+          {{ item.typeFrns }}
+        </td>
+        <td class="data-control">
+          <button class="btn btn-success" (click)="modifData(item)">
+            <i class="fa-solid fa-pencil"></i>
+          </button>
 
-            <button class="btn btn-danger" (click)="deleteData(item.numFrns)">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </td>
-        </tr>
+          <button class="btn btn-danger" (click)="deleteData(item.numFrns)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
       }
     </tbody>
   </table>
@@ -81,7 +80,7 @@
   <div class="list-fournisseur">
     <h2 class="list-fournisseur-title">Ordre Enregistree</h2>
     <div class="searchbarre">
-      <input type="text" name="search" id="search" placeholder="Recherche...">
+      <input type="text" name="search" id="search" placeholder="Recherche..." />
       <!-- <button type="submit"><i class="fa fa-search"></i></button> -->
     </div>
     <button
@@ -92,8 +91,8 @@
       <i class="fa fa-plus"></i> Ajout nouveau Ordre
     </button>
   </div>
-<!-- ------------------affichage donnee ordre------------------ -->
-<table class="section-table-fournisseur">
+  <!-- ------------------affichage donnee ordre------------------ -->
+  <table class="section-table-fournisseur">
     <thead class="table-heading-fournisseur">
       <tr class="heading">
         <th>Numero d'ordre</th>
@@ -106,32 +105,32 @@
     </thead>
     <tbody class="table-body-fournisseur">
       @for (item of items; track $index) {
-        <tr class="data">
-          <td>
-            {{ item.numFrns }}
-          </td>
-          <td>
-            {{ item.nomFrns }}
-          </td>
-          <td>
-            {{ item.prenomFrns }}
-          </td>
-          <td>
-            {{ item.telFrns }}
-          </td>
-          <td>
-            {{ item.typeFrns }}
-          </td>
-          <td class="data-control">
-            <button class="btn btn-success" (click)="modifData(item)">
-              <i class="fa-solid fa-pencil"></i>
-            </button>
+      <tr class="data">
+        <td>
+          {{ item.numFrns }}
+        </td>
+        <td>
+          {{ item.nomFrns }}
+        </td>
+        <td>
+          {{ item.prenomFrns }}
+        </td>
+        <td>
+          {{ item.telFrns }}
+        </td>
+        <td>
+          {{ item.typeFrns }}
+        </td>
+        <td class="data-control">
+          <button class="btn btn-success" (click)="modifData(item)">
+            <i class="fa-solid fa-pencil"></i>
+          </button>
 
-            <button class="btn btn-danger" (click)="deleteData(item.numFrns)">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </td>
-        </tr>
+          <button class="btn btn-danger" (click)="deleteData(item.numFrns)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
       }
     </tbody>
   </table>

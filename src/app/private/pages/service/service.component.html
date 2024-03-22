@@ -45,7 +45,7 @@
         <button
           class="{{
             isRegisterSuccess
-              ? 'btn btn-successtransition'
+              ? 'btn btn-success transition'
               : 'btn btn-primary transition'
           }}"
           type="submit"
@@ -54,7 +54,7 @@
           <i class="fa fa-circle-notch fa-spin"></i>
           } @else { @if (isRegisterSuccess) {
           <i class="fa fa-check"></i>
-          } @else { Confirmer } }
+          } @else { {{ formHeader }} } }
         </button>
         }
       </div>

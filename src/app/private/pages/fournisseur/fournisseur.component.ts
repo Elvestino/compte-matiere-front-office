@@ -20,7 +20,7 @@ export class FournisseurComponent implements OnInit {
     private PrivateService: PrivateServiceService,
     private formBuilder: FormBuilder
   ) {}
-  @ViewChild('content') content: any;
+  @ViewChild('content', { static: false }) content: any;
 
   items: any[] = [];
   isFournisseurComponentOpen: boolean = false;
@@ -96,21 +96,13 @@ export class FournisseurComponent implements OnInit {
 
   printFournisseur() {
     const content = this.content.nativeElement;
-
-    html2canvas(content).then(
-      (canvas: {
-        toDataURL: (arg0: string) => any;
-        height: number;
-        width: number;
-      }) => {
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const image = canvas.toDataURL('img/png');
-        const imgwith = 190;
-        const imgheight = (canvas.height * imgwith) / canvas.width;
-
-        pdf.addImage(image, 'PNG', 10, 10, imgwith, imgheight);
-        pdf.save('Fournisseur.pdf');
-      }
-    );
+    html2canvas(content).then((canvas) => {
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const image = canvas.toDataURL('image/png');
+      const imgwidth = 190;
+      const imgheight = (canvas.height * imgwidth) / canvas.width;
+      pdf.addImage(image, 'PNG', 10, 10, imgwidth, imgheight);
+      pdf.save('Fournisseur.pdf');
+    });
   }
 }

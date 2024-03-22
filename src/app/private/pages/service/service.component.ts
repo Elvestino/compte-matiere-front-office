@@ -23,7 +23,7 @@ export class ServiceComponent {
   ) {
     this.getData();
   }
-
+  formHeader = 'Confirmer';
   data: any[] = [];
   serviceForm = this.formBuilder.group({
     numService: ['', [Validators.required]],
@@ -84,11 +84,19 @@ export class ServiceComponent {
   }
 
   modif(item: any) {
-    console.log('form value', item);
-    this.getData();
-    this.clear();
+    if (this.serviceForm) {
+      this.serviceForm.patchValue({
+        numService: item.numService,
+        nomService: item.nomService,
+        libelle: item.libelle,
+        SOA: item.SOA,
+        typeService: item.typeService,
+      });
+      this.formHeader = 'Modifier';
 
-    this.service.update(this.getData);
+      this.isRegisterSuccess = false;
+      this.service.update(this.serviceForm.value);
+    }
   }
 
   delete(numService: number) {

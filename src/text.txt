@@ -1,0 +1,28 @@
+ this.service.update(this.serviceForm.value).subscribe({
+      next: () => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'service modifier',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        this.isSubmitting = false;
+        this.isRegisterSuccess = true;
+        setTimeout(() => {
+          this.getData();
+          this.clear();
+        }, 1000);
+      },
+      error: () => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'service deja modifier',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        this.isSubmitting = false;
+      },
+    });
