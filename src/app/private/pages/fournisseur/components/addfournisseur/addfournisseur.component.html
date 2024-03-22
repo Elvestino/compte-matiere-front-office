@@ -25,9 +25,9 @@
             required
           />
           @if (numFrns?.touched && numFrns?.errors?.["required"]) {
-            <span class="error-text">
-              Entrer votre numero, s'il vous plait.
-            </span>
+          <span class="error-text">
+            Entrer votre numero, s'il vous plait.
+          </span>
           }
         </div>
         <div class="container-form nomFrns">
@@ -39,7 +39,7 @@
             required
           />
           @if (nomFrns?.touched && nomFrns?.errors?.["required"]) {
-            <span class="error-text"> Entrer votre nom, s'il vous plait. </span>
+          <span class="error-text"> Entrer votre nom, s'il vous plait. </span>
           }
         </div>
         <div class="container-form prenomFrns">
@@ -51,7 +51,7 @@
             required
           />
           @if (prenomFrns?.touched && prenomFrns?.errors?.["required"]) {
-            <span class="error-text"> Entrer prenom, s'il vous plait. </span>
+          <span class="error-text"> Entrer prenom, s'il vous plait. </span>
           }
         </div>
         <div class="container-form adrsFrns">
@@ -63,9 +63,9 @@
             required
           />
           @if (adrsFrns?.touched && adrsFrns?.errors?.["required"]) {
-            <span class="error-text">
-              Entrer votre adresse, s'il vous plait.
-            </span>
+          <span class="error-text">
+            Entrer votre adresse, s'il vous plait.
+          </span>
           }
         </div>
         <div class="container-form telFrns">
@@ -77,9 +77,9 @@
             required
           />
           @if (telFrns?.touched && telFrns?.errors?.["required"]) {
-            <span class="error-text">
-              Entrer votre numero de telephone, s'il vous plait.
-            </span>
+          <span class="error-text">
+            Entrer votre numero de telephone, s'il vous plait.
+          </span>
           }
         </div>
         <div class="container-form typeFrns">
@@ -91,32 +91,28 @@
             required
           />
           @if (typeFrns?.touched && typeFrns?.errors?.["required"]) {
-            <span class="error-text">
-              Entrer d'ou vous venez, s'il vous plait.
-            </span>
+          <span class="error-text">
+            Entrer d'ou vous venez, s'il vous plait.
+          </span>
           }
         </div>
 
         <div class="btn">
           @if (FournisseurForm.valid) {
-            <button
-              class="{{
-                isRegisterSuccess
-                  ? 'btn-submit success transition'
-                  : 'btn-submit danger transition'
-              }}"
-              type="submit"
-            >
-              @if (isSubmitting) {
-                <i class="fa fa-circle-notch fa-spin"></i>
-              } @else {
-                @if (isRegisterSuccess) {
-                  <i class="fa fa-check"></i>
-                } @else {
-                  Ajouter
-                }
-              }
-            </button>
+          <button
+            class="{{
+              isRegisterSuccess
+                ? 'btn-submit success transition'
+                : 'btn-submit danger transition'
+            }}"
+            type="submit"
+          >
+            @if (isSubmitting) {
+            <i class="fa fa-circle-notch fa-spin"></i>
+            } @else { @if (isRegisterSuccess) {
+            <i class="fa fa-check"></i>
+            } @else { Ajouter } }
+          </button>
           }
         </div>
       </div>

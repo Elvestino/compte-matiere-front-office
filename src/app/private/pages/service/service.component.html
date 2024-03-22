@@ -1,28 +1,62 @@
 <section class="service">
-  <form class="service-form">
+  <form
+    class="service-form"
+    [formGroup]="serviceForm"
+    (submit)="submitservice()"
+  >
     <div class="service-title">
       <h1 class="title">Service disponibles</h1>
       <hr />
     </div>
     <div class="service-form-containt">
       <label for="numero">Numero </label>
-      <input type="text" placeholder="ex: 1" name="numero" required />
+      <input
+        type="text"
+        placeholder="ex: 1"
+        formControlName="numService"
+        required
+      />
       <label for="name">Nom </label>
-      <input type="text" placeholder="ex: BOA " name="name" required />
+      <input
+        type="text"
+        placeholder="ex: BOA "
+        formControlName="nomService"
+        required
+      />
       <label for="libelle">Libelle </label>
       <input
         type="text"
         placeholder="ex: Banque Of Africa"
-        name="libelle"
+        formControlName="libelle"
         required
       />
       <label for="soa">SOA </label>
-      <input type="text" placeholder="ex: " name="soa" required />
+      <input type="text" placeholder="ex: " formControlName="SOA" required />
 
       <label for="type">Type</label>
-      <input type="text" placeholder="ex: " name="type" required />
+      <input
+        type="text"
+        placeholder="ex: "
+        formControlName="typeService"
+        required
+      />
       <div class="btn">
-        <button type="submit" class="btn btn-primary">Confirmer</button>
+        @if (serviceForm.valid) {
+        <button
+          class="{{
+            isRegisterSuccess
+              ? 'btn btn-successtransition'
+              : 'btn btn-primary transition'
+          }}"
+          type="submit"
+        >
+          @if (isSubmitting) {
+          <i class="fa fa-circle-notch fa-spin"></i>
+          } @else { @if (isRegisterSuccess) {
+          <i class="fa fa-check"></i>
+          } @else { Confirmer } }
+        </button>
+        }
       </div>
     </div>
   </form>
@@ -41,22 +75,37 @@
             </tr>
           </thead>
           <tbody class="tbody-service">
-            <tr>
-              <td>Jill</td>
-              <td>Smith</td>
-              <td>50</td>
-              <td>Jill</td>
-              <td>Smith</td>
+            @for (item of data; track $index) {
+            <tr class="data">
+              <td>
+                {{ item.numService }}
+              </td>
+              <td>
+                {{ item.nomService }}
+              </td>
+              <td>
+                {{ item.libelle }}
+              </td>
+              <td>
+                {{ item.SOA }}
+              </td>
+              <td>
+                {{ item.typeService }}
+              </td>
               <td class="data-control">
-                <button class="btn btn-success" aria-label="modif">
+                <button class="btn btn-success" (click)="modif(item)">
                   <i class="fa-solid fa-pencil"></i>
                 </button>
 
-                <button class="btn btn-danger" aria-label="delete">
+                <button
+                  class="btn btn-danger"
+                  (click)="delete(item.numService)"
+                >
                   <i class="fa-solid fa-trash"></i>
                 </button>
               </td>
             </tr>
+            }
           </tbody>
         </table>
       </div>

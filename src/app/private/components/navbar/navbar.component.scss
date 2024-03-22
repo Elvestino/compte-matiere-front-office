@@ -8,6 +8,47 @@
   span{
     left: 10px;
   }
+  .users{
+    position: relative;
+    display: inline-block;
+    
+    .tooltiptext{
+      visibility: hidden;
+      width: 320px;
+      background-color: #555;
+      color: #fff;
+      text-align: left;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+       left: 100%;
+      opacity: 0;
+      transition: opacity 0.3s;
+
+      &::after{
+        content: "";
+        position: absolute;
+        }
+      ul{
+        text-decoration: none;
+        list-style: none;
+        span{
+          letter-spacing: 1px;
+          text-align: center;
+          font-size: 14px;
+          text-transform: uppercase;
+        }
+        hr{
+          width: 90%;
+        }
+      }  
+    }
+    &:hover .tooltiptext{
+      visibility: visible;
+  opacity: 1;
+    }
+  }
   .btn-nav {
     border-right: 1px solid #eee;
     position: absolute;

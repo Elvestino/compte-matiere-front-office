@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  input,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PrivateServiceService } from '../../../../service/fournisseur.service';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
