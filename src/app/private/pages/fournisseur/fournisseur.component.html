@@ -2,6 +2,8 @@
 <app-addfournisseur (close)="toggleOpenAddFournisseur()"></app-addfournisseur>
 } @if (isOrdreComponentOpen) {
 <app-add-ordre (close)="toggleOpenAddOrdre()"></app-add-ordre>
+}@if(PrintComponent){
+<app-print-frns (close)="openPrint()"></app-print-frns>
 }
 <div class="fournisseur-title">
   <h1>Ministere du Finance et du Budget</h1>
@@ -11,7 +13,12 @@
   <div class="list-fournisseur">
     <h2 class="list-fournisseur-title">Fournisseur Enregistree</h2>
     <div class="searchbarre">
-      <input type="text" name="search" id="search" placeholder="Recherche..." />
+      <input
+        type="text"
+        id="search"
+        placeholder="Recherche..."
+        [formControl]="search"
+      />
       <!-- <button type="submit"><i class="fa fa-search"></i></button> -->
     </div>
     <button
@@ -23,7 +30,7 @@
     </button>
   </div>
   <!-- ------------------affichage donnee fournisseur------------------ -->
-  <table class="section-table-fournisseur" #content>
+  <table class="section-table-fournisseur">
     <thead class="table-heading-fournisseur">
       <tr class="heading">
         <th>Numero</th>
@@ -70,11 +77,12 @@
     </tbody>
   </table>
   <div class="print">
-    <button type="button" class="btn btn-dark" (click)="printFournisseur()">
+    <button type="button" class="btn btn-dark" (click)="openPrint()">
       <i class="fa fa-print" aria-hidden="true"> </i> Imprimer
     </button>
   </div>
 </section>
+
 <!-- --------------------ORDRE----------------------- -->
 <section class="fournisseur">
   <div class="list-fournisseur">

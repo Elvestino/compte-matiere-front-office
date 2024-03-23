@@ -1,0 +1,49 @@
+<main class="print-fournisseur fill-view">
+  <div class="title">
+    <h1>Est ce le model que vous voulez imprimer ?</h1>
+  </div>
+  <table class="section-table-fournisseur" #content>
+    <thead class="table-heading-fournisseur">
+      <tr class="heading">
+        <th>Numero</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Adresse</th>
+        <th>Contact</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody class="table-body-fournisseur">
+      @for (item of items; track $index) {
+      <tr class="data">
+        <td>
+          {{ item.numFrns }}
+        </td>
+        <td>
+          {{ item.nomFrns }}
+        </td>
+        <td>
+          {{ item.prenomFrns }}
+        </td>
+        <td>
+          {{ item.adrsFrns }}
+        </td>
+        <td>
+          {{ item.telFrns }}
+        </td>
+        <td>
+          {{ item.typeFrns }}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  <div class="acceptandcancel">
+    <button type="submit" class="btn btn-success" (click)="printFournisseur()">
+      Oui
+    </button>
+    <button type="submit" class="btn btn-danger" (click)="closePrint()">
+      Non
+    </button>
+  </div>
+</main>

@@ -6,9 +6,11 @@
       <ul>
         <span>Utilisateur</span>
         <hr />
-        <li>Immatricule :</li>
-        <li>Nom Complet :</li>
-        <li>Grade :</li>
+        @for (item of data; track $index) {
+        <li>Immatricule : {{ item.immatricule }}</li>
+        <li>Nom Complet : {{ item.nomComplet }}</li>
+        <li>Grade : {{ item.grade }}</li>
+        }
       </ul>
     </span>
   </div>

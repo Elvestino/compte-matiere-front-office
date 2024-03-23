@@ -3,15 +3,26 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AddOrdreComponent } from './components/add-ordre/add-ordre.component';
 import { AddfournisseurComponent } from './components/addfournisseur/addfournisseur.component';
 import { PrivateServiceService } from '../../service/fournisseur.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { PrintFrnsComponent } from './components/print-frns/print-frns.component';
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { debounceTime, distinct, distinctUntilChanged, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-fournisseur',
   standalone: true,
-  imports: [AddfournisseurComponent, AddOrdreComponent],
+  imports: [
+    CommonModule,
+    AddfournisseurComponent,
+    AddOrdreComponent,
+    PrintFrnsComponent,
+    RouterLink,
+    ReactiveFormsModule,
+  ],
   templateUrl: './fournisseur.component.html',
   styleUrl: './fournisseur.component.scss',
 })
@@ -20,11 +31,11 @@ export class FournisseurComponent implements OnInit {
     private PrivateService: PrivateServiceService,
     private formBuilder: FormBuilder
   ) {}
-  @ViewChild('content', { static: false }) content: any;
 
   items: any[] = [];
+  search = new FormControl();
   isFournisseurComponentOpen: boolean = false;
-
+  PrintComponent: boolean = false;
   isOrdreComponentOpen: boolean = false;
   toggleOpenAddFournisseur() {
     this.isFournisseurComponentOpen = !this.isFournisseurComponentOpen;
@@ -32,6 +43,10 @@ export class FournisseurComponent implements OnInit {
   }
   toggleOpenAddOrdre() {
     this.isOrdreComponentOpen = !this.isOrdreComponentOpen;
+  }
+  openPrint() {
+    this.PrintComponent = !this.PrintComponent;
+    this.Data();
   }
 
   Data() {
@@ -41,6 +56,15 @@ export class FournisseurComponent implements OnInit {
   }
   ngOnInit(): void {
     this.Data();
+    this.search.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((searchterm) => this.PrivateService.filter(searchterm))
+      )
+      .subscribe((filteredItems) => {
+        this.items = filteredItems;
+      });
   }
   modifData(item: any) {
     console.log(item);
@@ -92,17 +116,5 @@ export class FournisseurComponent implements OnInit {
           });
         }
       });
-  }
-
-  printFournisseur() {
-    const content = this.content.nativeElement;
-    html2canvas(content).then((canvas) => {
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const image = canvas.toDataURL('image/png');
-      const imgwidth = 190;
-      const imgheight = (canvas.height * imgwidth) / canvas.width;
-      pdf.addImage(image, 'PNG', 10, 10, imgwidth, imgheight);
-      pdf.save('Fournisseur.pdf');
-    });
   }
 }
