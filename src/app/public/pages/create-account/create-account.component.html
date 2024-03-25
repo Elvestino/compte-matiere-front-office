@@ -18,7 +18,7 @@
     </div>
   </div>
   <div class="auth-form w-100 form-content">
-    <form class="style-form" [formGroup]="loginForm" (ngSubmit)="submitData()">
+    <form class="style-form" [formGroup]="loginForm" (submit)="submitData()">
       <div class="container-form">
         <h1>Enregistrement</h1>
         <hr />
@@ -31,11 +31,10 @@
             formControlName="immatricule"
             required
           />
-          @if (immatricule?.invalid && immatricule?.touched) {
-            @if (immatricule?.errors?.["required"]) {
-              <span>Immatricule vide</span>
-            }
-          }
+          @if (immatricule?.invalid && immatricule?.touched) { @if
+          (immatricule?.errors?.["required"]) {
+          <span>Immatricule vide</span>
+          } }
         </div>
         <div class="form-content-contener nomComplet">
           <label for="nomComplet">Nom Complet </label>
@@ -45,19 +44,16 @@
             formControlName="nomComplet"
             required
           />
-          @if (
-            nomComplet?.invalid && (nomComplet?.dirty || nomComplet?.touched)
-          ) {
-            @if (nomComplet?.errors?.["required"]) {
-              <span>Nom Complet vide</span>
-            }
-          }
+          @if ( nomComplet?.invalid && (nomComplet?.dirty ||
+          nomComplet?.touched) ) { @if (nomComplet?.errors?.["required"]) {
+          <span>Nom Complet vide</span>
+          } }
         </div>
         <div class="form-content-contener grade">
           <label for="grade">Grade </label>
           <select name="grade" id="grade" formControlName="grade" required>
             @for (grade of optionValue; track $index) {
-              <option value="{{ grade }}">{{ grade }}</option>
+            <option value="{{ grade }}">{{ grade }}</option>
             }
           </select>
         </div>
@@ -71,22 +67,20 @@
             required
           />
           @if (password?.invalid && (password?.dirty || password?.touched)) {
-            @if (password?.errors?.["required"]) {
-              <span>Mot de passe vide</span>
-            }
-            @if (password?.errors?.["minLength"]) {
-              <span>Votre mot de passe doit pas depasser 15 caratere</span>
-            }
-          }
+          @if (password?.errors?.["required"]) {
+          <span>Mot de passe vide</span>
+          } @if (password?.errors?.["minLength"]) {
+          <span>Votre mot de passe doit pas depasser 15 caratere</span>
+          } }
           <button
             class="btn-show-password transition"
             (click)="toggleShowPassword()"
             type="button"
           >
             @if (!showPassword) {
-              <i class="fa fa-eye"></i>
+            <i class="fa fa-eye"></i>
             } @else {
-              <i class="fa fa-eye-slash"></i>
+            <i class="fa fa-eye-slash"></i>
             }
           </button>
         </div>
@@ -99,43 +93,36 @@
             required
           />
           @if (confirmpassword?.value !== "") {
-            <button
-              class="btn-show-password check-state transition"
-              type="button"
-            >
-              @if (password?.value !== confirmpassword?.value) {
-                <i class="fa fa-times-circle false"></i>
-              } @else {
-                <i class="fa fa-circle-check true"></i>
-              }
-            </button>
+          <button
+            class="btn-show-password check-state transition"
+            type="button"
+          >
+            @if (password?.value !== confirmpassword?.value) {
+            <i class="fa fa-times-circle false"></i>
+            } @else {
+            <i class="fa fa-circle-check true"></i>
+            }
+          </button>
           }
         </div>
       </div>
       <div class="btn">
-        @if (
-          loginForm.valid &&
-          loginForm.get("password")?.value ==
-            loginForm.get("confirmpassword")?.value
-        ) {
-          <button
-            class="{{
-              isRegisterSuccess
-                ? 'btn-submit success transition'
-                : 'btn-submit danger transition'
-            }}"
-            type="submit"
-          >
-            @if (isSubmitting) {
-              <i class="fa fa-circle-notch fa-spin"></i>
-            } @else {
-              @if (isRegisterSuccess) {
-                <i class="fa fa-check"></i>
-              } @else {
-                S'inscrire
-              }
-            }
-          </button>
+        @if ( loginForm.valid && loginForm.get("password")?.value ==
+        loginForm.get("confirmpassword")?.value ) {
+        <button
+          class="{{
+            isRegisterSuccess
+              ? 'btn-submit success transition'
+              : 'btn-submit danger transition'
+          }}"
+          type="submit"
+        >
+          @if (isSubmitting) {
+          <i class="fa fa-circle-notch fa-spin"></i>
+          } @else { @if (isRegisterSuccess) {
+          <i class="fa fa-check"></i>
+          } @else { S'inscrire } }
+        </button>
         }
       </div>
     </form>

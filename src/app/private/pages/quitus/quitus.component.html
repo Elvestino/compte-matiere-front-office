@@ -5,66 +5,119 @@
   <!-- -------------------open FORM-QUITUS--------------- -->
 
   <div class="form-add-quitus">
-    <form class="form">
+    <form class="form" [formGroup]="QuitusForm" (submit)="AddQuitus()">
       <h2 class="add-title">{{ add }}</h2>
       <hr />
 
       <div class="form-add-section">
         <div class="service">
           <!-- -----------------Num service--------------- -->
-          <label for="Numservice">Numero du service </label>
-          <select name="Numservice" id="Numservice">
-            <option value="Numservice"></option>
+          <label for="numservice">Numero du service </label>
+          <select
+            name="numservice"
+            id="numservice"
+            formControlName="numService"
+          >
+            @for(service of servicedata; track $index){
+            <option value="{{ service }}">
+              {{ service.numService }}
+            </option>
+            }
           </select>
+        </div>
+        <div class="service">
           <!-- -----------------Nom service--------------- -->
           <label for="Nomservice">Nom du service </label>
           <select name="Nomservice" id="Nomservice" disabled>
             <option value="Nomservice"></option>
           </select>
+        </div>
+        <div class="service">
           <!-- -----------------Libelle--------------- -->
           <label for="libelle">Libelle </label>
           <select name="libelle" class="libelle" disabled>
             <option value="libelle"></option>
           </select>
         </div>
+
         <div class="quitus-formulaire">
           <!-- -----------------numero quitus--------------- -->
           <label for="nom">Numero </label>
-          <input type="text" name="numQuitus" placeholder="ex: 123" />
-          <!-- -----------------reference--------------- -->
-          <label for="reference">Reference </label>
           <input
             type="text"
-            name="reference"
+            formControlName="numQuitus"
+            placeholder="ex: 123"
+          />
+        </div>
+        <div class="quitus-formulaire">
+          <!-- -----------------referenceQuitus--------------- -->
+          <label for="referenceQuitus">Reference </label>
+          <input
+            type="text"
+            formControlName="ReferenceQuitus"
             placeholder="ex: numero 103-15/MC/SG/DGCI"
           />
-          <!-- -----------------objet--------------- -->
-          <label for="objet">Objet </label>
+        </div>
+        <div class="quitus-formulaire">
+          <label for="objetQuitus">Objet : </label>
           <input
             type="text"
-            name="objet"
+            formControlName="objetQuitus"
             placeholder="ex: approbation du compte bancaire"
           />
-          <!-- -----------------montant--------------- -->
-          <label for="montant">Montant </label>
-          <input type="text" name="montant" placeholder="ex: 10000" />
+        </div>
+
+        <div class="quitus-formulaire">
+          <!-- -----------------montantQuitus--------------- -->
+          <label for="montantQuitus">Montant </label>
+          <input
+            type="text"
+            formControlName="montantQuitus"
+            placeholder="ex: 10000"
+          />
           <label for="ar">Ar</label>
-          <!-- -----------------exercice--------------- -->
-          <label for="exercice">Exercice(Annee) </label>
-          <input type="text" name="exercice" placeholder="ex: 2023" />
+        </div>
+        <div class="quitus-formulaire">
+          <!-- -----------------exerciceAnnee--------------- -->
+          <label for="exerciceAnnee">Exercice(Annee) </label>
+          <input
+            type="text"
+            formControlName="exerciceAnnee"
+            placeholder="ex: 2023"
+          />
+        </div>
+        <div class="quitus-formulaire">
           <!-- -----------------date--------------- -->
           <label for="dateQuitus">Date </label>
-          <input type="date" name="dateQuitus" id="dateQuitus" />
+          <input type="date" formControlName="dateQuitus" id="dateQuitus" />
+        </div>
+        <div class="quitus-formulaire">
           <!-- -----------------observation--------------- -->
           <label for="observation">Observation </label>
           <input
             type="text"
-            name="observation"
+            formControlName="observateur"
             placeholder="ex: RAMANAMAHEFA Jean Justin"
           />
         </div>
+
         <div class="btn">
-          <button type="button" class="btn btn-primary">Confirmer</button>
+          @if (QuitusForm.valid) {
+          <button
+            class="{{
+              isRegisterSuccess
+                ? 'btn btn-success transition'
+                : 'btn btn-primary transition'
+            }}"
+            type="submit"
+          >
+            @if (isSubmitting) {
+            <i class="fa fa-circle-notch fa-spin"></i>
+            } @else { @if (isRegisterSuccess) {
+            <i class="fa fa-check"></i>
+            } @else { {{ formHeader }} } }
+          </button>
+          }
         </div>
       </div>
     </form>
@@ -85,25 +138,35 @@
       </tr>
     </thead>
     <tbody class="table-body">
+      @for (item of quitusdata; track $index) {
       <tr class="data">
-        <td>djkdfjkdfjdk</td>
-        <td>djkdfjkdfjdk</td>
-        <td>djkdfjkdfjdk</td>
-        <td>djkdfjkdfjdk</td>
-        <td>djkdfjkdfjdk</td>
-        <td>djkdfjkdfjdk</td>
-        <td>djkdfjkdfjdk</td>
-        <td>djkdfjkdfjdk</td>
+        <td>{{ item.service.numService }}</td>
+        <td>{{ item.numQuitus }}</td>
+        <td>{{ item.objetQuitus }}</td>
+        <td>{{ item.ReferenceQuitus }}</td>
+        <td>{{ item.dateQuitus }}</td>
+        <td>{{ item.exerciceAnnee }}</td>
+        <td>{{ item.montantQuitus }}</td>
+        <td>{{ item.observateur }}</td>
         <td class="data-control">
-          <button class="btn btn-success" aria-label="modif">
+          <button
+            class="btn btn-success"
+            aria-label="modif"
+            (click)="modifAquitus(item)"
+          >
             <i class="fa-solid fa-pencil"></i>
           </button>
 
-          <button class="btn btn-danger" aria-label="delete">
+          <button
+            class="btn btn-danger"
+            aria-label="delete"
+            (click)="deleteQuitus(item.numQuitus)"
+          >
             <i class="fa-solid fa-trash"></i>
           </button>
         </td>
       </tr>
+      }
     </tbody>
   </table>
 

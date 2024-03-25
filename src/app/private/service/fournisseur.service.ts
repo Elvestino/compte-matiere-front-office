@@ -31,7 +31,7 @@ export class PrivateServiceService {
       `${this.PrivateApiUrl}/fournisseur/${numFrns}`
     );
   }
-  filter(searchterm: string) {
+  filterFrns(searchterm: string) {
     return this.http.get<any[]>(`${this.PrivateApiUrl}/fournisseur`).pipe(
       map((data) => {
         return data.filter((item) => {
@@ -41,6 +41,20 @@ export class PrivateServiceService {
             item.adrsFrns.toLowerCase().includes(searchterm.toLowerCase()) ||
             item.typeFrns.toLowerCase().includes(searchterm.toLowerCase()) ||
             item.telFrns.toLowerCase().includes(searchterm.toLowerCase())
+          );
+        });
+      })
+    );
+  }
+  filterOrdre(searchOrdre: string) {
+    return this.http.get<any[]>(`${this.PrivateApiUrl}/ordre`).pipe(
+      map((data) => {
+        return data.filter((item) => {
+          return (
+            item.dateOrdre.toLowerCase().includes(searchOrdre.toLowerCase()) ||
+            item.numService.toLowerCase().includes(searchOrdre.toLowerCase()) ||
+            item.nomService.toLowerCase().includes(searchOrdre.toLowerCase()) ||
+            item.newannee.toLowerCase().includes(searchOrdre.toLowerCase())
           );
         });
       })

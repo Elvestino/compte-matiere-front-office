@@ -5,12 +5,11 @@ import { AddfournisseurComponent } from './components/addfournisseur/addfourniss
 import { PrivateServiceService } from '../../service/fournisseur.service';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 import { PrintFrnsComponent } from './components/print-frns/print-frns.component';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { debounceTime, distinct, distinctUntilChanged, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { OrdreService } from '../../service/ordre.service';
 
 @Component({
   selector: 'app-fournisseur',
@@ -29,11 +28,14 @@ import { debounceTime, distinct, distinctUntilChanged, switchMap } from 'rxjs';
 export class FournisseurComponent implements OnInit {
   constructor(
     private PrivateService: PrivateServiceService,
-    private formBuilder: FormBuilder
+    private OrdreService: OrdreService
   ) {}
 
   items: any[] = [];
+  ordre: any[] = [];
   search = new FormControl();
+  searchOrdre = new FormControl();
+
   isFournisseurComponentOpen: boolean = false;
   PrintComponent: boolean = false;
   isOrdreComponentOpen: boolean = false;
@@ -43,6 +45,7 @@ export class FournisseurComponent implements OnInit {
   }
   toggleOpenAddOrdre() {
     this.isOrdreComponentOpen = !this.isOrdreComponentOpen;
+    this.OrdreData();
   }
   openPrint() {
     this.PrintComponent = !this.PrintComponent;
@@ -54,16 +57,31 @@ export class FournisseurComponent implements OnInit {
       this.items = getAll;
     });
   }
+  OrdreData() {
+    this.OrdreService.findAll().subscribe((getAllOrdre) => {
+      this.ordre = getAllOrdre;
+    });
+  }
   ngOnInit(): void {
     this.Data();
+    this.OrdreData();
     this.search.valueChanges
       .pipe(
         debounceTime(300),
         distinctUntilChanged(),
-        switchMap((searchterm) => this.PrivateService.filter(searchterm))
+        switchMap((searchterm) => this.PrivateService.filterFrns(searchterm))
       )
       .subscribe((filteredItems) => {
         this.items = filteredItems;
+      });
+    this.searchOrdre.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((searchOrdre) => this.PrivateService.filterOrdre(searchOrdre))
+      )
+      .subscribe((filteredOrdre) => {
+        this.items = filteredOrdre;
       });
   }
   modifData(item: any) {

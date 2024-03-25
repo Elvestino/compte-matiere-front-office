@@ -23,7 +23,7 @@ export class SignInComponent {
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private jwtDecodeService: JwtDecodeService,
+    private jwtDecodeService: JwtDecodeService
   ) {}
 
   loginForm = new FormGroup({
@@ -55,7 +55,7 @@ export class SignInComponent {
         this.isLoginSuccess = true;
 
         const data = this.jwtDecodeService.decodeToken(res.access_token);
-        console.log(data);
+        // console.log(data);
 
         localStorage.setItem('access_token', res.access_token);
         this.router.navigate(['/apps']);

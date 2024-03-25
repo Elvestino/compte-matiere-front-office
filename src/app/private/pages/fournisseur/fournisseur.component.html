@@ -19,7 +19,6 @@
         placeholder="Recherche..."
         [formControl]="search"
       />
-      <!-- <button type="submit"><i class="fa fa-search"></i></button> -->
     </div>
     <button
       type="button"
@@ -88,8 +87,13 @@
   <div class="list-fournisseur">
     <h2 class="list-fournisseur-title">Ordre Enregistree</h2>
     <div class="searchbarre">
-      <input type="text" name="search" id="search" placeholder="Recherche..." />
-      <!-- <button type="submit"><i class="fa fa-search"></i></button> -->
+      <input
+        type="text"
+        name="search"
+        id="search"
+        placeholder="Recherche..."
+        [formControl]="searchOrdre"
+      />
     </div>
     <button
       type="button"
@@ -99,42 +103,44 @@
       <i class="fa fa-plus"></i> Ajout nouveau Ordre
     </button>
   </div>
-  <!-- ------------------affichage donnee ordre------------------ -->
   <table class="section-table-fournisseur">
     <thead class="table-heading-fournisseur">
       <tr class="heading">
         <th>Numero d'ordre</th>
-        <th>Annee du Journal</th>
         <th>Date</th>
         <th>Numero du service</th>
         <th>Nom du service</th>
+        <th>Annee du Journal</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody class="table-body-fournisseur">
-      @for (item of items; track $index) {
+      @for (dataOrdre of ordre; track $index) {
       <tr class="data">
         <td>
-          {{ item.numFrns }}
+          {{ dataOrdre.numOrdre }}
         </td>
         <td>
-          {{ item.nomFrns }}
+          {{ dataOrdre.dateOrdre }}
         </td>
         <td>
-          {{ item.prenomFrns }}
+          {{ dataOrdre.service.numService }}
         </td>
         <td>
-          {{ item.telFrns }}
+          {{ dataOrdre.service.nomService }}
         </td>
         <td>
-          {{ item.typeFrns }}
+          {{ dataOrdre.annee.newannee }}
         </td>
         <td class="data-control">
-          <button class="btn btn-success" (click)="modifData(item)">
+          <button class="btn btn-success" (click)="modifData(dataOrdre)">
             <i class="fa-solid fa-pencil"></i>
           </button>
 
-          <button class="btn btn-danger" (click)="deleteData(item.numFrns)">
+          <button
+            class="btn btn-danger"
+            (click)="deleteData(dataOrdre.numOrdre)"
+          >
             <i class="fa-solid fa-trash"></i>
           </button>
         </td>

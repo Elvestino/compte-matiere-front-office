@@ -17,10 +17,7 @@ import Swal from 'sweetalert2';
   styleUrl: './create-account.component.scss',
 })
 export class CreateAccountComponent {
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
   optionValue: string[] = [
     'Stagiaire',
     'Directeur ',
@@ -70,10 +67,10 @@ export class CreateAccountComponent {
   }
   submitData() {
     this.isSubmitting = true;
-    console.log('Form value: ', this.loginForm.value);
+    // console.log('Form value: ', this.loginForm.value);
     this.authService.register(this.loginForm.value).subscribe({
       next: (success) => {
-        localStorage.setItem('user-create', success.immatricule);
+        //localStorage.setItem('user-create', success.immatricule);
         this.isSubmitting = false;
         this.isRegisterSuccess = true;
         setTimeout(() => {

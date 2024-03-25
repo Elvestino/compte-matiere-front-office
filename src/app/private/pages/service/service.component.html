@@ -1,3 +1,6 @@
+@if(PrintComponent){
+<app-print-service (close)="openPrint()"></app-print-service>
+}
 <section class="service">
   <form
     class="service-form"
@@ -111,8 +114,9 @@
       </div>
     </div>
     <div class="print">
-      <button type="button" class="btn btn-dark">
-        <i class="fa fa-print" aria-hidden="true"> </i> Imprimer
+      <button type="button" class="btn btn-dark" (click)="openPrint()">
+        <i class="fa fa-print" aria-hidden="true"> </i>
+        Imprimer
       </button>
     </div>
   </div>

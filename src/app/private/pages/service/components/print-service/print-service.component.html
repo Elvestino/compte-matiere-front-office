@@ -1,0 +1,45 @@
+<main class="print-service fill-view">
+  <div class="title">
+    <h1>Est ce le model que vous voulez imprimer ?</h1>
+  </div>
+  <table #content>
+    <thead class="thead-service">
+      <tr>
+        <th>Numero</th>
+        <th>Nom</th>
+        <th>Libelle</th>
+        <th>SOA</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody class="tbody-service">
+      @for (item of data; track $index) {
+      <tr class="data">
+        <td>
+          {{ item.numService }}
+        </td>
+        <td>
+          {{ item.nomService }}
+        </td>
+        <td>
+          {{ item.libelle }}
+        </td>
+        <td>
+          {{ item.SOA }}
+        </td>
+        <td>
+          {{ item.typeService }}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  <div class="acceptandcancel">
+    <button type="submit" class="btn btn-success" (click)="printFournisseur()">
+      Oui
+    </button>
+    <button type="submit" class="btn btn-danger" (click)="closePrint()">
+      Non
+    </button>
+  </div>
+</main>

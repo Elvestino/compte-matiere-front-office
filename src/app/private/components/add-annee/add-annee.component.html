@@ -8,13 +8,21 @@
     >
       <i class="fa fa-times"></i>
     </button>
-    <form class="style-form">
+    <form class="style-form" [formGroup]="AnneeForm" (submit)="submitAnnee()">
       <div class="container-form">
         <h1>Ajout Nouvelle Annee</h1>
         <hr />
 
-        <label for="newYear">Annee </label>
-        <input type="text" name="newYear" required />
+        <label for="newannee">Annee </label>
+        <input
+          type="text"
+          name="newannee"
+          formControlName="newannee"
+          required
+        />
+        @if (newannee?.touched && newannee?.errors?.["required"]) {
+        <span class="error-text"> L'annee s'il vous plait </span>
+        }
 
         <div class="btn">
           <button type="submit" class="btn btn-primary">Ajouter</button>

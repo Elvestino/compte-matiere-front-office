@@ -8,27 +8,61 @@
     >
       <i class="fa fa-times"></i>
     </button>
-    <form class="style-form">
+    <form class="style-form" [formGroup]="OrdreForm">
       <div class="container-form">
         <h1>{{ title }}</h1>
         <hr />
-        <label for="numero">Numero </label>
-        <input type="text" placeholder="ex: 1" name="numero" required />
-        <label for="date">Date </label>
-        <input type="date" name="date" id="date" />
-        <label for="numService">Numero du service </label>
-        <select name="numService" id="numService">
-          <option value="numService"></option>
-        </select>
-        <label for="nomService">Nom su service</label>
-        <select name="nomService" id="nomService">
-          <option value="nomService" disabled>sdsd</option>
-        </select>
+        <div class="container-form">
+          <label for="numOrdre">Numero </label>
+          <input type="text" placeholder="ex: 1" name="numOrdre" required />
+          @if (numOrdre?.touched && numOrdre?.errors?.["required"]) {
+          <span class="error-text">
+            Entrer votre numero, s'il vous plait.
+          </span>
+          }
+        </div>
+        <div class="container-form">
+          <label for="date">Date </label>
+          <input type="date" name="date" id="date" />
+        </div>
+        <div class="container-form">
+          <label for="numService">Numero du service </label>
+          <select
+            name="numService"
+            id="numService"
+            formControlName="numService"
+            (change)="updateNomService(selectedService)"
+          >
+            <!-- <option value="" disabled selected>Choisir un service</option> -->
+            @for(service of servicedata; track $index){
+            <option value="{{ service }}">
+              {{ service.numService }}
+            </option>
+            }
+          </select>
+        </div>
+        <div class="container-form">
+          <label for="nomService">Nom du service</label>
+          <select
+            name="nomService"
+            id="nomService"
+            formControlName="nomService"
+          >
+            <!-- <option value="" disabled selected>Choisir un service</option> -->
+            @for(service of servicedatasecond; track $index){
+            <option value="{{ service }}">
+              {{ service.nomService }}
+            </option>
+            }
+          </select>
+        </div>
+        <div class="container-form">
+          <label for="newannee">Annee du Journal </label>
+          <select name="newannee" id="newannee">
+            <option value="newannee"></option>
+          </select>
+        </div>
 
-        <label for="AnnJournal">Annee du Journal </label>
-        <select name="AnnJournal" id="AnnJournal">
-          <option value="AnnJournal" disabled>2023</option>
-        </select>
         <div class="btn">
           <button type="submit" class="btn btn-primary">Ajouter</button>
         </div>

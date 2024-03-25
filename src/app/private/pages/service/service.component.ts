@@ -8,11 +8,19 @@ import {
 } from '@angular/forms';
 import { ServiceService } from '../../service/service.service';
 import Swal from 'sweetalert2';
+import { RouterLink } from '@angular/router';
+import { PrintServiceComponent } from './components/print-service/print-service.component';
 
 @Component({
   selector: 'app-service',
   standalone: true,
-  imports: [HttpClientModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    PrintServiceComponent,
+    RouterLink,
+  ],
   templateUrl: './service.component.html',
   styleUrl: './service.component.scss',
 })
@@ -34,7 +42,7 @@ export class ServiceComponent {
   });
   isSubmitting: boolean = false;
   isRegisterSuccess: boolean = false;
-
+  PrintComponent: boolean = false;
   clear() {
     this.serviceForm = this.formBuilder.group({
       numService: '',
@@ -44,7 +52,10 @@ export class ServiceComponent {
       typeService: '',
     });
   }
-
+  openPrint() {
+    this.PrintComponent = !this.PrintComponent;
+    this.getData();
+  }
   getData() {
     this.service.findAll().subscribe((getAll) => {
       this.data = getAll;
