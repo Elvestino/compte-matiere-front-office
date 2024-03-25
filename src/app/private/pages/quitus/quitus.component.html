@@ -16,10 +16,11 @@
           <select
             name="numservice"
             id="numservice"
+            [(ngModel)]="selectedService"
             formControlName="numService"
           >
             @for(service of servicedata; track $index){
-            <option value="{{ service }}">
+            <option value="{{ service.numService }}">
               {{ service.numService }}
             </option>
             }
@@ -173,7 +174,7 @@
   <div class="component-total">
     <div class="total">
       <label for="total" class="total-quitus">Nombre total des quitus : </label>
-      <p class="nbr-total">3</p>
+      <p class="nbr-total">{{ getTotalCount() }}</p>
     </div>
     <div class="btn-print">
       <button type="button" class="btn btn-dark">

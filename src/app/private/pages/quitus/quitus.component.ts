@@ -18,11 +18,13 @@ import { QuitusService } from '../../service/quitus.service';
   styleUrl: './quitus.component.scss',
 })
 export class QuitusComponent {
+  selectedService: string;
   constructor(
     private QuitusS: QuitusService,
     private service: ServiceService,
     private formBuilder: FormBuilder
   ) {
+    this.selectedService = '';
     this.getService();
     this.getQuitus();
   }
@@ -70,8 +72,6 @@ export class QuitusComponent {
   }
   AddQuitus() {
     this.isSubmitting = true;
-
-    console.log('zao lets e :', this.QuitusForm.value.numService);
     this.QuitusS.create(this.QuitusForm.value).subscribe({
       next: () => {
         Swal.fire({
@@ -82,7 +82,7 @@ export class QuitusComponent {
           timer: 1500,
         });
         this.isSubmitting = false;
-        this.isRegisterSuccess = true;
+        this.isRegisterSuccess = false;
         setTimeout(() => {
           this.getQuitus();
           this.clear();
@@ -96,7 +96,6 @@ export class QuitusComponent {
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log('value error:', this.QuitusForm.value);
         this.isSubmitting = false;
       },
     });
@@ -166,5 +165,9 @@ export class QuitusComponent {
           });
         }
       });
+  }
+
+  getTotalCount(): number {
+    return this.quitusdata.length;
   }
 }
