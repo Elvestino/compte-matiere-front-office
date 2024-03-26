@@ -4,6 +4,8 @@
 <app-add-ordre (close)="toggleOpenAddOrdre()"></app-add-ordre>
 }@if(PrintComponent){
 <app-print-frns (close)="openPrint()"></app-print-frns>
+}@if(PrintComponentOrdre){
+<app-print-ordre (close)="openPrintOrdre()"></app-print-ordre>
 }
 <div class="fournisseur-title">
   <h1>Ministere du Finance et du Budget</h1>
@@ -149,7 +151,7 @@
     </tbody>
   </table>
   <div class="print">
-    <button type="button" class="btn btn-dark">
+    <button type="button" class="btn btn-dark" (click)="openPrintOrdre()">
       <i class="fa fa-print" aria-hidden="true"> </i> Imprimer
     </button>
   </div>

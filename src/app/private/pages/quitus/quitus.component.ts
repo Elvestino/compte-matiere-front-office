@@ -152,7 +152,7 @@ export class QuitusComponent {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.service.remove(numQuitus).subscribe({
+          this.QuitusS.remove(numQuitus).subscribe({
             next: () => {
               this.getQuitus();
               this.clear();

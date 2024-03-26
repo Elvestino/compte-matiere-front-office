@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { OrdreService } from '../../service/ordre.service';
+import { PrintOrdreComponent } from './components/print-ordre/print-ordre.component';
 
 @Component({
   selector: 'app-fournisseur',
@@ -21,6 +22,7 @@ import { OrdreService } from '../../service/ordre.service';
     PrintFrnsComponent,
     RouterLink,
     ReactiveFormsModule,
+    PrintOrdreComponent,
   ],
   templateUrl: './fournisseur.component.html',
   styleUrl: './fournisseur.component.scss',
@@ -38,6 +40,7 @@ export class FournisseurComponent implements OnInit {
 
   isFournisseurComponentOpen: boolean = false;
   PrintComponent: boolean = false;
+  PrintComponentOrdre: boolean = true;
   isOrdreComponentOpen: boolean = false;
   toggleOpenAddFournisseur() {
     this.isFournisseurComponentOpen = !this.isFournisseurComponentOpen;
@@ -51,7 +54,10 @@ export class FournisseurComponent implements OnInit {
     this.PrintComponent = !this.PrintComponent;
     this.Data();
   }
-
+  openPrintOrdre() {
+    this.PrintComponentOrdre = !this.PrintComponentOrdre;
+    this.OrdreData();
+  }
   Data() {
     this.PrivateService.findAll().subscribe((getAll) => {
       this.items = getAll;
