@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import {
   FormBuilder,
   FormsModule,
@@ -9,30 +9,32 @@ import { ServiceService } from '../../service/service.service';
 import { RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { QuitusService } from '../../service/quitus.service';
+import { PrintQuitusComponent } from './components/print-quitus/print-quitus.component';
 
 @Component({
   selector: 'app-quitus',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, PrintQuitusComponent],
   templateUrl: './quitus.component.html',
   styleUrl: './quitus.component.scss',
 })
 export class QuitusComponent {
-  selectedService: string;
   constructor(
     private QuitusS: QuitusService,
     private service: ServiceService,
     private formBuilder: FormBuilder
   ) {
-    this.selectedService = '';
     this.getService();
     this.getQuitus();
   }
   add = 'Enregistrement Quitus';
   formHeader = 'Confirmer';
 
+  selectedService: any = [];
+  selectednumService: any = [];
   servicedata: any[] = [];
   quitusdata: any[] = [];
+  PrintComponent: boolean = false;
   isSubmitting: boolean = false;
   isRegisterSuccess: boolean = false;
 
@@ -65,6 +67,10 @@ export class QuitusComponent {
     });
   }
 
+  openPrint() {
+    this.PrintComponent = !this.PrintComponent;
+    this.getQuitus();
+  }
   getService() {
     this.service.findAll().subscribe((getAll) => {
       this.servicedata = getAll;

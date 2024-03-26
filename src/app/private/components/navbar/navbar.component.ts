@@ -16,9 +16,14 @@ import { EMPTY } from 'rxjs';
 })
 export class NavbarComponent {
   constructor(private AuthService: AuthService, private users: GetuserService) {
+    this.dateAujourdhui = this.obtenirDateAujourdhui();
+    // this.anneeActuelle = this.obtenirAnneeActuelle();
+    this.heureActuelle = this.obtenirHeureActuelle();
     //this.getUser(this.users);
   }
-
+  heureActuelle: string;
+  dateAujourdhui: string;
+  // anneeActuelle: number;
   data: any[] = [];
   open: boolean = true;
   OpenHome() {
@@ -29,6 +34,22 @@ export class NavbarComponent {
   }
   logOut() {
     this.AuthService.logOut();
+  }
+  obtenirHeureActuelle(): string {
+    const date = new Date();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${hours}:${minutes}:${seconds}`;
+  }
+  obtenirDateAujourdhui(): string {
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
   }
   // ngOnInit(): void {
   //   this.getUser('1'); // Suppose que vous voulez récupérer l'utilisateur avec l'ID 1

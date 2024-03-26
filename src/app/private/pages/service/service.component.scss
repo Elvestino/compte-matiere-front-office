@@ -91,7 +91,13 @@
         }
         .tbody-service {
           td {
-            padding: 16px;
+            padding: 8px 20px;
+            border: 1px solid #eee;
+            &:last-child {
+              display: flex;
+              justify-content: space-between;
+              border: none;
+            }
           }
         }
         tr:nth-child(even) {

@@ -1,3 +1,6 @@
+@if(PrintComponent){
+<app-print-quitus (close)="openPrint()"></app-print-quitus>
+}
 <main class="quitus-header">
   <div class="list-header">
     <h1 class="header-title">Liste des Quitus</h1>
@@ -16,7 +19,7 @@
           <select
             name="numservice"
             id="numservice"
-            [(ngModel)]="selectedService"
+            [(ngModel)]="selectednumService"
             formControlName="numService"
           >
             @for(service of servicedata; track $index){
@@ -24,20 +27,6 @@
               {{ service.numService }}
             </option>
             }
-          </select>
-        </div>
-        <div class="service">
-          <!-- -----------------Nom service--------------- -->
-          <label for="Nomservice">Nom du service </label>
-          <select name="Nomservice" id="Nomservice" disabled>
-            <option value="Nomservice"></option>
-          </select>
-        </div>
-        <div class="service">
-          <!-- -----------------Libelle--------------- -->
-          <label for="libelle">Libelle </label>
-          <select name="libelle" class="libelle" disabled>
-            <option value="libelle"></option>
           </select>
         </div>
 
@@ -60,7 +49,7 @@
           />
         </div>
         <div class="quitus-formulaire">
-          <label for="objetQuitus">Objet : </label>
+          <label for="objetQuitus">Objet </label>
           <input
             type="text"
             formControlName="objetQuitus"
@@ -177,7 +166,7 @@
       <p class="nbr-total">{{ getTotalCount() }}</p>
     </div>
     <div class="btn-print">
-      <button type="button" class="btn btn-dark">
+      <button type="button" class="btn btn-dark" (click)="openPrint()">
         <i class="fa fa-print"> </i> Imprimer
       </button>
     </div>

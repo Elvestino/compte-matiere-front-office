@@ -1,1 +1,42 @@
-<p>print-quitus works!</p>
+<main class="print-quitus fill-view">
+  <div class="title">
+    <h1>Est ce le model que vous voulez imprimer ?</h1>
+  </div>
+
+  <table class="section-table" #content>
+    <thead class="table-heading">
+      <tr class="heading">
+        <th>Numero de Service</th>
+        <th>Numero de Quitus</th>
+        <th>Objet</th>
+        <th>Reference</th>
+        <th>Date</th>
+        <th>Exercice</th>
+        <th>Montant</th>
+        <th>Observation</th>
+      </tr>
+    </thead>
+    <tbody class="table-body">
+      @for (item of quitusdata; track $index) {
+      <tr class="data">
+        <td>{{ item.service.numService }}</td>
+        <td>{{ item.numQuitus }}</td>
+        <td>{{ item.objetQuitus }}</td>
+        <td>{{ item.ReferenceQuitus }}</td>
+        <td>{{ item.dateQuitus }}</td>
+        <td>{{ item.exerciceAnnee }}</td>
+        <td>{{ item.montantQuitus }}</td>
+        <td>{{ item.observateur }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  <div class="acceptandcancel">
+    <button type="submit" class="btn btn-success" (click)="printQuitus()">
+      Oui
+    </button>
+    <button type="submit" class="btn btn-danger" (click)="closePrint()">
+      Non
+    </button>
+  </div>
+</main>
