@@ -8,12 +8,13 @@ import {
 import { OrdreService } from '../../../../service/ordre.service';
 import { RouterLink } from '@angular/router';
 import { ServiceService } from '../../../../service/service.service';
-import { CommonModule } from '@angular/common';
+import { AnneeService } from '../../../../service/annee.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-ordre',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, CommonModule, FormsModule],
+  imports: [ReactiveFormsModule, RouterLink, FormsModule],
   templateUrl: './add-ordre.component.html',
   styleUrl: './add-ordre.component.scss',
 })
@@ -21,9 +22,11 @@ export class AddOrdreComponent {
   constructor(
     private ordreService: OrdreService,
     private service: ServiceService,
+    private annee: AnneeService,
     private formBuilder: FormBuilder
   ) {
     this.getService();
+    this.getAnnee();
   }
 
   @Output() close = new EventEmitter();
@@ -31,14 +34,17 @@ export class AddOrdreComponent {
     this.close.emit();
   }
   servicedata: any[] = [];
-  servicedatasecond: any[] = [];
-  selectedService: any = {};
+  AnnneeData: any[] = [];
+  formHeader = 'Ajouter';
   title: string[] = ['Enregistrement Ordre'];
+  isSubmitting: boolean = false;
+  isRegisterSuccess: boolean = false;
+
   OrdreForm = this.formBuilder.group({
     numOrdre: ['', [Validators.required]],
     dateOrdre: ['', [Validators.required]],
     numService: ['', [Validators.required]],
-    nomService: ['', [Validators.required]],
+    newannee: ['', [Validators.required]],
   });
 
   get numOrdre() {
@@ -50,16 +56,41 @@ export class AddOrdreComponent {
       this.servicedata = getAll;
     });
   }
-  updateNomService(selectedNumService: any) {
-    const selectedService = this.servicedata.find(
-      (service) => service.numService === selectedNumService
-    );
-    if (selectedService) {
-      this.OrdreForm.patchValue({ nomService: selectedService.nomService });
-      // Update the second select options if needed
-      this.servicedatasecond = selectedService.someOtherData; // Update this line with appropriate data
-    } else {
-      this.OrdreForm.patchValue({ nomService: '' }); // Reset the field if no match found
-    }
+  getAnnee() {
+    this.annee.findAll().subscribe((getAllAnnee) => {
+      this.AnnneeData = getAllAnnee;
+    });
+  }
+  AddOrdre() {
+    this.isSubmitting = true;
+
+    this.ordreService.create(this.OrdreForm.value).subscribe({
+      next: () => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Ordre enregistre',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        this.isSubmitting = false;
+        this.isRegisterSuccess = false;
+        setTimeout(() => {
+          this.closeForm();
+        }, 1000);
+      },
+      error: () => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'ordre deja enregistree',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        this.isSubmitting = false;
+      },
+    });
   }
 }

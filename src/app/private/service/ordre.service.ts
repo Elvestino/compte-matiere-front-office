@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,19 @@ export class OrdreService {
   }
   remove(numOrdre: number) {
     return this.http.delete<any>(`${this.PrivateApiUrl}/ordre/${numOrdre}`);
+  }
+  filterOrdre(searchOrdre: string) {
+    return this.http.get<any[]>(`${this.PrivateApiUrl}/ordre`).pipe(
+      map((data) => {
+        return data.filter((item) => {
+          return (
+            item.dateOrdre.toLowerCase().includes(searchOrdre.toLowerCase()) ||
+            item.numService.toLowerCase().includes(searchOrdre.toLowerCase()) ||
+            item.nomService.toLowerCase().includes(searchOrdre.toLowerCase()) ||
+            item.newannee.toLowerCase().includes(searchOrdre.toLowerCase())
+          );
+        });
+      })
+    );
   }
 }

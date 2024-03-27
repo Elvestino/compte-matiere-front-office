@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormsModule,
@@ -30,8 +30,6 @@ export class QuitusComponent {
   add = 'Enregistrement Quitus';
   formHeader = 'Confirmer';
 
-  selectedService: any = [];
-  selectednumService: any = [];
   servicedata: any[] = [];
   quitusdata: any[] = [];
   PrintComponent: boolean = false;
@@ -78,6 +76,7 @@ export class QuitusComponent {
   }
   AddQuitus() {
     this.isSubmitting = true;
+    console.log(this.QuitusForm.value.numService);
     this.QuitusS.create(this.QuitusForm.value).subscribe({
       next: () => {
         Swal.fire({

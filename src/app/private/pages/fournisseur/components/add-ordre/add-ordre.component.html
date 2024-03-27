@@ -8,13 +8,19 @@
     >
       <i class="fa fa-times"></i>
     </button>
-    <form class="style-form" [formGroup]="OrdreForm">
+    <form class="style-form" [formGroup]="OrdreForm" (submit)="AddOrdre()">
       <div class="container-form">
         <h1>{{ title }}</h1>
         <hr />
         <div class="container-form">
           <label for="numOrdre">Numero </label>
-          <input type="text" placeholder="ex: 1" name="numOrdre" required />
+          <input
+            type="text"
+            placeholder="ex: 1"
+            name="numOrdre"
+            formControlName="numOrdre"
+            required
+          />
           @if (numOrdre?.touched && numOrdre?.errors?.["required"]) {
           <span class="error-text">
             Entrer votre numero, s'il vous plait.
@@ -23,19 +29,18 @@
         </div>
         <div class="container-form">
           <label for="date">Date </label>
-          <input type="date" name="date" id="date" />
+          <input
+            type="date"
+            name="date"
+            id="date"
+            formControlName="dateOrdre"
+          />
         </div>
         <div class="container-form">
           <label for="numService">Numero du service </label>
-          <select
-            name="numService"
-            id="numService"
-            formControlName="numService"
-            (change)="updateNomService(selectedService)"
-          >
-            <!-- <option value="" disabled selected>Choisir un service</option> -->
+          <select formControlName="numService" id="numService">
             @for(service of servicedata; track $index){
-            <option value="{{ service }}">
+            <option value="{{ service.numService }}">
               {{ service.numService }}
             </option>
             }
@@ -43,8 +48,10 @@
         </div>
         <div class="container-form">
           <label for="newannee">Annee du Journal </label>
-          <select name="newannee" id="newannee">
-            <option value="newannee"></option>
+          <select name="newannee" id="newannee" formControlName="newannee">
+            @for(annee of AnnneeData; track $index){
+            <option value="{{ annee.newannee }}">{{ annee.newannee }}</option>
+            }
           </select>
         </div>
 

@@ -40,7 +40,7 @@ export class FournisseurComponent implements OnInit {
 
   isFournisseurComponentOpen: boolean = false;
   PrintComponent: boolean = false;
-  PrintComponentOrdre: boolean = true;
+  PrintComponentOrdre: boolean = false;
   isOrdreComponentOpen: boolean = false;
   toggleOpenAddFournisseur() {
     this.isFournisseurComponentOpen = !this.isFournisseurComponentOpen;
@@ -70,7 +70,6 @@ export class FournisseurComponent implements OnInit {
   }
   ngOnInit(): void {
     this.Data();
-    this.OrdreData();
     this.search.valueChanges
       .pipe(
         debounceTime(300),
@@ -80,22 +79,31 @@ export class FournisseurComponent implements OnInit {
       .subscribe((filteredItems) => {
         this.items = filteredItems;
       });
+    this.OrdreData();
     this.searchOrdre.valueChanges
       .pipe(
         debounceTime(300),
         distinctUntilChanged(),
-        switchMap((searchOrdre) => this.PrivateService.filterOrdre(searchOrdre))
+        switchMap((searchOrdre) => this.OrdreService.filterOrdre(searchOrdre))
       )
       .subscribe((filteredOrdre) => {
-        this.items = filteredOrdre;
+        this.ordre = filteredOrdre;
       });
   }
+
+  // -----------------------------UPDATE----------------------------
   modifData(item: any) {
     console.log(item);
     this.toggleOpenAddFournisseur();
-    this.PrivateService.update(this.Data);
-    this.Data();
   }
+  modifDataOrdre(dataOrdre: any) {
+    console.log(dataOrdre);
+    this.toggleOpenAddOrdre();
+    this.OrdreService.update(this.OrdreData);
+    this.OrdreData();
+  }
+
+  // -----------------------------DELETE----------------------------
   deleteData(numFrns: number) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -134,6 +142,51 @@ export class FournisseurComponent implements OnInit {
           swalWithBootstrapButtons.fire({
             title: 'Annuler',
             text: 'Suppression du fournisseur annuler',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+  }
+  deleteDataOrdre(numOrdre: number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger',
+      },
+      buttonsStyling: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        title: 'Voulez-vous vraiment supprimer le ordre ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'OUI!!, Supprimer',
+        cancelButtonText: 'NON!!, Ne pas Supprimer',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire({
+            title: 'Supprimer',
+            text: 'Ordre supprimer avec success',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.OrdreService.remove(numOrdre).subscribe({
+            next: () => {
+              this.OrdreData();
+            },
+            error: (error) => {
+              console.error(error);
+            },
+          });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: 'Annuler',
+            text: 'Suppression d ordre annuler',
             icon: 'error',
             showConfirmButton: false,
             timer: 1500,

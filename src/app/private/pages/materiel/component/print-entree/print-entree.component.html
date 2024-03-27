@@ -1,0 +1,43 @@
+<main class="print-entree fill-view">
+  <div class="title">
+    <h1>Est ce le model que vous voulez imprimer ?</h1>
+  </div>
+  <table class="section-table-entree" #content>
+    <thead class="table-heading-entree">
+      <tr class="heading">
+        <th>Numero</th>
+        <th>Numero Folio</th>
+        <th>Nomenclature</th>
+        <th>Designation</th>
+        <th>Espace Unitaire</th>
+        <th>Quantite</th>
+        <th>Prix</th>
+        <th>Annee Grand Livre</th>
+        <th>Facture N°</th>
+      </tr>
+    </thead>
+    <tbody class="table-body">
+      @for (data of entreedata; track $index) {
+      <tr class="data">
+        <td>{{ data.numEntree }}</td>
+        <td>{{ data.numFolioGL }}</td>
+        <td>{{ data.nomenclature }}</td>
+        <td>{{ data.designation }}</td>
+        <td>{{ data.especeUnitaire }}</td>
+        <td>{{ data.quantite }}</td>
+        <td>{{ data.prix }}</td>
+        <td>{{ data.annee.newannee }}</td>
+        <td>{{ data.facture.numFacture }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  <div class="acceptandcancel">
+    <button type="submit" class="btn btn-success" (click)="printFournisseur()">
+      Oui
+    </button>
+    <button type="submit" class="btn btn-danger" (click)="closePrint()">
+      Non
+    </button>
+  </div>
+</main>

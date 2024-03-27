@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PrivateServiceService } from '../../../../service/fournisseur.service';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
   templateUrl: './addfournisseur.component.html',
   styleUrl: './addfournisseur.component.scss',
 })
-export class AddfournisseurComponent {
+export class AddfournisseurComponent implements OnInit {
   constructor(
     private PrivateService: PrivateServiceService,
     private formBuilder: FormBuilder
@@ -85,5 +85,20 @@ export class AddfournisseurComponent {
       },
     });
   }
-  @Input() data = new EventEmitter();
+  @Input() fournisseurData: any;
+
+  ngOnInit() {
+    console.log('Donnee :', this.fournisseurData);
+    if (this.fournisseurData) {
+      this.FournisseurForm.patchValue({
+        numFrns: this.fournisseurData.numFrns,
+        nomFrns: this.fournisseurData.nomFrns,
+        prenomFrns: this.fournisseurData.prenomFrns,
+        adrsFrns: this.fournisseurData.adrsFrns,
+        telFrns: this.fournisseurData.telFrns,
+        typeFrns: this.fournisseurData.typeFrns,
+      });
+      this.PrivateService.update(this.FournisseurForm.value);
+    }
+  }
 }

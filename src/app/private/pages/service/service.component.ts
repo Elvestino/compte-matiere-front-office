@@ -1,4 +1,3 @@
-import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -15,7 +14,6 @@ import { PrintServiceComponent } from './components/print-service/print-service.
   selector: 'app-service',
   standalone: true,
   imports: [
-    HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     PrintServiceComponent,

@@ -5,34 +5,93 @@
       <h1 class="title">Enregistrement d'un facture</h1>
 
       <hr />
-      <form class="component-form">
+      <form
+        class="component-form"
+        [formGroup]="FactureForm"
+        (submit)="submitFacture()"
+      >
         <div class="component">
           <label for="numFacture">Numero</label>
-          <input type="text" name="numFacture" id="numFacture" />
+          <input
+            type="text"
+            name="numFacture"
+            id="numFacture"
+            formControlName="numFacture"
+          />
+
+          @if (numFacture?.touched && numFacture?.errors?.["required"]) {
+          <span class="error-text"> Le numero, s'il vous plait. </span>
+          }
         </div>
         <div class="component">
           <label for="date">Date</label>
-          <input type="date" name="date" id="date" />
+          <input
+            type="date"
+            name="date"
+            id="date"
+            formControlName="dateFacture"
+          />
         </div>
         <div class="component">
           <label for="destination">Destination</label>
-          <input type="text" name="destination" id="destination" />
+          <input
+            type="text"
+            name="destination"
+            formControlName="destination"
+            id="destination"
+          />
+          @if (destination?.touched && destination?.errors?.["required"]) {
+          <span class="error-text"> Le destination, s'il vous plait. </span>
+          }
         </div>
         <div class="component">
           <label for="objet">Objet</label>
-          <input type="text" name="objet" id="objet" />
+          <input
+            type="text"
+            name="objet"
+            formControlName="objetFacture"
+            id="objet"
+          />
+          @if (objetFacture?.touched && objetFacture?.errors?.["required"]) {
+          <span class="error-text"> L'objet, s'il vous plait. </span>
+          }
         </div>
         <div class="component">
           <label for="lieu">Lieu</label>
-          <input type="text" name="lieu" id="lieu" />
+          <input
+            type="text"
+            name="lieu"
+            formControlName="LieuFacture"
+            id="lieu"
+          />
+          @if (LieuFacture?.touched && LieuFacture?.errors?.["required"]) {
+          <span class="error-text"> Le lieu, s'il vous plait. </span>
+          }
         </div>
         <div class="component">
           <label for="montant">Montant</label>
-          <input type="text" name="montant" id="montant" />
+          <input
+            type="text"
+            name="montant"
+            formControlName="montantFacture"
+            id="montant"
+          />
+          @if (montantFacture?.touched && montantFacture?.errors?.["required"])
+          {
+          <span class="error-text"> Le prix, s'il vous plait. </span>
+          }
         </div>
         <div class="component">
           <label for="type">Type</label>
-          <input type="text" name="type" id="type" />
+          <input
+            type="text"
+            name="type"
+            formControlName="typeFacture"
+            id="type"
+          />
+          @if (typeFacture?.touched && typeFacture?.errors?.["required"]) {
+          <span class="error-text"> D'ou vous venez, s'il vous plait. </span>
+          }
         </div>
       </form>
     </div>
@@ -44,9 +103,13 @@
       <hr />
       <form class="component-form">
         <div class="component">
-          <label for="numFournisseur">Numero</label>
-          <select name="numFournisseur" id="numFournisseur">
-            <option value=""></option>
+          <label for="numFrns">Numero</label>
+          <select name="numFrns" id="numFrns" formControlName="numFrns">
+            @for(frns of dataFrns; track $index){
+            <option value="{{ frns.numFrns }}">
+              {{ frns.numFrns }}
+            </option>
+            }
           </select>
         </div>
       </form>
@@ -58,12 +121,21 @@
       <div class="component-form">
         <div class="component">
           <label for="numOrdre">Ordre</label>
-          <select name="numOrdre" id="numOrdre">
-            <option value=""></option>
+
+          <select name="numOrdre" id="numOrdre" formControlName="numOrdre">
+            @for(ordre of dataOrdre; track $index){
+            <option value="{{ ordre.numOrdre }}">{{ ordre.numOrdre }}</option>
+            }
           </select>
         </div>
         <div class="addFacture">
-          <button type="button" class="btn btn-primary w-100">Confirmer</button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            (click)="submitFacture()"
+          >
+            {{ formHeader }}
+          </button>
         </div>
       </div>
     </div>
@@ -85,7 +157,51 @@
           <th>Action</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody class="table-body">
+        @for (item of dataFacture; track $index) {
+        <tr class="data">
+          <td>
+            {{ item.numFacture }}
+          </td>
+          <td>
+            {{ item.dateFacture }}
+          </td>
+          <td>
+            {{ item.destination }}
+          </td>
+          <td>
+            {{ item.objetFacture }}
+          </td>
+          <td>
+            {{ item.LieuFacture }}
+          </td>
+          <td>
+            {{ item.montantFacture }}
+          </td>
+          <td>
+            {{ item.typeFacture }}
+          </td>
+          <td>
+            {{ item.fournisseur.numFrns }}
+          </td>
+          <td>
+            {{ item.ordre.numOrdre }}
+          </td>
+          <td class="data-control">
+            <button class="btn btn-success" (click)="modifFacture(item)">
+              <i class="fa-solid fa-pencil"></i>
+            </button>
+
+            <button
+              class="btn btn-danger"
+              (click)="deleteFacture(item.numService)"
+            >
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
     </table>
     <div class="print">
       <button type="button" class="btn btn-dark">

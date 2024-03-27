@@ -74,6 +74,23 @@
           }
         }
       }
+      .table-body {
+        .data {
+          border-bottom: 1px solid #eee;
+          td {
+            padding: 8px 20px;
+            border: 1px solid #eee;
+            &:last-child {
+              display: flex;
+              justify-content: space-between;
+              border: none;
+            }
+          }
+          &:nth-child(even) {
+            background-color: #eee;
+          }
+        }
+      }
     }
     .print {
       margin: 20px 10px;

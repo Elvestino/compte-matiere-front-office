@@ -1,3 +1,6 @@
+@if(PrintComponent){
+<app-print-entree (close)="openPrint()"></app-print-entree>
+}
 <main class="entree">
   <!-- ----------------------entree------------------------- -->
   <section class="form-component w-100">
@@ -5,71 +8,129 @@
       <h1 class="title">Enregistrement materiels d'entree</h1>
 
       <hr />
-      <form class="component-form">
+      <form
+        class="component-form"
+        [formGroup]="EntreeForm"
+        (submit)="AddEntree()"
+      >
         <div class="component">
-          <label for="">Numero d'entree</label>
-          <input type="text" name="numEntree" id="numEntree" />
+          <label for="numEntree">Numero d'entree</label>
+          <input
+            type="text"
+            name="numEntree"
+            id="numEntree"
+            formControlName="numEntree"
+          />
         </div>
         <div class="component">
           <label for="numFolioGL">Numero Folio du Grand Livre</label>
-          <input type="text" name="numFolioGL" id="numFolioGL" />
+          <input
+            type="text"
+            name="numFolioGL"
+            id="numFolioGL"
+            formControlName="numFolioGL"
+          />
         </div>
         <div class="component">
           <label for="nomenclature">Nomenclature</label>
-          <select name="nomenclature" id="nomenclature">
-            <option value=""></option>
+          <select
+            name="nomenclature"
+            id="nomenclature"
+            formControlName="nomenclature"
+          >
+            @for(i of nomenclature; track $index){
+            <option [value]="i">{{ i }}</option>
+            }
           </select>
         </div>
         <div class="component">
           <label for="designation">Designation</label>
-          <input type="text" name="designation" id="designation" />
+          <input
+            type="text"
+            name="designation"
+            id="designation"
+            formControlName="designation"
+          />
         </div>
         <div class="component">
-          <label for="espaceUnitaire">Espace Unitaire</label>
-          <select name="espaceUnitaire" id="espaceUnitaire">
-            <option value=""></option>
+          <label for="especeUnitaire">Espece Unitaire</label>
+          <select
+            name="especeUnitaire"
+            id="especeUnitaire"
+            formControlName="especeUnitaire"
+          >
+            @for(boucle of especeUnitaire; track $index){
+            <option [value]="boucle">{{ boucle }}</option>
+            }
           </select>
         </div>
         <div class="component">
           <label for="quantite">Quantite</label>
-          <input type="text" name="quantite" id="quantite" />
+          <input
+            type="text"
+            name="quantite"
+            id="quantite"
+            formControlName="quantite"
+          />
         </div>
         <div class="component">
           <label for="prix">Prix</label>
-          <input type="text" name="prix" id="prix" />
+          <input type="text" name="prix" id="prix" formControlName="prix" />
+        </div>
+
+        <!-- ----------------------Grand livre------------------------- -->
+
+        <div class="component-title">
+          <h1 class="title">Grand Livre</h1>
+          <hr />
+          <div class="component">
+            <label for="newannee">Annee</label>
+            <select name="newannee" id="newannee" formControlName="newannee">
+              @for(annee of anneedata; track $index){
+              <option value="{{ annee.newannee }}">{{ annee.newannee }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <!-- ----------------------facture------------------------- -->
+
+        <div class="component-title">
+          <h1 class="title">Facture</h1>
+          <hr />
+          <div class="component-form">
+            <div class="component">
+              <label for="numFacture">Facture</label>
+              <select id="numFacture" formControlName="numFacture">
+                @for(facture of facturedata; track $index){
+                <option value="{{ facture.numFacture }}">
+                  {{ facture.numFacture }}
+                </option>
+                }
+              </select>
+            </div>
+            <div class="btn">
+              @if (EntreeForm.valid) {
+              <!-- //<button type="submit">Confirmer</button> -->
+              <button
+                class="{{
+                  isRegisterSuccess
+                    ? 'btn btn-success transition'
+                    : 'btn btn-primary transition'
+                }}"
+                type="submit"
+              >
+                @if (isSubmitting) {
+                <i class="fa fa-circle-notch fa-spin"></i>
+                } @else { @if (isRegisterSuccess) {
+                <i class="fa fa-check"></i>
+                } @else { {{ formHeader }} } }
+              </button>
+              }
+            </div>
+          </div>
         </div>
       </form>
-    </div>
-  </section>
-  <!-- ----------------------Grand livre------------------------- -->
-  <section class="form-component w-100">
-    <div class="component-title">
-      <h1 class="title">Grand Livre</h1>
-      <hr />
-      <form class="component-form">
-        <div class="component">
-          <label for="AnneeGL">Annee</label>
-          <select name="AnneeGL" id="AnneeGL">
-            <option value=""></option>
-          </select>
-        </div>
-      </form>
-    </div>
-    <!-- ----------------------facture------------------------- -->
-    <div class="component-title">
-      <h1 class="title">Facture</h1>
-      <hr />
-      <div class="component-form">
-        <div class="component">
-          <label for="numFacture">Facture</label>
-          <select name="numOrdre" id="numFacture">
-            <option value=""></option>
-          </select>
-        </div>
-        <div class="addEntree">
-          <button type="button" class="btn btn-primary w-100">Confirmer</button>
-        </div>
-      </div>
     </div>
   </section>
   <!-- ----------------------table------------------------- -->
@@ -84,15 +145,46 @@
           <th>Espace Unitaire</th>
           <th>Quantite</th>
           <th>Prix</th>
-          <th>Anne Grand Livre</th>
+          <th>Annee Grand Livre</th>
           <th>Facture N°</th>
           <th>Action</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody class="table-body">
+        @for (data of entreedata; track $index) {
+        <tr class="data">
+          <td>{{ data.numEntree }}</td>
+          <td>{{ data.numFolioGL }}</td>
+          <td>{{ data.nomenclature }}</td>
+          <td>{{ data.designation }}</td>
+          <td>{{ data.especeUnitaire }}</td>
+          <td>{{ data.quantite }}</td>
+          <td>{{ data.prix }}</td>
+          <td>{{ data.annee.newannee }}</td>
+          <td>{{ data.facture.numFacture }}</td>
+          <td class="data-control">
+            <button
+              class="btn btn-success"
+              aria-label="modif"
+              (click)="modifEntree(data)"
+            >
+              <i class="fa-solid fa-pencil"></i>
+            </button>
+
+            <button
+              class="btn btn-danger"
+              aria-label="delete"
+              (click)="deleteEntree(data.numEntree)"
+            >
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
     </table>
     <div class="print">
-      <button type="button" class="btn btn-dark">
+      <button type="button" class="btn btn-dark" (click)="openPrint()">
         <i class="fa fa-print" aria-hidden="true"> </i> Imprimer
       </button>
     </div>
