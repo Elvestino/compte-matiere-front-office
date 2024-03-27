@@ -1,72 +1,116 @@
 @if (Annee) {
-  <app-add-annee (open)="OpenAddForm()"></app-add-annee>
+<app-add-annee (open)="OpenAddForm()"></app-add-annee>
 }
 <div class="head-title">
   <h1>Ministere Finance et du Budget</h1>
 </div>
 <main class="journal">
   <!-- ---------------------Add journal------------------ -->
+
   <div class="form-journal">
-    <div class="AnneeAndFacture">
-      <div class="anneeJournal">
-        <label for="annee">Annee</label>
-        <select name="annee" id="annee">
-          <option value="">2023</option>
-        </select>
+    <form class="form-show-journal d-flex" [formGroup]="EntreeForm">
+      <div class="AnneeAndFacture">
+        <div class="anneeJournal">
+          <label for="annee">Annee</label>
+          <select name="newannee" id="newannee" formControlName="newannee">
+            @for(annee of anneedata; track $index){
+            <option value="{{ annee.newannee }}">{{ annee.newannee }}</option>
+            }
+          </select>
+        </div>
+        <div class="numFacture">
+          <label for="numFacture">Facture</label>
+          <select id="numFacture" formControlName="numFacture">
+            @for(facture of facturedata; track $index){
+            <option value="{{ facture.numFacture }}">
+              {{ facture.numFacture }}
+            </option>
+            }
+          </select>
+        </div>
       </div>
-      <div class="facture">
-        <label for="facture">Facture</label>
-        <select name="facture" id="facture">
-          <option value="">1</option>
-        </select>
-      </div>
-    </div>
-    <div class="addJournal">
-      <h1 class="add">Enregistrement</h1>
-      <hr />
-      <form class="form-show-journal d-flex">
+      <div class="addJournal">
+        <h1 class="add">Enregistrement</h1>
+        <hr />
+
         <div class="form-content">
-          <label for="numFacture">Numero </label>
-          <input type="text" name="numFacture" id="numFacture" disabled />
+          <label for="numEntree">Numero </label>
+          <input
+            type="text"
+            name="numEntree"
+            id="numEntree"
+            formControlName="numEntree"
+            [disabled]="isDisabled"
+          />
         </div>
         <div class="form-content">
-          <label for="date">Numero Folio</label>
-          <input type="text" name="numFolio" disabled />
+          <label for="numFolioGL">Numero Folio</label>
+          <input
+            type="text"
+            name="numFolioGL"
+            formControlName="numFolioGL"
+            [disabled]="isDisabled"
+          />
         </div>
         <div class="form-content">
           <label for="nomenclature">Nomenclature </label>
-          <input type="text" name="nomenclature" id="nomenclature" disabled />
+          <input
+            type="text"
+            name="nomenclature"
+            id="nomenclature"
+            formControlName="nomenclature"
+            [disabled]="isDisabled"
+          />
         </div>
         <div class="form-content">
-          <label for="destination">Espace Unitaire </label>
+          <label for="especeUnitaire">Espace Unitaire </label>
           <input
             type="text"
             name="espaceUnitaire"
             id="espaceUnitaire"
-            disabled
+            formControlName="especeUnitaire"
+            [disabled]="isDisabled"
           />
         </div>
         <div class="form-content">
           <label for="quantite">Quantite </label>
-          <input type="text" name="quantite" id="quantite" disabled />
+          <input
+            type="text"
+            name="quantite"
+            id="quantite"
+            formControlName="quantite"
+            [disabled]="isDisabled"
+          />
         </div>
         <div class="form-content">
           <label for="prix">Prix </label>
-          <input type="text" name="prix" id="prix" disabled />
+          <input
+            type="text"
+            name="prix"
+            id="prix"
+            formControlName="prix"
+            [disabled]="isDisabled"
+          />
           <span for="ar">Ar</span><br />
         </div>
         <div class="form-content">
           <label for="designation">Designation </label>
-          <input type="text" name="designation" id="designation" disabled />
+          <input
+            type="text"
+            name="designation"
+            id="designation"
+            formControlName="designation"
+            [disabled]="isDisabled"
+          />
         </div>
-      </form>
 
-      <div class="addNouvelleAnee">
-        <button type="button" class="btn btn-primary" (click)="OpenAddForm()">
-          Ajouter nouvelle Annee
-        </button>
+        <div class="addNouvelleAnee">
+          <button type="button" class="btn btn-primary" (click)="OpenAddForm()">
+            Ajouter nouvelle Annee
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
   <!-- ---------------------table journal----------- -->
   <div class="table-journal">
@@ -74,31 +118,42 @@
     <table class="section-table">
       <thead class="table-heading">
         <tr class="heading">
-          <th>Numero du Facture</th>
+          <th>Numero du materiel</th>
           <th>Numero Folio</th>
           <th>Nomenclature</th>
           <th>Prix Unitaire</th>
           <th>Quantite</th>
           <th>Prix</th>
           <th>Designation</th>
+          <th>Annee Grand Livre</th>
+          <th>Facture N°</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody class="table-body">
+        @for (data of entreedata; track $index) {
         <tr class="data">
-          <td>djkdfjkdfjdk</td>
-          <td>djkdfjkdfjdk</td>
-          <td>djkdfjkdfjdk</td>
-          <td>djkdfjkdfjdk</td>
-          <td>djkdfjkdfjdk</td>
-          <td>djkdfjkdfjdk</td>
-          <td>djkdfjkdfjdk</td>
+          <td>{{ data.numEntree }}</td>
+          <td>{{ data.numFolioGL }}</td>
+          <td>{{ data.nomenclature }}</td>
+          <td>{{ data.designation }}</td>
+          <td>{{ data.especeUnitaire }}</td>
+          <td>{{ data.quantite }}</td>
+          <td>{{ data.prix }}</td>
+          <td>{{ data.annee.newannee }}</td>
+          <td>{{ data.facture.numFacture }}</td>
+          <td class="data-control">
+            <button
+              class="btn btn-success"
+              aria-label="modif"
+              (click)="modifEntree(data)"
+            >
+              <i class="fa-solid fa-pencil"></i> Cliquer
+            </button>
+          </td>
         </tr>
+        }
       </tbody>
     </table>
-    <div class="print">
-      <button type="button" class="btn btn-dark">
-        <i class="fa fa-print" aria-hidden="true"> </i> Imprimer
-      </button>
-    </div>
   </div>
 </main>

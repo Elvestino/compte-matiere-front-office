@@ -11,11 +11,18 @@ import { OrdreService } from '../../../service/ordre.service';
 import { PrivateServiceService } from '../../../service/fournisseur.service';
 import Swal from 'sweetalert2';
 import { HttpClientModule } from '@angular/common/http';
+import { PrintFactureComponent } from '../component/print-facture/print-facture.component';
 
 @Component({
   selector: 'app-facture',
   standalone: true,
-  imports: [ReactiveFormsModule, HttpClientModule, FormsModule, RouterLink],
+  imports: [
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
+    PrintFactureComponent,
+    RouterLink,
+  ],
   templateUrl: './facture.component.html',
   styleUrl: './facture.component.scss',
 })
@@ -48,25 +55,25 @@ export class FactureComponent {
 
   isSubmitting: boolean = false;
   isRegisterSuccess: boolean = false;
-  //PrintComponent: boolean = false;
+  PrintComponent: boolean = false;
 
-  // clear() {
-  //   this.FactureForm = this.formBuilder.group({
-  //     numFacture: '',
-  //     dateFacture: '',
-  //     destination: '',
-  //     LieuFacture: '',
-  //     typeFacture: '',
-  //     objetFacture: '',
-  //     montantFacture: '',
-  //     numFrns: '',
-  //     numOrdre: '',
-  //   });
-  // }
-  // openPrint() {
-  //   this.PrintComponent = !this.PrintComponent;
-  //   this.getDataFacture();
-  // }
+  clear() {
+    this.FactureForm = this.formBuilder.group({
+      numFacture: '',
+      dateFacture: '',
+      destination: '',
+      LieuFacture: '',
+      typeFacture: '',
+      objetFacture: '',
+      montantFacture: '',
+      numFrns: '',
+      numOrdre: '',
+    });
+  }
+  openPrint() {
+    this.PrintComponent = !this.PrintComponent;
+    this.getDataFacture();
+  }
 
   get numFacture() {
     return this.FactureForm.get('numFacture');
@@ -119,7 +126,7 @@ export class FactureComponent {
         this.isRegisterSuccess = true;
         setTimeout(() => {
           this.getDataFacture();
-          //this.clear();
+          this.clear();
         }, 1000);
       },
       error: () => {
@@ -139,15 +146,15 @@ export class FactureComponent {
   modifFacture(item: any) {
     if (this.FactureForm) {
       this.FactureForm.patchValue({
-        numFacture: item.numService,
+        numFacture: item.numFacture,
         dateFacture: item.dateFacture,
         destination: item.destination,
         LieuFacture: item.LieuFacture,
         typeFacture: item.typeFacture,
         objetFacture: item.objetFacture,
         montantFacture: item.montantFacture,
-        numFrns: item.numFrns,
-        numOrdre: item.numOrdre,
+        numFrns: item.fournisseur.numFrns,
+        numOrdre: item.ordre.numOrdre,
       });
       this.formHeader = 'Modifier';
 
@@ -185,7 +192,7 @@ export class FactureComponent {
           this.facture.remove(numFacture).subscribe({
             next: () => {
               this.getDataFacture();
-              // this.clear();
+              this.clear();
             },
             error: (error) => {
               console.error(error);

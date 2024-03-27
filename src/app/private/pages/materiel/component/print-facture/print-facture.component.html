@@ -1,1 +1,67 @@
-<p>print-facture works!</p>
+<main class="print-facture fill-view">
+  <div class="title">
+    <h1>Est ce le model que vous voulez imprimer ?</h1>
+  </div>
+  <section class="table">
+    <table class="section-table-facture" #content>
+      <thead class="table-heading-facture">
+        <tr class="heading">
+          <th>Numero</th>
+          <th>Date</th>
+          <th>Destination</th>
+          <th>Objet</th>
+          <th>Lieu</th>
+          <th>Montant</th>
+          <th>Type</th>
+          <th>Fournisseur N°</th>
+          <th>Ordre N°</th>
+        </tr>
+      </thead>
+      <tbody class="table-body-facture">
+        @for (item of dataFacture; track $index) {
+        <tr class="data">
+          <td>
+            {{ item.numFacture }}
+          </td>
+          <td>
+            {{ item.dateFacture }}
+          </td>
+          <td>
+            {{ item.destination }}
+          </td>
+          <td>
+            {{ item.objetFacture }}
+          </td>
+          <td>
+            {{ item.LieuFacture }}
+          </td>
+          <td>
+            {{ item.montantFacture }}
+          </td>
+          <td>
+            {{ item.typeFacture }}
+          </td>
+          <td>
+            {{ item.fournisseur.numFrns }}
+          </td>
+          <td>
+            {{ item.ordre.numOrdre }}
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    <div class="acceptandcancel">
+      <button
+        type="submit"
+        class="btn btn-success"
+        (click)="printFournisseur()"
+      >
+        Oui
+      </button>
+      <button type="submit" class="btn btn-danger" (click)="closePrint()">
+        Non
+      </button>
+    </div>
+  </section>
+</main>

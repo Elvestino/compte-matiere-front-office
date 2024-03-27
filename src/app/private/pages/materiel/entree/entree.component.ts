@@ -95,9 +95,6 @@ export class EntreeComponent {
   }
 
   AddEntree() {
-    console.log(this.EntreeForm.value);
-    console.log('NUMFACTURE', typeof this.EntreeForm.value.numFacture);
-    console.log('NEWANNEE', typeof this.EntreeForm.value.newannee);
     this.isSubmitting = true;
     this.entree.create(this.EntreeForm.value).subscribe({
       next: () => {

@@ -1,3 +1,6 @@
+@if(PrintComponent){
+<app-print-facture (close)="openPrint()"></app-print-facture>
+}
 <main class="facture">
   <!-- ----------------------facture------------------------- -->
   <section class="form-component w-100">
@@ -93,51 +96,48 @@
           <span class="error-text"> D'ou vous venez, s'il vous plait. </span>
           }
         </div>
-      </form>
-    </div>
-  </section>
-  <!-- ----------------------fournisseur------------------------- -->
-  <section class="form-component w-100">
-    <div class="component-title">
-      <h1 class="title">Fournisseur</h1>
-      <hr />
-      <form class="component-form">
-        <div class="component">
-          <label for="numFrns">Numero</label>
-          <select name="numFrns" id="numFrns" formControlName="numFrns">
-            @for(frns of dataFrns; track $index){
-            <option value="{{ frns.numFrns }}">
-              {{ frns.numFrns }}
-            </option>
-            }
-          </select>
-        </div>
-      </form>
-    </div>
-    <!-- ----------------------ordre------------------------- -->
-    <div class="component-title">
-      <h1 class="title">Ordre</h1>
-      <hr />
-      <div class="component-form">
-        <div class="component">
-          <label for="numOrdre">Ordre</label>
 
-          <select name="numOrdre" id="numOrdre" formControlName="numOrdre">
-            @for(ordre of dataOrdre; track $index){
-            <option value="{{ ordre.numOrdre }}">{{ ordre.numOrdre }}</option>
-            }
-          </select>
+        <!-- ----------------------fournisseur------------------------- -->
+
+        <div class="component-title">
+          <h1 class="title">Fournisseur</h1>
+          <hr />
+
+          <div class="component">
+            <label for="numFrns">Numero</label>
+            <select name="numFrns" id="numFrns" formControlName="numFrns">
+              @for(frns of dataFrns; track $index){
+              <option value="{{ frns.numFrns }}">
+                {{ frns.numFrns }}
+              </option>
+              }
+            </select>
+          </div>
         </div>
-        <div class="addFacture">
-          <button
-            type="submit"
-            class="btn btn-primary"
-            (click)="submitFacture()"
-          >
-            {{ formHeader }}
-          </button>
+        <!-- ----------------------ordre------------------------- -->
+        <div class="component-title">
+          <h1 class="title">Ordre</h1>
+          <hr />
+          <div class="component-form">
+            <div class="component">
+              <label for="numOrdre">Ordre</label>
+
+              <select name="numOrdre" id="numOrdre" formControlName="numOrdre">
+                @for(ordre of dataOrdre; track $index){
+                <option value="{{ ordre.numOrdre }}">
+                  {{ ordre.numOrdre }}
+                </option>
+                }
+              </select>
+            </div>
+            <div class="addFacture">
+              <button type="submit" class="btn btn-primary">
+                {{ formHeader }}
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   </section>
   <!-- ----------------------table------------------------- -->
@@ -194,7 +194,7 @@
 
             <button
               class="btn btn-danger"
-              (click)="deleteFacture(item.numService)"
+              (click)="deleteFacture(item.numFacture)"
             >
               <i class="fa-solid fa-trash"></i>
             </button>
@@ -204,7 +204,7 @@
       </tbody>
     </table>
     <div class="print">
-      <button type="button" class="btn btn-dark">
+      <button type="button" class="btn btn-dark" (click)="openPrint()">
         <i class="fa fa-print" aria-hidden="true"> </i> Imprimer
       </button>
     </div>
