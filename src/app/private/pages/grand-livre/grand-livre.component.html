@@ -18,7 +18,7 @@
             }
           </select>
         </div>
-        <div class="numFacture">
+        <div class="facture">
           <label for="numFacture">Facture</label>
           <select id="numFacture" formControlName="numFacture">
             @for(facture of facturedata; track $index){
@@ -34,7 +34,7 @@
         <hr />
 
         <div class="form-content">
-          <label for="numEntree">Numero </label>
+          <label for="numEntree">Numero </label><br />
           <input
             type="text"
             name="numEntree"
@@ -83,7 +83,7 @@
           />
         </div>
         <div class="form-content">
-          <label for="prix">Prix </label>
+          <label for="prix">Prix </label><br />
           <input
             type="text"
             name="prix"
@@ -91,7 +91,7 @@
             formControlName="prix"
             [disabled]="isDisabled"
           />
-          <span for="ar">Ar</span><br />
+          <span for="ar">Ar</span>
         </div>
         <div class="form-content">
           <label for="designation">Designation </label>
@@ -103,14 +103,13 @@
             [disabled]="isDisabled"
           />
         </div>
-
-        <div class="addNouvelleAnee">
-          <button type="button" class="btn btn-primary" (click)="OpenAddForm()">
-            Ajouter nouvelle Annee
-          </button>
-        </div>
       </div>
     </form>
+    <div class="addNouvelleAnee">
+      <button type="button" class="btn btn-primary" (click)="OpenAddForm()">
+        Ajouter nouvelle Annee
+      </button>
+    </div>
   </div>
   <!-- ---------------------table journal----------- -->
   <div class="table-journal">
@@ -127,12 +126,11 @@
           <th>Designation</th>
           <th>Annee Grand Livre</th>
           <th>Facture N°</th>
-          <th>Action</th>
         </tr>
       </thead>
       <tbody class="table-body">
         @for (data of entreedata; track $index) {
-        <tr class="data">
+        <tr class="data" (click)="modifEntree(data)">
           <td>{{ data.numEntree }}</td>
           <td>{{ data.numFolioGL }}</td>
           <td>{{ data.nomenclature }}</td>
@@ -142,15 +140,6 @@
           <td>{{ data.prix }}</td>
           <td>{{ data.annee.newannee }}</td>
           <td>{{ data.facture.numFacture }}</td>
-          <td class="data-control">
-            <button
-              class="btn btn-success"
-              aria-label="modif"
-              (click)="modifEntree(data)"
-            >
-              <i class="fa-solid fa-pencil"></i> Cliquer
-            </button>
-          </td>
         </tr>
         }
       </tbody>

@@ -112,6 +112,40 @@
       </form>
     </div>
   </section>
+  <!-- ----------------------table------------------------- -->
+
+  <section class="table-entree 1ertableau">
+    <table class="section-table-sortie">
+      <thead class="table-heading-sortie">
+        <tr class="heading">
+          <th>Numero</th>
+          <th>Numero Folio</th>
+          <th>Nomenclature</th>
+          <th>Designation</th>
+          <th>Espace Unitaire</th>
+          <th>Quantite</th>
+          <th>Prix</th>
+          <th>Annee Grand Livre</th>
+          <th>Facture N°</th>
+        </tr>
+      </thead>
+      <tbody class="table-body">
+        @for (data of entreedata; track $index) {
+        <tr class="data" (click)="Click(data)">
+          <td>{{ data.numEntree }}</td>
+          <td>{{ data.numFolioGL }}</td>
+          <td>{{ data.nomenclature }}</td>
+          <td>{{ data.designation }}</td>
+          <td>{{ data.especeUnitaire }}</td>
+          <td>{{ data.quantite }}</td>
+          <td>{{ data.prix }}</td>
+          <td>{{ data.annee.newannee }}</td>
+          <td>{{ data.facture.numFacture }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </section>
 
   <section class="table 2emtableau">
     <table class="section-table-sortie">
@@ -132,48 +166,3 @@
     </div>
   </section>
 </main>
-
-<!-- ----------------------table------------------------- -->
-
-<section class="table-entree 1ertableau">
-  <table class="section-table-sortie">
-    <thead class="table-heading-sortie">
-      <tr class="heading">
-        <th>Numero</th>
-        <th>Numero Folio</th>
-        <th>Nomenclature</th>
-        <th>Designation</th>
-        <th>Espace Unitaire</th>
-        <th>Quantite</th>
-        <th>Prix</th>
-        <th>Annee Grand Livre</th>
-        <th>Facture N°</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody class="table-body">
-      @for (data of entreedata; track $index) {
-      <tr class="data">
-        <td>{{ data.numEntree }}</td>
-        <td>{{ data.numFolioGL }}</td>
-        <td>{{ data.nomenclature }}</td>
-        <td>{{ data.designation }}</td>
-        <td>{{ data.especeUnitaire }}</td>
-        <td>{{ data.quantite }}</td>
-        <td>{{ data.prix }}</td>
-        <td>{{ data.annee.newannee }}</td>
-        <td>{{ data.facture.numFacture }}</td>
-        <td class="data-control">
-          <button
-            class="btn btn-success"
-            aria-label="modif"
-            (click)="Click(data)"
-          >
-            <i class="fa-solid fa-pencil"></i> Cliquer
-          </button>
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
-</section>

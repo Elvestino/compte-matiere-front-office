@@ -1,6 +1,0 @@
- <!-- <option value="" disabled selected>Choisir un service</option> -->
-            <!-- @for(service of servicedata; track $index){
-            <option value="{{ service.numService }}">
-              {{ service.numService }}
-            </option>
-            } -->
