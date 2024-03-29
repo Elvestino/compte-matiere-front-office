@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { AddOrdreComponent } from './components/add-ordre/add-ordre.component';
 import { AddfournisseurComponent } from './components/addfournisseur/addfournisseur.component';
 import { PrivateServiceService } from '../../service/fournisseur.service';
-import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { PrintFrnsComponent } from './components/print-frns/print-frns.component';
 import { RouterLink } from '@angular/router';
@@ -35,6 +35,8 @@ export class FournisseurComponent implements OnInit {
 
   items: any[] = [];
   ordre: any[] = [];
+  selectedData: any[] = [];
+  selectDataOrdre: any[] = [];
   search = new FormControl();
   searchOrdre = new FormControl();
 
@@ -42,12 +44,24 @@ export class FournisseurComponent implements OnInit {
   PrintComponent: boolean = false;
   PrintComponentOrdre: boolean = false;
   isOrdreComponentOpen: boolean = false;
-  toggleOpenAddFournisseur() {
-    this.isFournisseurComponentOpen = !this.isFournisseurComponentOpen;
+  closeCard() {
+    this.isFournisseurComponentOpen = false;
+    this.selectedData = [];
     this.Data();
   }
-  toggleOpenAddOrdre() {
-    this.isOrdreComponentOpen = !this.isOrdreComponentOpen;
+  openAddFrounisseur() {
+    this.isFournisseurComponentOpen = true;
+    this.selectedData = [];
+    this.Data();
+  }
+  CloseCardOrdre() {
+    this.isOrdreComponentOpen = false;
+    this.selectDataOrdre = [];
+    this.OrdreData();
+  }
+  OpenAddOrdre() {
+    this.isOrdreComponentOpen = true;
+    this.selectDataOrdre = [];
     this.OrdreData();
   }
   openPrint() {
@@ -93,14 +107,12 @@ export class FournisseurComponent implements OnInit {
 
   // -----------------------------UPDATE----------------------------
   modifData(item: any) {
-    console.log(item);
-    this.toggleOpenAddFournisseur();
+    this.selectedData = item;
+    this.isFournisseurComponentOpen = true;
   }
   modifDataOrdre(dataOrdre: any) {
-    console.log(dataOrdre);
-    this.toggleOpenAddOrdre();
-    this.OrdreService.update(this.OrdreData);
-    this.OrdreData();
+    this.selectDataOrdre = dataOrdre;
+    this.isOrdreComponentOpen = true;
   }
 
   // -----------------------------DELETE----------------------------

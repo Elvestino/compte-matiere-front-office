@@ -85,10 +85,9 @@ export class AddfournisseurComponent implements OnInit {
       },
     });
   }
-  @Input() fournisseurData: any;
+  @Input() fournisseurData: any = new EventEmitter();
 
   ngOnInit() {
-    console.log('Donnee :', this.fournisseurData);
     if (this.fournisseurData) {
       this.FournisseurForm.patchValue({
         numFrns: this.fournisseurData.numFrns,
@@ -98,7 +97,6 @@ export class AddfournisseurComponent implements OnInit {
         telFrns: this.fournisseurData.telFrns,
         typeFrns: this.fournisseurData.typeFrns,
       });
-      this.PrivateService.update(this.FournisseurForm.value);
     }
   }
 }

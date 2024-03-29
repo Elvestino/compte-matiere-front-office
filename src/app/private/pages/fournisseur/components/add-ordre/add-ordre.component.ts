@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormsModule,
@@ -18,7 +18,7 @@ import Swal from 'sweetalert2';
   templateUrl: './add-ordre.component.html',
   styleUrl: './add-ordre.component.scss',
 })
-export class AddOrdreComponent {
+export class AddOrdreComponent implements OnInit {
   constructor(
     private ordreService: OrdreService,
     private service: ServiceService,
@@ -92,5 +92,17 @@ export class AddOrdreComponent {
         this.isSubmitting = false;
       },
     });
+  }
+  @Input() OrdreData: any = new EventEmitter();
+
+  ngOnInit() {
+    if (this.OrdreData) {
+      this.OrdreForm.patchValue({
+        numOrdre: this.OrdreData.numOrdre,
+        dateOrdre: this.OrdreData.dateOrdre,
+        numService: this.OrdreData.service.numService,
+        newannee: this.OrdreData.annee.newannee,
+      });
+    }
   }
 }

@@ -1,7 +1,13 @@
 @if (isFournisseurComponentOpen) {
-<app-addfournisseur (close)="toggleOpenAddFournisseur()"></app-addfournisseur>
+<app-addfournisseur
+  (close)="closeCard()"
+  [fournisseurData]="selectedData"
+></app-addfournisseur>
 } @if (isOrdreComponentOpen) {
-<app-add-ordre (close)="toggleOpenAddOrdre()"></app-add-ordre>
+<app-add-ordre
+  (close)="CloseCardOrdre()"
+  [OrdreData]="selectDataOrdre"
+></app-add-ordre>
 }@if(PrintComponent){
 <app-print-frns (close)="openPrint()"></app-print-frns>
 }@if(PrintComponentOrdre){
@@ -25,7 +31,7 @@
     <button
       type="button"
       class="btn btn-success btn-add"
-      (click)="toggleOpenAddFournisseur()"
+      (click)="openAddFrounisseur()"
     >
       <i class="fa fa-plus"></i> Ajout nouveau fournisseur
     </button>
@@ -100,7 +106,7 @@
     <button
       type="button"
       class="btn btn-success btn-add"
-      (click)="toggleOpenAddOrdre()"
+      (click)="OpenAddOrdre()"
     >
       <i class="fa fa-plus"></i> Ajout nouveau Ordre
     </button>
