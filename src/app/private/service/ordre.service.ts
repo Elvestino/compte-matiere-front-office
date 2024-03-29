@@ -30,7 +30,7 @@ export class OrdreService {
   remove(numOrdre: number) {
     return this.http.delete<any>(`${this.PrivateApiUrl}/ordre/${numOrdre}`);
   }
-  filterOrdre(searchterm: string, numService: number, newannee: number) {
+  filterOrdre(searchterm: string) {
     return this.http.get<any[]>(`${this.PrivateApiUrl}/ordre`).pipe(
       map((data) => {
         return data.filter((item) => {
@@ -42,7 +42,7 @@ export class OrdreService {
             item.service.nomService
               .toLowerCase()
               .includes(searchterm.toLowerCase()) ||
-            item.newannee.toLowerCase().includes(searchterm.toLowerCase())
+            item.annee.newannee.toLowerCase().includes(searchterm.toLowerCase())
           );
         });
       })

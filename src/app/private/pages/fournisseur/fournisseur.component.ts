@@ -98,9 +98,7 @@ export class FournisseurComponent implements OnInit {
       .pipe(
         debounceTime(300),
         distinctUntilChanged(),
-        switchMap((searchOrdre) =>
-          this.OrdreService.filterOrdre(searchOrdre, numService)
-        )
+        switchMap((searchOrdre) => this.OrdreService.filterOrdre(searchOrdre))
       )
       .subscribe((filteredOrdre) => {
         this.ordre = filteredOrdre;
