@@ -14,7 +14,7 @@ import { EMPTY } from 'rxjs';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   constructor(private AuthService: AuthService, private users: GetuserService) {
     this.dateAujourdhui = this.obtenirDateAujourdhui();
     // this.anneeActuelle = this.obtenirAnneeActuelle();
@@ -35,12 +35,22 @@ export class NavbarComponent {
   logOut() {
     this.AuthService.logOut();
   }
-  obtenirHeureActuelle(): string {
+  ngOnInit(): void {
+    // Appeler la fonction pour obtenir l'heure actuelle au démarrage
+    this.obtenirHeureActuelle();
+
+    // Indexer l'heure chaque seconde
+    setInterval(() => {
+      this.obtenirHeureActuelle();
+    }, 1000); // Interval d'une seconde
+  }
+  obtenirHeureActuelle(): any {
     const date = new Date();
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
 
-    return `${hours}:${minutes}`;
+    this.heureActuelle = `${hours}:${minutes}:${seconds}`;
   }
   obtenirDateAujourdhui(): string {
     const date = new Date();
