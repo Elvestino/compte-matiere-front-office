@@ -1,3 +1,7 @@
+@if(PrintComponent){
+<app-print-sortie (close)="print()"></app-print-sortie>
+}
+
 <main class="sortie">
   <!-- ----------------------entree------------------------- -->
   <section class="form-component w-100">
@@ -103,7 +107,11 @@
               </select>
             </div>
             <div class="addSortie">
-              <button type="button" class="btn btn-primary w-100">
+              <button
+                type="button"
+                class="btn btn-primary w-100"
+                (click)="Sortie()"
+              >
                 Sortir
               </button>
             </div>
@@ -118,7 +126,7 @@
     <table class="section-table-sortie">
       <thead class="table-heading-sortie">
         <tr class="heading">
-          <th>Numero</th>
+          <th>Numero d'entree</th>
           <th>Numero Folio</th>
           <th>Nomenclature</th>
           <th>Designation</th>
@@ -155,13 +163,32 @@
           <th>Nomenclature</th>
           <th>Designation</th>
           <th>Prix</th>
+          <th>Action</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody class="table-body">
+        @for (data of sortiedata; track $index) {
+        <tr class="data">
+          <td>{{ data.numSortie }}</td>
+          <td>{{ data.entree.nomenclature }}</td>
+          <td>{{ data.entree.designation }}</td>
+          <td>{{ data.entree.prix }}</td>
+          <td class="data-control">
+            <button
+              class="btn btn-danger"
+              (click)="deleteSortie(data.numSortie)"
+            >
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
     </table>
     <div class="print">
-      <button type="button" class="btn btn-dark">
-        <i class="fa fa-print" aria-hidden="true"> </i> Imprimer
+      <button type="button" class="btn btn-dark" (click)="print()">
+        <i class="fa fa-print" aria-hidden="true"> </i>
+        Imprimer
       </button>
     </div>
   </section>

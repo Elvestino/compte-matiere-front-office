@@ -1,1 +1,33 @@
-<p>print-sortie works!</p>
+<section class="table 2emtableau">
+  <div class="title">
+    <h1>Est ce le model que vous voulez imprimer ?</h1>
+  </div>
+  <table class="section-table-sortie" #content>
+    <thead class="table-heading-sortie">
+      <tr class="heading">
+        <th>Numero</th>
+        <th>Nomenclature</th>
+        <th>Designation</th>
+        <th>Prix</th>
+      </tr>
+    </thead>
+    <tbody class="table-body">
+      @for (data of sortiedata; track $index) {
+      <tr class="data">
+        <td>{{ data.numSortie }}</td>
+        <td>{{ data.entree.nomenclature }}</td>
+        <td>{{ data.entree.designation }}</td>
+        <td>{{ data.entree.prix }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  <div class="acceptandcancel">
+    <button type="submit" class="btn btn-success" (click)="printSortie()">
+      Oui
+    </button>
+    <button type="submit" class="btn btn-danger" (click)="closePrint()">
+      Non
+    </button>
+  </div>
+</section>

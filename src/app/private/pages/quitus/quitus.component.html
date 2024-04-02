@@ -4,7 +4,16 @@
 <main class="quitus-header">
   <div class="list-header">
     <h1 class="header-title">Liste des Quitus</h1>
+    <div class="searchbarre">
+      <input
+        type="text"
+        id="search"
+        placeholder="Recherche..."
+        [formControl]="search"
+      />
+    </div>
   </div>
+
   <!-- -------------------open FORM-QUITUS--------------- -->
 
   <div class="form-add-quitus">

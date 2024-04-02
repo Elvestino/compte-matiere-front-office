@@ -110,6 +110,7 @@
       .table-heading {
         width: 100%;
         .heading {
+          text-align: center;
           background-color: #f1f1f1;
           th {
             padding: 20px;
@@ -117,7 +118,7 @@
               width: 125px;
             }
             &:nth-child(2) {
-              width: 100px;
+              width: 150px;
             }
             &:nth-child(3) {
               width: 100px;
@@ -131,7 +132,12 @@
             &:nth-child(6) {
               width: 100px;
             }
-
+            &:nth-child(7) {
+              width: 150px;
+            }
+            &:nth-child(8) {
+              width: 200px;
+            }
             &:last-child {
               width: 150px;
             }
@@ -140,6 +146,8 @@
       }
       .table-body {
         .data {
+
+          text-align: center;
           cursor: pointer;
           border-bottom: 1px solid #eee;
           td {

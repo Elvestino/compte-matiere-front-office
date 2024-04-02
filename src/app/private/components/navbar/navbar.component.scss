@@ -73,6 +73,16 @@
    
     @extend .btn-nav;
   }
+  .timeandyear{
+    margin-top: 40px;
+    cursor: default;
+    label{
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+
+    }
+  }
 }
 .app-navbar {
   width: 190px;

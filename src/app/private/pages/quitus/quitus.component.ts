@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormsModule,
   ReactiveFormsModule,
   Validators,
@@ -10,6 +11,7 @@ import { RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { QuitusService } from '../../service/quitus.service';
 import { PrintQuitusComponent } from './components/print-quitus/print-quitus.component';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-quitus',
@@ -18,7 +20,7 @@ import { PrintQuitusComponent } from './components/print-quitus/print-quitus.com
   templateUrl: './quitus.component.html',
   styleUrl: './quitus.component.scss',
 })
-export class QuitusComponent {
+export class QuitusComponent implements OnInit {
   constructor(
     private QuitusS: QuitusService,
     private service: ServiceService,
@@ -32,6 +34,7 @@ export class QuitusComponent {
 
   servicedata: any[] = [];
   quitusdata: any[] = [];
+  search = new FormControl();
   PrintComponent: boolean = false;
   isSubmitting: boolean = false;
   isRegisterSuccess: boolean = false;
@@ -74,6 +77,20 @@ export class QuitusComponent {
       this.servicedata = getAll;
     });
   }
+
+  ngOnInit(): void {
+    this.getQuitus();
+    this.search.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((searchterm) => this.QuitusS.filterquitus(searchterm))
+      )
+      .subscribe((filteredItems) => {
+        this.quitusdata = filteredItems;
+      });
+  }
+
   AddQuitus() {
     this.isSubmitting = true;
     console.log(this.QuitusForm.value.numService);

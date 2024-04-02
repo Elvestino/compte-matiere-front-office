@@ -111,8 +111,6 @@ export class FactureComponent {
 
   submitFacture() {
     this.isSubmitting = true;
-    console.log('DATA :', this.FactureForm.value);
-    console.log('DATA1111 :', this.FactureForm.value.numFrns);
     this.facture.create(this.FactureForm.value).subscribe({
       next: () => {
         Swal.fire({

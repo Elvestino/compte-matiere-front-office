@@ -38,7 +38,6 @@ export class FournisseurComponent implements OnInit {
   selectedData: any[] = [];
   selectDataOrdre: any[] = [];
   search = new FormControl();
-  searchOrdre = new FormControl();
 
   isFournisseurComponentOpen: boolean = false;
   PrintComponent: boolean = false;
@@ -92,16 +91,6 @@ export class FournisseurComponent implements OnInit {
       )
       .subscribe((filteredItems) => {
         this.items = filteredItems;
-      });
-    this.OrdreData();
-    this.searchOrdre.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap((searchOrdre) => this.OrdreService.filterOrdre(searchOrdre))
-      )
-      .subscribe((filteredOrdre) => {
-        this.ordre = filteredOrdre;
       });
   }
 
