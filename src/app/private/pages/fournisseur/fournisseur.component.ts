@@ -31,7 +31,10 @@ export class FournisseurComponent implements OnInit {
   constructor(
     private PrivateService: PrivateServiceService,
     private OrdreService: OrdreService
-  ) {}
+  ) {
+    this.OrdreData();
+    this.Data();
+  }
 
   items: any[] = [];
   ordre: any[] = [];

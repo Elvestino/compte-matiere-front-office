@@ -65,6 +65,7 @@
       .table-heading-entree {
         width: 100%;
         .heading {
+          text-align: center;
           background: #eee;
           &:nth-child(even) {
             background-color: #f2f2f2;
@@ -78,9 +79,11 @@
         .data {
           border-bottom: 1px solid #eee;
           td {
+            text-align: center;
             padding: 8px 20px;
             border: 1px solid #eee;
             &:last-child {
+              gap: 20px;
               display: flex;
               justify-content: space-between;
               border: none;

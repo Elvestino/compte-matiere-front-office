@@ -73,20 +73,22 @@
       .table-heading-facture {
         width: 100%;
         .heading {
-          background: #eee;
-          
+          background: #eee;          
           th {
+            text-align: center;
             padding: 20px;
           }
         }
       }
       .table-body {
+        text-align: center;
         .data {
           border-bottom: 1px solid #eee;
           td {
             padding: 8px 20px;
             border: 1px solid #eee;
             &:last-child {
+              gap: 20px;
               display: flex;
               justify-content: space-between;
               border: none;

@@ -2,11 +2,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './../../../shared/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-//import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GetuserService } from '../../service/getuser.service';
 import { CommonModule } from '@angular/common';
-import { switchMap } from 'rxjs';
-import { EMPTY } from 'rxjs';
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -17,13 +15,13 @@ import { EMPTY } from 'rxjs';
 export class NavbarComponent implements OnInit {
   constructor(private AuthService: AuthService, private users: GetuserService) {
     this.dateAujourdhui = this.obtenirDateAujourdhui();
-    // this.anneeActuelle = this.obtenirAnneeActuelle();
+
     this.heureActuelle = this.obtenirHeureActuelle();
-    //this.getUser(this.users);
   }
   heureActuelle: string;
   dateAujourdhui: string;
-  // anneeActuelle: number;
+  immatricule: any;
+  userData: any;
   data: any[] = [];
   open: boolean = true;
   OpenHome() {
@@ -36,14 +34,26 @@ export class NavbarComponent implements OnInit {
     this.AuthService.logOut();
   }
   ngOnInit(): void {
-    // Appeler la fonction pour obtenir l'heure actuelle au démarrage
     this.obtenirHeureActuelle();
 
-    // Indexer l'heure chaque seconde
     setInterval(() => {
       this.obtenirHeureActuelle();
-    }, 1000); // Interval d'une seconde
+    }, 1000);
+    const token = localStorage.getItem('access_token');
+    console.log(token);
+    if (token) {
+      this.users.findAll(token).subscribe(
+        (data) => {
+          this.userData = data;
+          console.log(data);
+        },
+        (error) => {
+          console.log('Erreur lors de la récupération des données : ', error);
+        }
+      );
+    }
   }
+
   obtenirHeureActuelle(): any {
     const date = new Date();
     const hours = String(date.getHours()).padStart(2, '0');
@@ -60,12 +70,4 @@ export class NavbarComponent implements OnInit {
 
     return `${day}/${month}/${year}`;
   }
-  // ngOnInit(): void {
-  //   this.getUser('1'); // Suppose que vous voulez récupérer l'utilisateur avec l'ID 1
-  // }
-
-  // getUser() {
-  //   console.log(this.users);
-  //   this.users.getImmatricule();
-  // }
 }
