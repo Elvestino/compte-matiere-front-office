@@ -73,10 +73,11 @@
       .table-heading-facture {
         width: 100%;
         .heading {
-          background: #eee;          
+          background: #eee;
           th {
             text-align: center;
             padding: 20px;
+
           }
         }
       }
@@ -87,6 +88,10 @@
           td {
             padding: 8px 20px;
             border: 1px solid #eee;
+            &:nth-child(1){
+              text-transform: uppercase;
+              font-weight: bold;
+            }
             &:last-child {
               gap: 20px;
               display: flex;

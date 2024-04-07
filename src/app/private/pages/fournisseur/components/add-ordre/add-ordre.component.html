@@ -12,21 +12,7 @@
       <div class="container-form">
         <h1>{{ title }}</h1>
         <hr />
-        <div class="container-form">
-          <label for="numOrdre">Numero </label>
-          <input
-            type="text"
-            placeholder="ex: 1"
-            name="numOrdre"
-            formControlName="numOrdre"
-            required
-          />
-          @if (numOrdre?.touched && numOrdre?.errors?.["required"]) {
-          <span class="error-text">
-            Entrer votre numero, s'il vous plait.
-          </span>
-          }
-        </div>
+
         <div class="container-form">
           <label for="date">Date </label>
           <input
@@ -37,11 +23,11 @@
           />
         </div>
         <div class="container-form">
-          <label for="numService">Numero du service </label>
-          <select formControlName="numService" id="numService">
+          <label for="nomService">Numero du service </label>
+          <select formControlName="nomService" id="nomService">
             @for(service of servicedata; track $index){
-            <option value="{{ service.numService }}">
-              {{ service.numService }}
+            <option value="{{ service.nomService }}">
+              {{ service.nomService }}
             </option>
             }
           </select>
@@ -56,7 +42,7 @@
         </div>
 
         <div class="btn">
-          <button type="submit" class="btn btn-primary">Ajouter</button>
+          <button type="submit" class="btn btn-primary">Valider</button>
         </div>
       </div>
     </form>

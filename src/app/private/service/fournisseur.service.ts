@@ -20,13 +20,13 @@ export class PrivateServiceService {
   findAll() {
     return this.http.get<any>(`${this.PrivateApiUrl}/fournisseur`);
   }
-  update(Frns: any) {
+  update(Frns: any, numFrns: string) {
     return this.http.patch<any>(
-      `${this.PrivateApiUrl}/fournisseur/:numFrns`,
+      `${this.PrivateApiUrl}/fournisseur/${numFrns}`,
       Frns
     );
   }
-  remove(numFrns: number) {
+  remove(numFrns: string) {
     return this.http.delete<any>(
       `${this.PrivateApiUrl}/fournisseur/${numFrns}`
     );

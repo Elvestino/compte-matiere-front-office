@@ -72,16 +72,10 @@
               width: 100px;
             }
             &:nth-child(2) {
-              width: 100px;
+              width: 300px;
             }
             &:nth-child(3) {
-              width: 300px;
-            }
-            &:nth-child(4) {
               width: 200px;
-            }
-            &:nth-child(5) {
-              width: 300px;
             }
 
             &:last-child {
@@ -93,6 +87,10 @@
           td {
             padding: 8px 20px;
             border: 1px solid #eee;
+            &:nth-child(1){
+              text-transform: uppercase;
+              font-weight: bolder;
+            }
             &:last-child {
               display: flex;
               justify-content: space-between;

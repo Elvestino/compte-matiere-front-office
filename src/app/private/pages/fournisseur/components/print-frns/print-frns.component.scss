@@ -51,7 +51,7 @@
           font-size: 20px;
           text-align: center;
           td {
-            &:nth-child(2) {
+            &:nth-child(1) {
 
 
               font-weight: bold;
@@ -76,7 +76,7 @@
           font-size: 18px;
           font-weight: bold;
           opacity: 0.9;
-    
+
           &:hover {
             opacity: 1;
             filter: brightness(1.2);

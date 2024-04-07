@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 export class ServiceService {
   private PrivateApiUrl = environment.apiBaseURL;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
   create(service: any) {
     return this.http.post<any>(`${this.PrivateApiUrl}/service`, service);
   }

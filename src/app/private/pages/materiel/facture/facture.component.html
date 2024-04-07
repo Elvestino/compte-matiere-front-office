@@ -5,7 +5,7 @@
   <!-- ----------------------facture------------------------- -->
   <section class="form-component w-100">
     <div class="component-title">
-      <h1 class="title">Enregistrement d'un facture</h1>
+      <h1 class="title">{{ add }}</h1>
 
       <hr />
       <form
@@ -13,19 +13,6 @@
         [formGroup]="FactureForm"
         (submit)="submitFacture()"
       >
-        <div class="component">
-          <label for="numFacture">Numero</label>
-          <input
-            type="text"
-            name="numFacture"
-            id="numFacture"
-            formControlName="numFacture"
-          />
-
-          @if (numFacture?.touched && numFacture?.errors?.["required"]) {
-          <span class="error-text"> Le numero, s'il vous plait. </span>
-          }
-        </div>
         <div class="component">
           <label for="date">Date</label>
           <input
@@ -99,43 +86,26 @@
 
         <!-- ----------------------fournisseur------------------------- -->
 
-        <div class="component-title">
+        <div class="component-title fournisseur">
           <h1 class="title">Fournisseur</h1>
           <hr />
 
           <div class="component">
-            <label for="numFrns">Numero</label>
-            <select name="numFrns" id="numFrns" formControlName="numFrns">
+            <label for="nomFrns">Nom du Fournisseur</label>
+            <select name="nomFrns" id="nomFrns" formControlName="nomFrns">
               @for(frns of dataFrns; track $index){
-              <option value="{{ frns.numFrns }}">
-                {{ frns.numFrns }}
+              <option value="{{ frns.nomFrns }}">
+                {{ frns.nomFrns }}
               </option>
               }
             </select>
           </div>
         </div>
-        <!-- ----------------------ordre------------------------- -->
-        <div class="component-title">
-          <h1 class="title">Ordre</h1>
-          <hr />
-          <div class="component-form">
-            <div class="component">
-              <label for="numOrdre">Ordre</label>
 
-              <select name="numOrdre" id="numOrdre" formControlName="numOrdre">
-                @for(ordre of dataOrdre; track $index){
-                <option value="{{ ordre.numOrdre }}">
-                  {{ ordre.numOrdre }}
-                </option>
-                }
-              </select>
-            </div>
-            <div class="addFacture">
-              <button type="submit" class="btn btn-primary">
-                {{ formHeader }}
-              </button>
-            </div>
-          </div>
+        <div class="addFacture">
+          <button type="submit" class="btn btn-primary">
+            {{ formHeader }}
+          </button>
         </div>
       </form>
     </div>
@@ -145,15 +115,15 @@
     <table class="section-table-facture">
       <thead class="table-heading-facture">
         <tr class="heading">
-          <th>Numero</th>
+          <th>Nom du Fournisseur</th>
+
           <th>Date</th>
           <th>Destination</th>
           <th>Objet</th>
           <th>Lieu</th>
           <th>Montant</th>
           <th>Type</th>
-          <th>Fournisseur N°</th>
-          <th>Ordre N°</th>
+
           <th>Action</th>
         </tr>
       </thead>
@@ -161,8 +131,9 @@
         @for (item of dataFacture; track $index) {
         <tr class="data">
           <td>
-            {{ item.numFacture }}
+            {{ item.fournisseur.nomFrns }}
           </td>
+
           <td>
             {{ item.dateFacture }}
           </td>
@@ -181,12 +152,7 @@
           <td>
             {{ item.typeFacture }}
           </td>
-          <td>
-            {{ item.fournisseur.numFrns }}
-          </td>
-          <td>
-            {{ item.ordre.numOrdre }}
-          </td>
+
           <td class="data-control">
             <button class="btn btn-success" (click)="modifFacture(item)">
               <i class="fa-solid fa-pencil"></i>

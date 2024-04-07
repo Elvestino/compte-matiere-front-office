@@ -37,25 +37,27 @@ export class FactureComponent {
     this.getDataFournisseur();
     this.getDataOrdre();
   }
+  openmodal: boolean = false;
   formHeader = 'Confirmer';
+  add = "Enregistrement d'un facture";
+  openModif: boolean = false;
   dataFacture: any[] = [];
   dataFrns: any[] = [];
   dataOrdre: any[] = [];
+  isSubmitting: boolean = false;
+  isRegisterSuccess: boolean = false;
+  PrintComponent: boolean = false;
+
   FactureForm = this.formBuilder.group({
-    numFacture: ['', [Validators.required]],
+    numFacture: [''],
     dateFacture: ['', [Validators.required]],
     destination: ['', [Validators.required]],
     LieuFacture: ['', [Validators.required]],
     typeFacture: ['', [Validators.required]],
     objetFacture: ['', [Validators.required]],
     montantFacture: ['', [Validators.required]],
-    numFrns: ['', [Validators.required]],
-    numOrdre: ['', [Validators.required]],
+    nomFrns: ['', [Validators.required]],
   });
-
-  isSubmitting: boolean = false;
-  isRegisterSuccess: boolean = false;
-  PrintComponent: boolean = false;
 
   clear() {
     this.FactureForm = this.formBuilder.group({
@@ -66,8 +68,7 @@ export class FactureComponent {
       typeFacture: '',
       objetFacture: '',
       montantFacture: '',
-      numFrns: '',
-      numOrdre: '',
+      nomFrns: '',
     });
   }
   openPrint() {
@@ -75,9 +76,6 @@ export class FactureComponent {
     this.getDataFacture();
   }
 
-  get numFacture() {
-    return this.FactureForm.get('numFacture');
-  }
   get destination() {
     return this.FactureForm.get('destination');
   }
@@ -94,8 +92,13 @@ export class FactureComponent {
     return this.FactureForm.get('typeFacture');
   }
   getDataFacture() {
-    this.facture.findAll().subscribe((getAll) => {
-      this.dataFacture = getAll;
+    this.facture.findAll().subscribe({
+      next: (res) => {
+        this.dataFacture = res;
+      },
+      error: (err) => {
+        console.error(err);
+      },
     });
   }
   getDataFournisseur() {
@@ -110,38 +113,43 @@ export class FactureComponent {
   }
 
   submitFacture() {
-    this.isSubmitting = true;
-    this.facture.create(this.FactureForm.value).subscribe({
-      next: () => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Facture enregistre',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        this.isSubmitting = false;
-        this.isRegisterSuccess = true;
-        setTimeout(() => {
-          this.getDataFacture();
-          this.clear();
-        }, 1000);
-      },
-      error: () => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'facture deja enregistree',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+    if (this.openModif) {
+      this.submitModifacture();
+      this.clear();
+      this.formHeader = 'Confirmer';
+      this.add = "Enregistrement d'un facture";
+    } else {
+      this.isSubmitting = true;
+      this.facture.create(this.FactureForm.value).subscribe({
+        next: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Facture enregistre',
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            this.getDataFacture();
+            this.clear();
+          });
+        },
+        error: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'facture deja enregistree',
+            showConfirmButton: false,
+            timer: 1500,
+          });
 
-        this.isSubmitting = false;
-      },
-    });
+          this.isSubmitting = false;
+        },
+      });
+    }
   }
-
   modifFacture(item: any) {
+    this.openModif = true;
+    this.openmodal = true;
     if (this.FactureForm) {
       this.FactureForm.patchValue({
         numFacture: item.numFacture,
@@ -151,17 +159,30 @@ export class FactureComponent {
         typeFacture: item.typeFacture,
         objetFacture: item.objetFacture,
         montantFacture: item.montantFacture,
-        numFrns: item.fournisseur.numFrns,
-        numOrdre: item.ordre.numOrdre,
+        nomFrns: item.fournisseur.nomFrns,
       });
       this.formHeader = 'Modifier';
+      this.add = 'Modifier Facture';
+      this.isRegisterSuccess = false;
 
       this.isRegisterSuccess = false;
-      this.facture.update(this.FactureForm.value);
     }
   }
 
-  deleteFacture(numFacture: number) {
+  submitModifacture() {
+    this.isSubmitting = true;
+    this.facture.update(this.FactureForm.value).subscribe({
+      next: () => {
+        this.isSubmitting = false;
+        this.getDataFacture();
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  deleteFacture(numFacture: string) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',

@@ -1,9 +1,9 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './../../../shared/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { GetuserService } from '../../service/getuser.service';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +13,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit {
-  constructor(private AuthService: AuthService, private users: GetuserService) {
+  private apiUrl = environment.apiBaseURL;
+  constructor(private AuthService: AuthService, private http: HttpClient) {
     this.dateAujourdhui = this.obtenirDateAujourdhui();
 
     this.heureActuelle = this.obtenirHeureActuelle();
@@ -22,36 +23,41 @@ export class NavbarComponent implements OnInit {
   dateAujourdhui: string;
   immatricule: any;
   userData: any;
+  animateClass: string =
+    'animate__animated animate__fadeInLeft animate__infinite infinite';
   data: any[] = [];
   open: boolean = true;
   OpenHome() {
-    this.open = !this.open;
+    this.open = false;
+    this.animateClass;
   }
   CloseHome() {
     this.open = true;
+    this.animateClass;
   }
   logOut() {
     this.AuthService.logOut();
   }
   ngOnInit(): void {
     this.obtenirHeureActuelle();
-
     setInterval(() => {
       this.obtenirHeureActuelle();
     }, 1000);
-    const token = localStorage.getItem('access_token');
-    console.log(token);
-    if (token) {
-      this.users.findAll(token).subscribe(
-        (data) => {
-          this.userData = data;
-          console.log(data);
-        },
-        (error) => {
-          console.log('Erreur lors de la récupération des données : ', error);
-        }
-      );
-    }
+    // this.AuthService.check().then((isLoggedIn) => {
+    //   if (isLoggedIn) {
+    //     const token = localStorage.getItem('access_token'); // Récupérez le token
+
+    //     // Envoyez le token directement dans le header de la requête au backend
+    //     this.http
+    //       .get<any>(`${this.apiUrl}/auth/check-login`, {
+    //         headers: { Authorization: `Bearer ${token}` },
+    //       })
+    //       .subscribe((userData) => {
+    //         this.userData = userData;
+    //         console.log(userData);
+    //       });
+    //   }
+    // });
   }
 
   obtenirHeureActuelle(): any {
@@ -68,6 +74,6 @@ export class NavbarComponent implements OnInit {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
 
-    return `${day}/${month}/${year}`;
+    return `${day}-${month}-${year}`;
   }
 }

@@ -108,7 +108,7 @@ export class FournisseurComponent implements OnInit {
   }
 
   // -----------------------------DELETE----------------------------
-  deleteData(numFrns: number) {
+  deleteData(numFrns: string) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',

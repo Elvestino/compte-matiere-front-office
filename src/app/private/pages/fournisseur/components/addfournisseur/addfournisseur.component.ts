@@ -23,10 +23,9 @@ export class AddfournisseurComponent implements OnInit {
     this.close.emit();
   }
 
-  title: string[] = ['Enregistrement Fournisseur'];
+  title = ['Enregistrement Fournisseur'];
 
   FournisseurForm = this.formBuilder.group({
-    numFrns: ['', [Validators.required]],
     nomFrns: ['', [Validators.required]],
     prenomFrns: ['', [Validators.required]],
     adrsFrns: ['', [Validators.required]],
@@ -34,9 +33,6 @@ export class AddfournisseurComponent implements OnInit {
     typeFrns: ['', [Validators.required]],
   });
 
-  get numFrns() {
-    return this.FournisseurForm.get('numFrns');
-  }
   get nomFrns() {
     return this.FournisseurForm.get('nomFrns');
   }
@@ -55,42 +51,52 @@ export class AddfournisseurComponent implements OnInit {
 
   isSubmitting: boolean = false;
   isRegisterSuccess: boolean = false;
-  submitFournisseur() {
-    this.isSubmitting = true;
-    this.PrivateService.create(this.FournisseurForm.value).subscribe({
-      next: () => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Fournisseur enregistre',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        this.isSubmitting = false;
-        this.isRegisterSuccess = true;
-        setTimeout(() => {
-          this.closeForm();
-        }, 1000);
-      },
-      error: () => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Fournisseur deja enregistree',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+  modifdata: boolean = false;
+  formHeader = 'Valider';
 
-        this.isSubmitting = false;
-      },
-    });
+  submitFournisseur() {
+    if (this.modifdata) {
+      this.modifdata = false;
+      this.modifSubmit();
+    } else {
+      this.isSubmitting = true;
+      console.log('enregister leka ty');
+      this.PrivateService.create(this.FournisseurForm.value).subscribe({
+        next: (result) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Fournisseur enregistre',
+            showConfirmButton: false,
+            timer: 1500,
+          }).then((res) => {
+            this.isSubmitting = false;
+            this.isRegisterSuccess = true;
+            this.closeForm();
+          });
+        },
+        error: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Fournisseur deja enregistree',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          console.log('inona le erreur : ', this.FournisseurForm.value);
+          this.isSubmitting = false;
+        },
+      });
+    }
   }
   @Input() fournisseurData: any = new EventEmitter();
 
   ngOnInit() {
     if (this.fournisseurData) {
+      console.log('mofifier leka ty');
+      this.formHeader = 'Modifier';
+      this.title = ['Modifier Fournisseur'];
       this.FournisseurForm.patchValue({
-        numFrns: this.fournisseurData.numFrns,
         nomFrns: this.fournisseurData.nomFrns,
         prenomFrns: this.fournisseurData.prenomFrns,
         adrsFrns: this.fournisseurData.adrsFrns,
@@ -98,5 +104,22 @@ export class AddfournisseurComponent implements OnInit {
         typeFrns: this.fournisseurData.typeFrns,
       });
     }
+  }
+  modifSubmit() {
+    this.isSubmitting = true;
+    this.PrivateService.update(
+      this.FournisseurForm.value,
+      this.fournisseurData.numFrns
+    ).subscribe({
+      next: (res) => {
+        this.formHeader = 'Modifier';
+        this.isSubmitting = false;
+
+        console.log(res);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 }

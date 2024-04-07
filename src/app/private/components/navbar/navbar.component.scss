@@ -1,4 +1,6 @@
-.btn {  
+@import "../../../../../node_modules/animate.css/animate.css";
+
+.btn {
   position: relative;
   background-color: whitesmoke;
   display: grid;
@@ -11,7 +13,7 @@
   .users{
     position: relative;
     display: inline-block;
-    
+
     .tooltiptext{
       visibility: hidden;
       width: 320px;
@@ -42,7 +44,7 @@
         hr{
           width: 90%;
         }
-      }  
+      }
     }
     &:hover .tooltiptext{
       visibility: visible;
@@ -70,7 +72,7 @@
     }
   }
   .btn-user{
-   
+
     @extend .btn-nav;
   }
   .timeandyear{

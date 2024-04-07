@@ -6,23 +6,22 @@
     <table class="section-table-facture" #content>
       <thead class="table-heading-facture">
         <tr class="heading">
-          <th>Numero</th>
+          <th>Nom du Fournisseur</th>
           <th>Date</th>
           <th>Destination</th>
           <th>Objet</th>
           <th>Lieu</th>
           <th>Montant</th>
           <th>Type</th>
-          <th>Fournisseur N°</th>
-          <th>Ordre N°</th>
         </tr>
       </thead>
       <tbody class="table-body-facture">
         @for (item of dataFacture; track $index) {
         <tr class="data">
           <td>
-            {{ item.numFacture }}
+            {{ item.fournisseur.nomFrns }}
           </td>
+
           <td>
             {{ item.dateFacture }}
           </td>
@@ -40,12 +39,6 @@
           </td>
           <td>
             {{ item.typeFacture }}
-          </td>
-          <td>
-            {{ item.fournisseur.numFrns }}
-          </td>
-          <td>
-            {{ item.ordre.numOrdre }}
           </td>
         </tr>
         }

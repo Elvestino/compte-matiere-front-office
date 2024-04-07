@@ -23,24 +23,28 @@ export class AuthService {
     localStorage.removeItem('access_token');
     this.router.navigate(['/']);
   }
-
   check(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       if (typeof window !== 'undefined' && localStorage) {
-        this.http
-          .post<any>(`${this.apiUrl}/auth/check-login`, {
-            token: localStorage.getItem('access_token'),
-          })
-          .subscribe({
-            next: (result) => {
-              resolve(true);
-            },
-            error: (error) => {
-              resolve(false);
-            },
-          });
+        const token = localStorage.getItem('access_token');
+        if (token) {
+          this.http
+            .get<any>(`${this.apiUrl}/auth/check-login`, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            .subscribe({
+              next: (result) => {
+                resolve(true); // Token valide
+              },
+              error: (error) => {
+                reject(error); // Token invalide ou erreur de vérification
+              },
+            });
+        } else {
+          resolve(false); // Token non trouvé
+        }
       } else {
-        resolve(false);
+        resolve(false); // Contexte côté serveur
       }
     });
   }
@@ -52,26 +56,4 @@ export class AuthService {
       return false;
     }
   }
-  // getImmatricule(): Promise<string | null> {
-  //   return new Promise<string | null>((resolve, reject) => {
-  //     if (typeof window !== 'undefined' && localStorage) {
-  //       this.http
-  //         .get<any>(`${this.apiUrl}/users`, {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-  //           },
-  //         })
-  //         .subscribe({
-  //           next: (userData) => {
-  //             resolve(userData.immatricule);
-  //           },
-  //           error: (error) => {
-  //             resolve(null);
-  //           },
-  //         });
-  //     } else {
-  //       resolve(null);
-  //     }
-  //   });
-  // }
 }

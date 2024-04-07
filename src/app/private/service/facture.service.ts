@@ -22,7 +22,7 @@ export class FactureService {
       facture
     );
   }
-  remove(numFacture: number) {
+  remove(numFacture: string) {
     return this.http.delete<any>(`${this.PrivateApiUrl}/facture/${numFacture}`);
   }
 }

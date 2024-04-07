@@ -32,6 +32,8 @@ export class QuitusComponent implements OnInit {
   add = 'Enregistrement Quitus';
   formHeader = 'Confirmer';
 
+  openmodal: boolean = false;
+  openModif: boolean = false;
   servicedata: any[] = [];
   quitusdata: any[] = [];
   search = new FormControl();
@@ -40,9 +42,9 @@ export class QuitusComponent implements OnInit {
   isRegisterSuccess: boolean = false;
 
   QuitusForm = this.formBuilder.group({
-    numQuitus: ['', [Validators.required]],
+    numQuitus: [''],
     dateQuitus: ['', [Validators.required]],
-    numService: ['', [Validators.required]],
+    nomService: ['', [Validators.required]],
     observateur: ['', [Validators.required]],
     ReferenceQuitus: ['', [Validators.required]],
     objetQuitus: ['', [Validators.required]],
@@ -50,11 +52,22 @@ export class QuitusComponent implements OnInit {
     exerciceAnnee: ['', [Validators.required]],
   });
 
+  closeModal() {
+    this.openmodal = false;
+    this.openModif = false;
+    this.isSubmitting = false;
+    this.isRegisterSuccess = false;
+    this.getQuitus();
+  }
+  ajoutquitus() {
+    this.openmodal = true;
+    this.clear();
+  }
   clear() {
     this.QuitusForm = this.formBuilder.group({
       numQuitus: '',
       dateQuitus: '',
-      numService: '',
+      nomService: '',
       observateur: '',
       ReferenceQuitus: '',
       montantQuitus: '',
@@ -63,8 +76,13 @@ export class QuitusComponent implements OnInit {
     });
   }
   getQuitus() {
-    this.QuitusS.findAll().subscribe((getAll) => {
-      this.quitusdata = getAll;
+    this.QuitusS.findAll().subscribe({
+      next: (res) => {
+        this.quitusdata = res;
+      },
+      error: (err) => {
+        console.error(err);
+      },
     });
   }
 
@@ -92,57 +110,75 @@ export class QuitusComponent implements OnInit {
   }
 
   AddQuitus() {
-    this.isSubmitting = true;
-    console.log(this.QuitusForm.value.numService);
-    this.QuitusS.create(this.QuitusForm.value).subscribe({
-      next: () => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Quitus enregistre',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        this.isSubmitting = false;
-        this.isRegisterSuccess = false;
-        setTimeout(() => {
-          this.getQuitus();
-          this.clear();
-        }, 1000);
-      },
-      error: () => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Quitus deja enregistree',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        this.isSubmitting = false;
-      },
-    });
+    if (this.openModif) {
+      this.submitModif();
+    } else {
+      this.isSubmitting = true;
+      this.QuitusS.create(this.QuitusForm.value).subscribe({
+        next: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Quitus enregistre',
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            this.getQuitus();
+            this.clear();
+            this.closeModal();
+          });
+        },
+        error: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Quitus deja enregistree',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.isSubmitting = false;
+        },
+      });
+    }
   }
 
   modifAquitus(item: any) {
+    this.openModif = true;
+    this.openmodal = true;
     if (this.QuitusForm) {
       this.QuitusForm.patchValue({
         numQuitus: item.numQuitus,
         dateQuitus: item.dateQuitus,
-        numService: item.service.numService,
+        nomService: item.service.nomService,
         observateur: item.observateur,
         ReferenceQuitus: item.ReferenceQuitus,
         montantQuitus: item.montantQuitus,
         exerciceAnnee: item.exerciceAnnee,
         objetQuitus: item.objetQuitus,
       });
-      this.formHeader = 'Modifier';
 
+      this.formHeader = 'Modifier';
+      this.add = 'Modifier Quitus';
       this.isRegisterSuccess = false;
-      this.QuitusS.update(this.QuitusForm.value);
     }
   }
 
-  deleteQuitus(numQuitus: number) {
+  submitModif() {
+    this.isSubmitting = true;
+    this.QuitusS.update(this.QuitusForm.value).subscribe({
+      next: (res) => {
+        this.isSubmitting = false;
+        console.log(res);
+        this.closeModal();
+        this.getQuitus();
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  deleteQuitus(numQuitus: string) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',

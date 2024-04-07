@@ -23,7 +23,7 @@ export class QuitusService {
       quitus
     );
   }
-  remove(numQuitus: number) {
+  remove(numQuitus: string) {
     return this.http.delete<any>(`${this.PrivateApiUrl}/quitus/${numQuitus}`);
   }
   filterquitus(searchterm: string) {
@@ -41,6 +41,9 @@ export class QuitusService {
             // item.montantQuitus
             //   .toLowerCase()
             //   .includes(searchterm.toLowerCase()) ||
+            item.service.nomService
+              .toLowerCase()
+              .includes(searchterm.toLowerCase()) ||
             item.observateur.toLowerCase().includes(searchterm.toLowerCase()) ||
             item.dateQuitus.toLowerCase().includes(searchterm.toLowerCase())
           );

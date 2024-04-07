@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormsModule,
@@ -9,6 +9,7 @@ import { ServiceService } from '../../service/service.service';
 import Swal from 'sweetalert2';
 import { RouterLink } from '@angular/router';
 import { PrintServiceComponent } from './components/print-service/print-service.component';
+import { BehaviorSubject, Subject, switchMap, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-service',
@@ -22,25 +23,52 @@ import { PrintServiceComponent } from './components/print-service/print-service.
   templateUrl: './service.component.html',
   styleUrl: './service.component.scss',
 })
-export class ServiceComponent {
+export class ServiceComponent implements OnInit, OnDestroy {
+  private readonly unsubscribe$: Subject<void> = new Subject<void>();
+  private readonly refresh$: BehaviorSubject<undefined> =
+    new BehaviorSubject<undefined>(undefined);
+
   constructor(
     private service: ServiceService,
     private formBuilder: FormBuilder
-  ) {
-    this.getData();
+  ) {}
+
+  ngOnInit(): void {
+    this.refresh$
+      .pipe(
+        switchMap(() => {
+          return this.service.findAll();
+        }),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe({
+        next: (res) => {
+          this.data = res;
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
   }
-  formHeader = 'Confirmer';
+
+  refresh() {
+    this.refresh$.next(undefined);
+  }
+
   data: any[] = [];
+  openSubmit: boolean = false;
+  isSubmitting: boolean = false;
+  isRegisterSuccess: boolean = false;
+  PrintComponent: boolean = false;
+
   serviceForm = this.formBuilder.group({
-    numService: ['', [Validators.required]],
+    numService: [''],
     nomService: ['', [Validators.required]],
     libelle: ['', [Validators.required]],
     SOA: ['', [Validators.required]],
     typeService: ['', [Validators.required]],
   });
-  isSubmitting: boolean = false;
-  isRegisterSuccess: boolean = false;
-  PrintComponent: boolean = false;
+
   clear() {
     this.serviceForm = this.formBuilder.group({
       numService: '',
@@ -52,47 +80,47 @@ export class ServiceComponent {
   }
   openPrint() {
     this.PrintComponent = !this.PrintComponent;
-    this.getData();
-  }
-  getData() {
-    this.service.findAll().subscribe((getAll) => {
-      this.data = getAll;
-    });
+    this.refresh();
   }
 
   submitservice() {
-    this.isSubmitting = true;
-    this.service.create(this.serviceForm.value).subscribe({
-      next: () => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'service enregistre',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        this.isSubmitting = false;
-        this.isRegisterSuccess = true;
-        setTimeout(() => {
-          this.getData();
-          this.clear();
-        }, 1000);
-      },
-      error: () => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'service deja enregistree',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-
-        this.isSubmitting = false;
-      },
-    });
+    if (this.openSubmit) {
+      this.submitModif();
+      this.clear();
+    } else {
+      this.isSubmitting = true;
+      this.service.create(this.serviceForm.value).subscribe({
+        next: (result) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'service enregistre',
+            showConfirmButton: false,
+            timer: 1500,
+          }).then((res) => {
+            this.refresh();
+            this.isSubmitting = false;
+            this.isRegisterSuccess = false;
+            this.clear();
+          });
+        },
+        error: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'service deja enregistree',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.isSubmitting = false;
+        },
+      });
+    }
   }
 
   modif(item: any) {
+    this.openSubmit = true;
+
     if (this.serviceForm) {
       this.serviceForm.patchValue({
         numService: item.numService,
@@ -101,11 +129,25 @@ export class ServiceComponent {
         SOA: item.SOA,
         typeService: item.typeService,
       });
-      this.formHeader = 'Modifier';
 
       this.isRegisterSuccess = false;
-      this.service.update(this.serviceForm.value);
     }
+  }
+
+  submitModif() {
+    this.isSubmitting = true;
+    this.service.update(this.serviceForm.value).subscribe({
+      next: (res) => {
+        this.isSubmitting = false;
+        this.openSubmit = false;
+        this.data = res;
+        console.log(res);
+        this.refresh();
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 
   delete(numService: number) {
@@ -121,26 +163,33 @@ export class ServiceComponent {
         title: 'Voulez-vous vraiment supprimer le service ?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'OUI!!, Supprimer',
-        cancelButtonText: 'NON!!, Ne pas Supprimer',
+        confirmButtonText: 'Supprimer',
+        cancelButtonText: 'Annuler',
         reverseButtons: true,
       })
       .then((result) => {
         if (result.isConfirmed) {
-          swalWithBootstrapButtons.fire({
-            title: 'Supprimer',
-            text: 'Service supprimer avec success',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1500,
-          });
           this.service.remove(numService).subscribe({
-            next: () => {
-              this.getData();
+            next: (res) => {
+              this.refresh();
               this.clear();
+              swalWithBootstrapButtons.fire({
+                title: 'Supprimer',
+                text: 'Service supprimer avec success',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500,
+              });
             },
             error: (error) => {
               console.error(error);
+              swalWithBootstrapButtons.fire({
+                title: 'erreur',
+                text: 'Erreur lors de la suppression du service',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 1500,
+              });
             },
           });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -153,5 +202,10 @@ export class ServiceComponent {
           });
         }
       });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

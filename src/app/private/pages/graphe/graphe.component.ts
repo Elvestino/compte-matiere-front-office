@@ -47,7 +47,7 @@ export class GrapheComponent implements OnInit {
           const categories = anneeData.map((item) => item.annee);
           // Mettez à jour xAxis avec les catégories récupérées
           this.chartOptions.xAxis = {
-            categories: categories,
+            categories: [],
             title: {
               text: 'Année',
             },

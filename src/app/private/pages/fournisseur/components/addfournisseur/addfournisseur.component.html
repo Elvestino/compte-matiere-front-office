@@ -16,20 +16,7 @@
       <div class="container-form">
         <h1>{{ title }}</h1>
         <hr />
-        <div class="container-form numFrns">
-          <label for="numFrns">Numero </label>
-          <input
-            type="text"
-            placeholder="ex: 1"
-            formControlName="numFrns"
-            required
-          />
-          @if (numFrns?.touched && numFrns?.errors?.["required"]) {
-          <span class="error-text">
-            Entrer votre numero, s'il vous plait.
-          </span>
-          }
-        </div>
+
         <div class="container-form nomFrns">
           <label for="nomFrns">Nom </label>
           <input
@@ -102,16 +89,12 @@
           <button
             class="{{
               isRegisterSuccess
-                ? 'btn-submit success transition'
-                : 'btn-submit danger transition'
+                ? 'btn btn-success transition'
+                : 'btn btn-primary transition'
             }}"
             type="submit"
           >
-            @if (isSubmitting) {
-            <i class="fa fa-circle-notch fa-spin"></i>
-            } @else { @if (isRegisterSuccess) {
-            <i class="fa fa-check"></i>
-            } @else { Ajouter } }
+            @if(!isSubmitting && !isRegisterSuccess) { {{ formHeader }} }
           </button>
           }
         </div>

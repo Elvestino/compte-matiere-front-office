@@ -5,10 +5,8 @@
   <table class="section-table-fournisseur" #content>
     <thead class="table-heading-fournisseur">
       <tr class="heading">
-        <th>Numero d'ordre</th>
-        <th>Date</th>
-        <th>Numero du service</th>
         <th>Nom du service</th>
+        <th>Date</th>
         <th>Annee du Journal</th>
       </tr>
     </thead>
@@ -16,16 +14,10 @@
       @for (dataOrdre of ordre; track $index) {
       <tr class="data">
         <td>
-          {{ dataOrdre.numOrdre }}
+          {{ dataOrdre.service.nomService }}
         </td>
         <td>
           {{ dataOrdre.dateOrdre }}
-        </td>
-        <td>
-          {{ dataOrdre.service.numService }}
-        </td>
-        <td>
-          {{ dataOrdre.service.nomService }}
         </td>
         <td>
           {{ dataOrdre.annee.newannee }}

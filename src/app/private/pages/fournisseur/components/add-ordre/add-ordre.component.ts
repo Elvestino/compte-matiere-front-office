@@ -24,10 +24,7 @@ export class AddOrdreComponent implements OnInit {
     private service: ServiceService,
     private annee: AnneeService,
     private formBuilder: FormBuilder
-  ) {
-    this.getService();
-    this.getAnnee();
-  }
+  ) {}
 
   @Output() close = new EventEmitter();
   closeForm(): void {
@@ -38,18 +35,15 @@ export class AddOrdreComponent implements OnInit {
   formHeader = 'Ajouter';
   title: string[] = ['Enregistrement Ordre'];
   isSubmitting: boolean = false;
+  openSubmit: boolean = false;
   isRegisterSuccess: boolean = false;
 
   OrdreForm = this.formBuilder.group({
     numOrdre: ['', [Validators.required]],
     dateOrdre: ['', [Validators.required]],
-    numService: ['', [Validators.required]],
+    nomService: ['', [Validators.required]],
     newannee: ['', [Validators.required]],
   });
-
-  get numOrdre() {
-    return this.OrdreForm.get('numOrdre');
-  }
 
   getService() {
     this.service.findAll().subscribe((getAll) => {
@@ -62,47 +56,67 @@ export class AddOrdreComponent implements OnInit {
     });
   }
   AddOrdre() {
-    this.isSubmitting = true;
+    if (this.openSubmit) {
+      this.modifSubmit();
+      this.closeForm();
+    } else {
+      this.isSubmitting = true;
+      this.ordreService.create(this.OrdreForm.value).subscribe({
+        next: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Ordre enregistre',
+            showConfirmButton: false,
+            timer: 1500,
+          });
 
-    this.ordreService.create(this.OrdreForm.value).subscribe({
-      next: () => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Ordre enregistre',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+          this.isSubmitting = false;
+          this.isRegisterSuccess = false;
+          setTimeout(() => {
+            this.closeForm();
+          }, 1000);
+        },
+        error: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'ordre deja enregistree',
+            showConfirmButton: false,
+            timer: 1500,
+          });
 
-        this.isSubmitting = false;
-        this.isRegisterSuccess = false;
-        setTimeout(() => {
-          this.closeForm();
-        }, 1000);
-      },
-      error: () => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'ordre deja enregistree',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-
-        this.isSubmitting = false;
-      },
-    });
+          this.isSubmitting = false;
+        },
+      });
+    }
   }
   @Input() OrdreData: any = new EventEmitter();
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.getService();
+    this.getAnnee();
+    this.openSubmit = true;
     if (this.OrdreData) {
       this.OrdreForm.patchValue({
         numOrdre: this.OrdreData.numOrdre,
         dateOrdre: this.OrdreData.dateOrdre,
-        numService: this.OrdreData.service.numService,
+        nomService: this.OrdreData.service.nomService,
         newannee: this.OrdreData.annee.newannee,
       });
     }
+  }
+  modifSubmit() {
+    this.isSubmitting = true;
+    this.ordreService.update(this.OrdreForm.value).subscribe({
+      next: (res) => {
+        this.isSubmitting = false;
+        this.openSubmit = false;
+        console.log(res);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 }

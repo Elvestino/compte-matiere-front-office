@@ -6,8 +6,8 @@
   <table class="section-table" #content>
     <thead class="table-heading">
       <tr class="heading">
-        <th>Numero de Service</th>
-        <th>Numero de Quitus</th>
+        <th>Nom de Service</th>
+
         <th>Objet</th>
         <th>Reference</th>
         <th>Date</th>
@@ -19,8 +19,7 @@
     <tbody class="table-body">
       @for (item of quitusdata; track $index) {
       <tr class="data">
-        <td>{{ item.service.numService }}</td>
-        <td>{{ item.numQuitus }}</td>
+        <td>{{ item.service.nomService }}</td>
         <td>{{ item.objetQuitus }}</td>
         <td>{{ item.ReferenceQuitus }}</td>
         <td>{{ item.dateQuitus }}</td>
