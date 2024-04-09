@@ -8,41 +8,21 @@
 <main class="journal">
   <!-- ---------------------Add journal------------------ -->
   <div class="form-journal">
-    <form class="form-show-journal d-flex" [formGroup]="EntreeForm">
-      <div class="AnneeAndFacture">
-        <div class="anneeJournal">
-          <label for="annee">Annee</label>
-          <select name="newannee" id="newannee" formControlName="newannee">
-            @for(annee of anneedata; track $index){
-            <option value="{{ annee.newannee }}">{{ annee.newannee }}</option>
-            }
-          </select>
-        </div>
-        <div class="facture">
-          <label for="destination">Destination de la facture</label>
-          <select id="destination" formControlName="destination">
-            @for(facture of facturedata; track $index){
-            <option value="{{ facture.destination }}">
-              {{ facture.destination }}
-            </option>
-            }
-          </select>
-        </div>
-      </div>
+    <form class="form-show-journal" [formGroup]="EntreeForm">
       <div class="addJournal">
         <h1 class="add">Enregistrement</h1>
         <hr />
-
-        <div class="form-content">
-          <label for="destination">Numero </label>
-          <input
-            type="text"
-            name="destination"
-            id="destination"
-            formControlName="numEntree"
-            [disabled]="isDisabled"
-          />
+        <div class="Annee">
+          <div class="anneeJournal">
+            <label for="annee">Annee : </label>
+            <select name="newannee" id="newannee" formControlName="newannee">
+              @for(annee of anneedata; track $index){
+              <option value="{{ annee.newannee }}">{{ annee.newannee }}</option>
+              }
+            </select>
+          </div>
         </div>
+
         <div class="form-content">
           <label for="dateFacture">Date d'entree</label>
           <input
@@ -104,13 +84,14 @@
           />
         </div>
       </div>
+      <div class="addNouvelleAnee">
+        <button type="button" class="btn btn-primary" (click)="OpenAddForm()">
+          Ajouter nouvelle Annee
+        </button>
+      </div>
     </form>
-    <div class="addNouvelleAnee">
-      <button type="button" class="btn btn-primary" (click)="OpenAddForm()">
-        Ajouter nouvelle Annee
-      </button>
-    </div>
   </div>
+
   <!-- ---------------------table journal----------- -->
   <div class="table-journal">
     <h1>Liste des donnees enregistree</h1>
@@ -124,7 +105,6 @@
           <th>Quantite</th>
           <th>Prix</th>
           <th>Annee Grand Livre</th>
-          <th>Destination de la facture</th>
         </tr>
       </thead>
       <tbody class="table-body">
@@ -137,7 +117,6 @@
           <td>{{ data.quantite }}</td>
           <td>{{ data.prix }}</td>
           <td>{{ data.annee.newannee }}</td>
-          <td>{{ data.facture.destination }}</td>
         </tr>
         }
       </tbody>

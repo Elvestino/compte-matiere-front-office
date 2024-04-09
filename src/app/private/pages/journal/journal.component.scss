@@ -2,90 +2,73 @@
   h1 {
     margin: 20px;
     text-align: center;
-    font-size: 39px;
+    font-size: 29px;
   }
 }
 .journal {
-  padding: 20px;
-  .form-journal {
-    border-radius: 8px;
+
+  width: 100%;
+  max-width: 690px;
+  padding: 0 50px 0 50px;
+  .form-journal{
     background-color: #f1f1f1;
-    .form-show-journal {
-      .AnneeAndFacture {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        justify-content: center;
-        align-items: center;
-        gap: 500px;
-        .anneeJournal {
+    padding: 20px 20px 0 20px;
+    .form-show-journal{
+      .addJournal{
+      h1{
+        font-size: 25px;
+      }
+      .Annee{
           border-radius: 8px;
-          margin: 0 0 0 50px;
-          padding: 20px 60px 30px 50px;
-          justify-content: center;
-          align-items: center;
-          background-color: #fff;
-          display: grid;
+           margin: 0 0 0 50px;
+           padding: 20px ;
+
           label {
-            font-size: 23px;
+            font-size: 19px;
           }
           select {
-            color: rgb(0, 119, 255);
             text-align: center;
-            width: 150px;
-            padding: 10px;
+            color: rgb(0, 119, 255);
             outline: none;
+            width: 100px;
+            padding: 10px;
             border-radius: 4px;
-            font-size: 20px;
-          }
-        }
-        .facture {
-          @extend .anneeJournal;
-          margin-right: 40px;
+            font-size: 16px;
         }
       }
-      .addJournal{
-        h1 {
-          margin-top: 20px;
-          font-size: 23px;
-        }
-        hr {
-          width: 150px;
-        }
-            .form-content {
-              align-items: center;
-                labeL {
-                  padding: 3px;
-                  font-size: 20px;
-                }
-                span {
-                  font-size: 20px;
-                }
-                input {
-                  border: none;
-                  margin: 10px;
-                  background-color: #eee;
-                  color: rgb(0, 119, 255);
-                  width: 490px;
-                  padding: 10px;
-                  border-radius: 8px;
-                  
-                  &:focus {
-                    background-color: #fff;
-                    outline: none;
-                  }
-                }
-            }
-  
-        }
+      .form-content {
+        align-items: center;
+          labeL {
+            padding: 3px;
+            font-size: 20px;
+          }
+          span {
+            font-size: 20px;
+          }
+          input {
+            border: none;
+            margin: 10px;
+            background-color: #eee;
+            color: rgb(0, 119, 255);
+            width: 490px;
+            padding: 10px;
+            border-radius: 8px;
 
+            &:focus {
+              background-color: #fff;
+              outline: none;
+            }
+          }
+      }
     }
     .addNouvelleAnee {
+      padding-top: 30px;
       border: none;
       button {
-        font-size: 19px;
+        font-size: 16px;
         width: 100%;
         color: white;
-        padding: 10px;
+
         opacity: 0.9;
 
         &:hover {
@@ -98,6 +81,7 @@
       }
     }
   }
+}
   .table-journal {
     padding: 30px;
     h1 {
@@ -135,9 +119,7 @@
             &:nth-child(7) {
               width: 150px;
             }
-            &:nth-child(8) {
-              width: 200px;
-            }
+
             &:last-child {
               width: 150px;
             }
@@ -152,12 +134,9 @@
           border-bottom: 1px solid #eee;
           td {
             padding: 8px 20px;
+
             border: 1px solid #eee;
-            &:last-child {
-              display: flex;
-              justify-content: space-between;
-              border: none;
-            }
+
           }
           &:nth-child(even) {
             background-color: #eee;

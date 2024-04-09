@@ -8,40 +8,19 @@
   <!-- ---------------------Add journal------------------ -->
 
   <div class="form-journal">
-    <form class="form-show-journal d-flex" [formGroup]="EntreeForm">
-      <div class="AnneeAndFacture">
-        <div class="anneeJournal">
-          <label for="annee">Annee</label>
-          <select name="newannee" id="newannee" formControlName="newannee">
-            @for(annee of anneedata; track $index){
-            <option value="{{ annee.newannee }}">{{ annee.newannee }}</option>
-            }
-          </select>
-        </div>
-        <div class="facture">
-          <label for="numFacture">Facture</label>
-          <select id="numFacture" formControlName="numFacture">
-            @for(facture of facturedata; track $index){
-            <option value="{{ facture.numFacture }}">
-              {{ facture.numFacture }}
-            </option>
-            }
-          </select>
-        </div>
-      </div>
+    <form class="form-show-journal" [formGroup]="EntreeForm">
       <div class="addJournal">
         <h1 class="add">Enregistrement</h1>
         <hr />
-
-        <div class="form-content">
-          <label for="numEntree">Numero </label><br />
-          <input
-            type="text"
-            name="numEntree"
-            id="numEntree"
-            formControlName="numEntree"
-            [disabled]="isDisabled"
-          />
+        <div class="Annee">
+          <div class="anneeJournal">
+            <label for="annee">Annee :</label>
+            <select name="newannee" id="newannee" formControlName="newannee">
+              @for(annee of anneedata; track $index){
+              <option value="{{ annee.newannee }}">{{ annee.newannee }}</option>
+              }
+            </select>
+          </div>
         </div>
         <div class="form-content">
           <label for="numFolioGL">Numero Folio</label>
@@ -104,12 +83,12 @@
           />
         </div>
       </div>
+      <div class="addNouvelleAnee">
+        <button type="button" class="btn btn-primary" (click)="OpenAddForm()">
+          Ajouter nouvelle Annee
+        </button>
+      </div>
     </form>
-    <div class="addNouvelleAnee">
-      <button type="button" class="btn btn-primary" (click)="OpenAddForm()">
-        Ajouter nouvelle Annee
-      </button>
-    </div>
   </div>
   <!-- ---------------------table journal----------- -->
   <div class="table-journal">
@@ -117,7 +96,6 @@
     <table class="section-table">
       <thead class="table-heading">
         <tr class="heading">
-          <th>Numero du materiel</th>
           <th>Numero Folio</th>
           <th>Nomenclature</th>
           <th>Prix Unitaire</th>
@@ -125,13 +103,11 @@
           <th>Prix</th>
           <th>Designation</th>
           <th>Annee Grand Livre</th>
-          <th>Facture N°</th>
         </tr>
       </thead>
       <tbody class="table-body">
         @for (data of entreedata; track $index) {
         <tr class="data" (click)="modifEntree(data)">
-          <td>{{ data.numEntree }}</td>
           <td>{{ data.numFolioGL }}</td>
           <td>{{ data.nomenclature }}</td>
           <td>{{ data.designation }}</td>
@@ -139,7 +115,6 @@
           <td>{{ data.quantite }}</td>
           <td>{{ data.prix }}</td>
           <td>{{ data.annee.newannee }}</td>
-          <td>{{ data.facture.numFacture }}</td>
         </tr>
         }
       </tbody>
