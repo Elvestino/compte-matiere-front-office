@@ -1,9 +1,27 @@
-<div>
-  <!-- Autres éléments du parent -->
-  <!-- Assurez-vous que le sélecteur est correctement inclus -->
-  <highcharts-chart
-    style="width: 100%; height: 400px"
-    [Highcharts]="Highcharts"
-    [options]="chartOptions"
-  ></highcharts-chart>
-</div>
+<main class="dashboard">
+  <div class="separator">
+    <div class="dashboard-service">Service</div>
+    <p>{{ getTotalCount() }}</p>
+  </div>
+  <div class="separator">
+    <div class="dashboard-fournisseur">Fournisseur</div>
+    <p>{{ frnstotal() }}</p>
+  </div>
+  <div class="separator">
+    <div class="dashboard-facture">Facture</div>
+    <p>{{ facturetotal() }}</p>
+  </div>
+  <div class="separator">
+    <div class="dashboard-entree">Materiel entree</div>
+    <p>{{ entreetotal() }}</p>
+  </div>
+  <div class="separator">
+    <div class="dashboard-sortie">Materiel sortie</div>
+    <p>{{ sortietotal() }}</p>
+  </div>
+
+  <div class="separator">
+    <div class="dashboard-quitus">Quitus</div>
+    <p>{{ quitustotal() }}</p>
+  </div>
+</main>

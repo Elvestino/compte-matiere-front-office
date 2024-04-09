@@ -1,67 +1,128 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HighchartsChartModule } from 'highcharts-angular';
-import * as Highcharts from 'highcharts';
-import { AnneeService } from '../../service/annee.service';
+import { ServiceService } from '../../service/service.service';
+import { QuitusService } from '../../service/quitus.service';
+import { PrivateServiceService } from '../../service/fournisseur.service';
+import { EntreeService } from '../../service/entree.service';
+import { SortieService } from '../../service/sortie.service';
+import { FactureService } from '../../service/facture.service';
 @Component({
   selector: 'app-graphe',
   standalone: true,
-  imports: [HighchartsChartModule],
+  imports: [],
   templateUrl: './graphe.component.html',
   styleUrl: './graphe.component.scss',
 })
-export class GrapheComponent implements OnInit {
-  Highcharts: typeof Highcharts = Highcharts;
-  chartOptions: Highcharts.Options = {
-    accessibility: {
-      enabled: false,
-    },
-    xAxis: {
-      categories: [],
-    } as Highcharts.XAxisOptions,
-    yAxis: {
-      title: {
-        text: "Nombre d'entrées d'un matériel",
-      },
-    },
-    title: {
-      text: "Graphique d'entrées d'un matériel",
-    },
-    credits: {
-      enabled: false,
-    },
-    series: [
-      {
-        data: [1, 2, 5],
-        type: 'line',
-      },
-    ],
-  };
+export class GrapheComponent {
+  constructor(
+    private service: ServiceService,
+    private quitus: QuitusService,
+    private frns: PrivateServiceService,
+    private entree: EntreeService,
+    private sortie: SortieService,
+    private facture: FactureService
+  ) {
+    this.getService();
+    this.getfrns();
+    this.getsortie();
+    this.getQuitus();
+    this.getfacture();
+    this.getentree();
+  }
 
-  constructor(private anneeService: AnneeService) {}
-
-  ngOnInit(): void {
-    this.anneeService.findAll().subscribe(
-      (anneeData: any[]) => {
-        if (anneeData && anneeData.length > 0) {
-          console.log(anneeData);
-          const categories = anneeData.map((item) => item.annee);
-          // Mettez à jour xAxis avec les catégories récupérées
-          this.chartOptions.xAxis = {
-            categories: [],
-            title: {
-              text: 'Année',
-            },
-          };
-        } else {
-          console.error("Les données d'année sont vides ou non définies.");
-        }
+  // --------------service------------------
+  servicedata: any[] = [];
+  getService() {
+    this.service.findAll().subscribe({
+      next: (res) => {
+        this.servicedata = res;
       },
-      (error) => {
-        console.error(
-          "Une erreur s'est produite lors de la récupération des données d'année :",
-          error
-        );
-      }
-    );
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+  getTotalCount(): number {
+    return this.servicedata.length;
+  }
+
+  // --------------quitus------------------
+  quitusdata: any[] = [];
+  getQuitus() {
+    this.quitus.findAll().subscribe({
+      next: (res) => {
+        this.quitusdata = res;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+  quitustotal(): number {
+    return this.quitusdata.length;
+  }
+
+  // --------------quitus------------------
+  frnsdata: any[] = [];
+  getfrns() {
+    this.frns.findAll().subscribe({
+      next: (res) => {
+        this.frnsdata = res;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+  frnstotal(): number {
+    return this.frnsdata.length;
+  }
+
+  // --------------entree------------------
+  entreedata: any[] = [];
+  getentree() {
+    this.entree.findAll().subscribe({
+      next: (res) => {
+        this.entreedata = res;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+  entreetotal(): number {
+    return this.entreedata.length;
+  }
+
+  // --------------sortie------------------
+  sortiedata: any[] = [];
+  getsortie() {
+    this.sortie.findAll().subscribe({
+      next: (res) => {
+        this.sortiedata = res;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+  sortietotal(): number {
+    return this.sortiedata.length;
+  }
+
+  // --------------facture------------------
+  facturedata: any[] = [];
+  getfacture() {
+    this.facture.findAll().subscribe({
+      next: (res) => {
+        this.facturedata = res;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+  facturetotal(): number {
+    return this.facturedata.length;
   }
 }
