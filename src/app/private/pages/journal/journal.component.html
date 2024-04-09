@@ -19,11 +19,11 @@
           </select>
         </div>
         <div class="facture">
-          <label for="numFacture">Facture</label>
-          <select id="numFacture" formControlName="numFacture">
+          <label for="destination">Destination de la facture</label>
+          <select id="destination" formControlName="destination">
             @for(facture of facturedata; track $index){
-            <option value="{{ facture.numFacture }}">
-              {{ facture.numFacture }}
+            <option value="{{ facture.destination }}">
+              {{ facture.destination }}
             </option>
             }
           </select>
@@ -34,11 +34,11 @@
         <hr />
 
         <div class="form-content">
-          <label for="numFacture">Numero </label>
+          <label for="destination">Numero </label>
           <input
             type="text"
-            name="numFacture"
-            id="numFacture"
+            name="destination"
+            id="destination"
             formControlName="numEntree"
             [disabled]="isDisabled"
           />
@@ -117,7 +117,6 @@
     <table class="section-table">
       <thead class="table-heading">
         <tr class="heading">
-          <th>Numero</th>
           <th>Date</th>
           <th>Nomenclature</th>
           <th>Designation</th>
@@ -125,13 +124,12 @@
           <th>Quantite</th>
           <th>Prix</th>
           <th>Annee Grand Livre</th>
-          <th>Facture N°</th>
+          <th>Destination de la facture</th>
         </tr>
       </thead>
       <tbody class="table-body">
         @for (data of entreedata; track $index) {
         <tr class="data" (click)="modifEntree(data)">
-          <td>{{ data.numEntree }}</td>
           <td>{{ data.facture.dateFacture }}</td>
           <td>{{ data.nomenclature }}</td>
           <td>{{ data.designation }}</td>
@@ -139,7 +137,7 @@
           <td>{{ data.quantite }}</td>
           <td>{{ data.prix }}</td>
           <td>{{ data.annee.newannee }}</td>
-          <td>{{ data.facture.numFacture }}</td>
+          <td>{{ data.facture.destination }}</td>
         </tr>
         }
       </tbody>

@@ -1,7 +1,7 @@
 .entree {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 80px;
+  grid-template-columns: 1fr 1fr ;
+  gap: 130px;
   margin: 40px;
   .form-component {
     background: #f1f1f1;
@@ -11,7 +11,6 @@
     .component-title {
       h1 {
         font-size: 25px;
-        text-align: center;
       }
       hr {
         width: 250px;
@@ -22,7 +21,7 @@
         .component {
           input {
             width: 100%;
-            max-width: 230px;
+            max-width: 250px;
             border-radius: 4px;
             padding: 10px;
             margin: 5px 0 22px 20px;
@@ -38,7 +37,11 @@
             @extend input;
           }
         }
-        .addEntree {
+        .btn {
+          border: none;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
           margin: 30px;
           button {
             padding: 8px 20px;

@@ -22,7 +22,7 @@ export class EntreeService {
       EntreeData
     );
   }
-  remove(numEntree: number) {
+  remove(numEntree: string) {
     return this.http.delete<any>(`${this.PrivateApiUrl}/entree/${numEntree}`);
   }
 }

@@ -37,7 +37,7 @@ export class FactureComponent {
     this.getDataFournisseur();
     this.getDataOrdre();
   }
-  openmodal: boolean = false;
+
   formHeader = 'Confirmer';
   add = "Enregistrement d'un facture";
   openModif: boolean = false;
@@ -60,6 +60,8 @@ export class FactureComponent {
   });
 
   clear() {
+    this.formHeader = 'Confirmer';
+    this.add = "Enregistrement d'un facture";
     this.FactureForm = this.formBuilder.group({
       numFacture: '',
       dateFacture: '',
@@ -149,7 +151,6 @@ export class FactureComponent {
   }
   modifFacture(item: any) {
     this.openModif = true;
-    this.openmodal = true;
     if (this.FactureForm) {
       this.FactureForm.patchValue({
         numFacture: item.numFacture,

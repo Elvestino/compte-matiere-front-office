@@ -5,7 +5,6 @@
   <table class="section-table-entree" #content>
     <thead class="table-heading-entree">
       <tr class="heading">
-        <th>Numero</th>
         <th>Numero Folio</th>
         <th>Nomenclature</th>
         <th>Designation</th>
@@ -13,13 +12,12 @@
         <th>Quantite</th>
         <th>Prix</th>
         <th>Annee Grand Livre</th>
-        <th>Facture N°</th>
+        <th>Destination du facture</th>
       </tr>
     </thead>
     <tbody class="table-body">
       @for (data of entreedata; track $index) {
       <tr class="data">
-        <td>{{ data.numEntree }}</td>
         <td>{{ data.numFolioGL }}</td>
         <td>{{ data.nomenclature }}</td>
         <td>{{ data.designation }}</td>
@@ -27,7 +25,7 @@
         <td>{{ data.quantite }}</td>
         <td>{{ data.prix }}</td>
         <td>{{ data.annee.newannee }}</td>
-        <td>{{ data.facture.numFacture }}</td>
+        <td>{{ data.facture.destination }}</td>
       </tr>
       }
     </tbody>

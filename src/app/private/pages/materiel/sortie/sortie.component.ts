@@ -51,7 +51,7 @@ export class SortieComponent {
   especeUnitaire: string[] = ['Nb', 'A', 'AN'];
 
   EntreeForm = this.formbuilder.group({
-    numEntree: ['', [Validators.required]],
+    numEntree: [''],
     nomenclature: ['', [Validators.required]],
     numFolioGL: ['', [Validators.required]],
     designation: ['', [Validators.required]],
@@ -59,7 +59,7 @@ export class SortieComponent {
     quantite: ['', [Validators.required]],
     prix: ['', [Validators.required]],
     newannee: ['', [Validators.required]],
-    numFacture: ['', [Validators.required]],
+    destination: ['', [Validators.required]],
   });
   SortieForm = this.formbuilder.group({
     nomenclature: ['', [Validators.required]],
@@ -97,7 +97,7 @@ export class SortieComponent {
         quantite: item.quantite,
         prix: item.prix,
         newannee: item.annee.newannee,
-        numFacture: item.facture.numFacture,
+        destination: item.facture.destination,
       });
     }
   }

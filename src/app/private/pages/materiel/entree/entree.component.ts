@@ -46,12 +46,14 @@ export class EntreeComponent {
   facturedata: any[] = [];
   anneedata: any[] = [];
   PrintComponent: boolean = false;
+  openModif: boolean = false;
   formHeader = 'Confirmer';
+  add = "Enregistrement d'un materiel d'entree";
   isSubmitting: boolean = false;
   isRegisterSuccess: boolean = false;
 
   EntreeForm = this.formbuilder.group({
-    numEntree: ['', [Validators.required]],
+    numEntree: [''],
     nomenclature: ['', [Validators.required]],
     numFolioGL: ['', [Validators.required]],
     designation: ['', [Validators.required]],
@@ -59,9 +61,11 @@ export class EntreeComponent {
     quantite: ['', [Validators.required]],
     prix: ['', [Validators.required]],
     newannee: ['', [Validators.required]],
-    numFacture: ['', [Validators.required]],
+    destination: ['', [Validators.required]],
   });
   clear() {
+    this.formHeader = 'Confirmer';
+    this.add = "Enregistrement d'un materiel d'entree";
     this.EntreeForm = this.formbuilder.group({
       numEntree: '',
       nomenclature: '',
@@ -71,7 +75,7 @@ export class EntreeComponent {
       quantite: '',
       prix: '',
       newannee: '',
-      numFacture: '',
+      destination: '',
     });
   }
   getEntree() {
@@ -95,36 +99,41 @@ export class EntreeComponent {
   }
 
   AddEntree() {
-    this.isSubmitting = true;
-    this.entree.create(this.EntreeForm.value).subscribe({
-      next: () => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Materiel d entree enregistre',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        this.isSubmitting = false;
-        this.isRegisterSuccess = true;
-        setTimeout(() => {
-          this.getEntree();
-          this.clear();
-        }, 1000);
-      },
-      error: () => {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Materiel d entree enregistree',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        this.isSubmitting = false;
-      },
-    });
+    if (this.openModif) {
+      this.entreeModif();
+      this.clear();
+      this.formHeader = 'Confirmer';
+      this.add = "Enregistrement d'un  materiel d'entree";
+    } else {
+      this.isSubmitting = true;
+      this.entree.create(this.EntreeForm.value).subscribe({
+        next: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Materiel d entree enregistre',
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            this.getEntree();
+            this.clear();
+          });
+        },
+        error: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Materiel d entree enregistree',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.isSubmitting = false;
+        },
+      });
+    }
   }
   modifEntree(item: any) {
+    this.openModif = true;
     if (this.EntreeForm) {
       this.EntreeForm.patchValue({
         numEntree: item.numEntree,
@@ -135,16 +144,27 @@ export class EntreeComponent {
         quantite: item.quantite,
         prix: item.prix,
         newannee: item.annee.newannee,
-        numFacture: item.facture.numFacture,
+        destination: item.facture.destination,
       });
       this.formHeader = 'Modifier';
-
+      this.add = "Modifier d'un materiel d'entree";
       this.isRegisterSuccess = false;
-      this.entree.update(this.EntreeForm.value);
     }
   }
 
-  deleteEntree(numEntree: number) {
+  entreeModif() {
+    this.isSubmitting = true;
+    this.entree.update(this.EntreeForm.value).subscribe({
+      next: () => {
+        this.isSubmitting = false;
+        this.getEntree();
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+  deleteEntree(numEntree: string) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',

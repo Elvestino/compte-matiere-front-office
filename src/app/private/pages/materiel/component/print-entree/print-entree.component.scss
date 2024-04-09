@@ -1,7 +1,7 @@
 .print-entree{
     position: fixed;
     background: rgba(0, 0, 0, 0.4);
-    
+
     z-index: 1;
     backdrop-filter: blur(5px);
     opacity: 0;
@@ -51,15 +51,12 @@
         }
         .table-body {
           .data {
+            text-align: center;
             border-bottom: 1px solid #eee;
             td {
               padding: 8px 20px;
               border: 1px solid #eee;
-              &:last-child {
-                display: flex;
-                justify-content: space-between;
-                border: none;
-              }
+
             }
             &:nth-child(even) {
               background-color: #eee;

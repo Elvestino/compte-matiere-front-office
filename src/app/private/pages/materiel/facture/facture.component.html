@@ -103,8 +103,22 @@
         </div>
 
         <div class="addFacture">
-          <button type="submit" class="btn btn-primary">
-            {{ formHeader }}
+          @if (FactureForm.valid) {
+          <button
+            class="{{
+              isRegisterSuccess
+                ? 'btn btn-success transition'
+                : 'btn btn-primary transition'
+            }}"
+            type="submit"
+          >
+            @if(isSubmitting) {
+            <i class="fa fa-circle-notch fa-spin"></i>
+            } @if(!isSubmitting && !isRegisterSuccess) { {{ formHeader }} }
+          </button>
+          }
+          <button type="button" (click)="clear()" class="btn btn-danger">
+            Effacer
           </button>
         </div>
       </form>
