@@ -1,3 +1,14 @@
+.service-heading {
+  margin-top: 30px;
+  grid-template-columns: 1fr 1fr 1fr;
+  display: grid;
+  .img {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+}
+
 .service {
   padding: 30px;
   width: 100%;
@@ -87,7 +98,7 @@
           td {
             padding: 8px 20px;
             border: 1px solid #eee;
-            &:nth-child(1){
+            &:nth-child(1) {
               text-transform: uppercase;
               font-weight: bolder;
             }

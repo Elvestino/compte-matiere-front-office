@@ -1,10 +1,11 @@
 .fournisseur-title {
   margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  h1 {
-    font-size: 30px;
+  grid-template-columns: 1fr 1fr 1fr;
+  display: grid;
+  .img {
+    align-items: center;
+    display: flex;
+    justify-content: center;
   }
 }
 .fournisseur {
@@ -26,8 +27,8 @@
       font-weight: bold;
       text-transform: uppercase;
     }
-    .searchbarre{
-      input[type=text] {
+    .searchbarre {
+      input[type="text"] {
         width: 200px;
         border: 2px solid #ccc;
         border-radius: 4px;
@@ -43,7 +44,6 @@
           width: 100%;
         }
       }
-
     }
     .btn-add {
       border: 0;

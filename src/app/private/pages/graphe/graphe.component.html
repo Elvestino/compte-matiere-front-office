@@ -1,23 +1,24 @@
+<div class="journal-heading">
+  <div class="img">
+    <img src="../../../../assets/img/DGBLogo-picsay.png" alt="" />
+  </div>
+  <div class="img">
+    <img src="../../../../assets/img/logo-gris1-picsay.png" alt="" />
+  </div>
+  <div class="img">
+    <img src="../../../../assets/img/logo_mfb-picsay.jpg" alt="" />
+  </div>
+</div>
 <main class="dashboard-list">
   <div class="separator">
     <div class="dashboard Service">
       <span>Service</span>
       <hr />
       <p>{{ getTotalCount() }}</p>
-    </div>
-  </div>
-  <div class="separator">
-    <div class="dashboard Fournisseur">
-      <span>Fournisseur</span>
-      <hr />
-      <p>{{ frnstotal() }}</p>
-    </div>
-  </div>
-  <div class="separator">
-    <div class="dashboard Facture">
-      <span>Facture</span>
-      <hr />
-      <p>{{ facturetotal() }}</p>
+
+      <button type="button" routerLink="../service">
+        Voir plus <i class="fa fa-arrow-right"></i>
+      </button>
     </div>
   </div>
   <div class="separator">
@@ -25,13 +26,40 @@
       <span>Materiel entree</span>
       <hr />
       <p>{{ entreetotal() }}</p>
+      <button type="button" routerLink="../materiel/entree">
+        Voir plus <i class="fa fa-arrow-right"></i>
+      </button>
     </div>
   </div>
+  <div class="separator">
+    <div class="dashboard Facture">
+      <span>Facture</span>
+      <hr />
+      <p>{{ facturetotal() }}</p>
+      <button type="button" routerLink="../materiel/facture">
+        Voir plus <i class="fa fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+  <div class="separator">
+    <div class="dashboard Fournisseur">
+      <span>Fournisseur</span>
+      <hr />
+      <p>{{ frnstotal() }}</p>
+      <button type="button" routerLink="../fournisseur">
+        Voir plus <i class="fa fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
   <div class="separator">
     <div class="dashboard sortie">
       <span> Materiel sortie </span>
       <hr />
       <p>{{ sortietotal() }}</p>
+      <button type="button" routerLink="../materiel/sortie">
+        Voir plus <i class="fa fa-arrow-right"></i>
+      </button>
     </div>
   </div>
 
@@ -40,6 +68,9 @@
       <span> Quitus </span>
       <hr />
       <p>{{ quitustotal() }}</p>
+      <button type="button" routerLink="../quitus">
+        Voir plus <i class="fa fa-arrow-right"></i>
+      </button>
     </div>
   </div>
 </main>

@@ -1,7 +1,6 @@
 .facture {
-
   display: grid;
-  grid-template-columns: 1fr 1fr ;
+  grid-template-columns: 1fr 1fr;
   gap: 100px;
   margin: 40px;
   .form-component {
@@ -81,7 +80,6 @@
           th {
             text-align: center;
             padding: 20px;
-
           }
         }
       }
@@ -92,7 +90,7 @@
           td {
             padding: 8px 20px;
             border: 1px solid #eee;
-            &:nth-child(1){
+            &:nth-child(1) {
               text-transform: uppercase;
               font-weight: bold;
             }

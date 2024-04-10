@@ -1,3 +1,13 @@
+.materiel-heading {
+  margin-top: 30px;
+  grid-template-columns: 1fr 1fr 1fr;
+  display: grid;
+  .img {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+}
 .material-component {
   margin: 50px;
   display: flex;

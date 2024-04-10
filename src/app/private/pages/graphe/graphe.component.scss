@@ -1,3 +1,13 @@
+.journal-heading {
+  margin-top: 30px;
+  grid-template-columns: 1fr 1fr 1fr;
+  display: grid;
+  .img {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+}
 .dashboard-list {
   width: calc(100vw - 450px);
   height: 100vh;
@@ -7,41 +17,159 @@
   align-items: center;
   .separator {
     margin: 0 50px 0 50px;
-    border: 1px solid rgba(0, 0, 0, 0.253);
     border-radius: 12px;
-    display: grid;
     .dashboard {
       border-radius: 12px;
-      padding: 30px;
+      padding: 20px 0 20px 0;
       color: white;
       text-align: center;
       span {
-        font-size: 25px;
+        font-size: 29px;
       }
       hr {
-        color: black;
+        color: white;
       }
       p {
-        font-size: 90px;
+        font-size: 80px;
       }
       &.Service {
+        animation: up-animation 0.5s 0.1s ease-in-out forwards;
         background-color: rgb(0, 204, 255);
-      }
-      &.Fournisseur {
-        background-color: rgb(9, 248, 81);
-      }
-      &.Facture {
-        background-color: rgb(241, 67, 67);
+        button {
+          font-size: 20px;
+          background-color: rgb(0, 204, 255);
+          color: white;
+          height: 40px;
+          width: 100%;
+          outline: 0;
+          border: none;
+          border-radius: 8px;
+
+          &:hover {
+            opacity: 1;
+            filter: brightness(1.05);
+          }
+          &:active {
+            transform: scale(0.9);
+          }
+        }
       }
       &.entree {
+        animation: up-animation 0.5s 0.3s ease-in-out forwards;
+        background-color: rgb(9, 248, 81);
+        button {
+          font-size: 20px;
+          background-color: rgb(9, 248, 81);
+          color: white;
+          height: 40px;
+          width: 100%;
+          outline: 0;
+          border-radius: 8px;
+          border: none;
+          &:hover {
+            opacity: 1;
+            filter: brightness(1.05);
+          }
+          &:active {
+            transform: scale(0.9);
+          }
+        }
+      }
+      &.Facture {
+        animation: up-animation 0.5s 0.5s ease-in-out forwards;
+        background-color: rgb(241, 67, 67);
+        button {
+          font-size: 20px;
+          background-color: rgb(241, 67, 67);
+          color: white;
+          height: 40px;
+          width: 100%;
+          outline: 0;
+          border: none;
+          border-radius: 8px;
+          &:hover {
+            opacity: 1;
+            filter: brightness(1.05);
+          }
+          &:active {
+            transform: scale(0.9);
+          }
+        }
+      }
+      &.Fournisseur {
+        animation: up-animation 0.5s 0.1s ease-in-out forwards;
         background-color: rgb(0, 204, 255);
+        button {
+          font-size: 20px;
+          background-color: rgb(0, 204, 255);
+          color: white;
+          height: 40px;
+          width: 100%;
+          outline: 0;
+          border-radius: 8px;
+          border: none;
+          &:hover {
+            opacity: 1;
+            filter: brightness(1.05);
+          }
+          &:active {
+            transform: scale(0.9);
+          }
+        }
       }
       &.sortie {
+        animation: up-animation 0.5s 0.3s ease-in-out forwards;
         background-color: rgb(9, 248, 81);
+        button {
+          font-size: 20px;
+          background-color: rgb(9, 248, 81);
+          color: white;
+          height: 40px;
+          width: 100%;
+          outline: 0;
+          border-radius: 8px;
+          border: none;
+          &:hover {
+            opacity: 1;
+            filter: brightness(1.05);
+          }
+          &:active {
+            transform: scale(0.9);
+          }
+        }
       }
       &.Quitus {
+        animation: up-animation 0.5s 0.5s ease-in-out forwards;
         background-color: rgb(241, 67, 67);
+        button {
+          font-size: 20px;
+          background-color: rgb(241, 67, 67);
+          color: white;
+          height: 40px;
+          width: 100%;
+          outline: 0;
+          border: none;
+          border-radius: 8px;
+          &:hover {
+            opacity: 1;
+            filter: brightness(1.05);
+          }
+          &:active {
+            transform: scale(0.9);
+          }
+        }
       }
     }
+  }
+}
+
+@keyframes up-animation {
+  from {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(40px);
   }
 }

@@ -6,10 +6,11 @@ import { PrivateServiceService } from '../../service/fournisseur.service';
 import { EntreeService } from '../../service/entree.service';
 import { SortieService } from '../../service/sortie.service';
 import { FactureService } from '../../service/facture.service';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-graphe',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './graphe.component.html',
   styleUrl: './graphe.component.scss',
 })

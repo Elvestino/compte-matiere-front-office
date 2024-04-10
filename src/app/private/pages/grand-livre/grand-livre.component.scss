@@ -6,22 +6,23 @@
   }
 }
 .journal {
-
   width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   max-width: 690px;
   padding: 0 50px 0 50px;
-  .form-journal{
+  .form-journal {
     background-color: #f1f1f1;
     padding: 20px 20px 0 20px;
-    .form-show-journal{
-      .addJournal{
-      h1{
-        font-size: 25px;
-      }
-      .Annee{
+    .form-show-journal {
+      .addJournal {
+        h1 {
+          font-size: 25px;
+        }
+        .Annee {
           border-radius: 8px;
-           margin: 0 0 0 50px;
-           padding: 20px ;
+          margin: 0 0 0 50px;
+          padding: 20px;
 
           label {
             font-size: 19px;
@@ -34,10 +35,10 @@
             padding: 10px;
             border-radius: 4px;
             font-size: 16px;
+          }
         }
-      }
-      .form-content {
-        align-items: center;
+        .form-content {
+          align-items: center;
           labeL {
             padding: 3px;
             font-size: 20px;
@@ -59,29 +60,29 @@
               outline: none;
             }
           }
-      }
-    }
-    .addNouvelleAnee {
-      padding-top: 30px;
-      border: none;
-      button {
-        font-size: 16px;
-        width: 100%;
-        color: white;
-
-        opacity: 0.9;
-
-        &:hover {
-          opacity: 1;
-          filter: brightness(1.2);
         }
-        &:active {
-          transform: scale(0.9);
+      }
+      .addNouvelleAnee {
+        padding-top: 30px;
+        border: none;
+        button {
+          font-size: 16px;
+          width: 100%;
+          color: white;
+
+          opacity: 0.9;
+
+          &:hover {
+            opacity: 1;
+            filter: brightness(1.2);
+          }
+          &:active {
+            transform: scale(0.9);
+          }
         }
       }
     }
   }
-}
   .table-journal {
     padding: 30px;
     h1 {
@@ -98,13 +99,11 @@
           background-color: #f1f1f1;
           th {
             padding: 20px;
-
           }
         }
       }
       .table-body {
         .data {
-
           text-align: center;
           cursor: pointer;
           border-bottom: 1px solid #eee;
@@ -112,7 +111,6 @@
             padding: 8px 20px;
 
             border: 1px solid #eee;
-
           }
           &:nth-child(even) {
             background-color: #eee;
