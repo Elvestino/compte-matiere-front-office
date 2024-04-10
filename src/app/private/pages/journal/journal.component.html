@@ -39,7 +39,6 @@
             name="nomenclature"
             id="nomenclature"
             formControlName="nomenclature"
-            [disabled]="isDisabled"
           />
         </div>
         <div class="form-content">
@@ -49,7 +48,6 @@
             name="destination"
             id="destination"
             formControlName="destination"
-            [disabled]="isDisabled"
           />
         </div>
         <div class="form-content">
@@ -59,18 +57,11 @@
             name="quantite"
             id="quantite"
             formControlName="quantite"
-            [disabled]="isDisabled"
           />
         </div>
         <div class="form-content">
           <label for="prix">Prix </label>
-          <input
-            type="text"
-            name="prix"
-            id="prix"
-            formControlName="prix"
-            [disabled]="isDisabled"
-          />
+          <input type="text" name="prix" id="prix" formControlName="prix" />
           <span for="ar">Ar</span><br />
         </div>
         <div class="form-content">
@@ -80,7 +71,6 @@
             name="designation"
             id="designation"
             formControlName="designation"
-            [disabled]="isDisabled"
           />
         </div>
       </div>

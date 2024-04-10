@@ -23,13 +23,10 @@
           formControlName="immatricule"
           required
         />
-        @if (
-          immatricule?.invalid && (immatricule?.dirty || immatricule?.touched)
-        ) {
-          @if (immatricule?.errors?.["required"]) {
-            <span>Immatricule vide</span>
-          }
-        }
+        @if ( immatricule?.invalid && (immatricule?.dirty ||
+        immatricule?.touched) ) { @if (immatricule?.errors?.["required"]) {
+        <span>Immatricule vide</span>
+        } }
       </div>
       <div class="form-container-text password-form">
         <label for="password">Mot de passe</label>
@@ -39,20 +36,19 @@
           formControlName="password"
           name="password"
         />
-        @if (password?.invalid && (password?.dirty || password?.touched)) {
-          @if (password?.errors?.["required"]) {
-            <span>Mot de passe vide</span>
-          }
-        }
+        @if (password?.invalid && (password?.dirty || password?.touched)) { @if
+        (password?.errors?.["required"]) {
+        <span>Mot de passe vide</span>
+        } }
         <button
           class="btn-show-password transition"
           (click)="PassordVisible()"
           type="button"
         >
           @if (!showPassword) {
-            <i class="fa fa-eye"></i>
+          <i class="fa fa-eye"></i>
           } @else {
-            <i class="fa fa-eye-slash"></i>
+          <i class="fa fa-eye-slash"></i>
           }
         </button>
       </div>
@@ -61,37 +57,21 @@
       </div>
       <div class="btn-submit">
         @if (loginForm.valid) {
-          <button
-            class="{{
-              isLoginSuccess
-                ? 'btn-login success transition'
-                : 'btn-login transition'
-            }}"
-            type="submit"
-          >
-            @if (isSubmitting) {
-              <i class="fa fa-circle-notch fa-spin"></i>
-            } @else {
-              @if (isLoginSuccess) {
-                <i class="fa fa-check"></i>
-              } @else {
-                Se connecter
-              }
-            }
-          </button>
+        <button
+          class="{{
+            isLoginSuccess
+              ? 'btn-login success transition'
+              : 'btn-login transition'
+          }}"
+          type="submit"
+        >
+          @if (isSubmitting) {
+          <i class="fa fa-circle-notch fa-spin"></i>
+          } @else { @if (isLoginSuccess) {
+          <i class="fa fa-check"></i>
+          } @else { Se connecter } }
+        </button>
         }
-      </div>
-      <div class="plateform">
-        <p class="form-plateform">Les plateformes disponibles</p>
-        <a href="#" class="plateform-link" aria-label="facebook"
-          ><i class="fa-brands fa-facebook"></i
-        ></a>
-        <a href="#" class="plateform-link" aria-label="twitter"
-          ><i class="fa-brands fa-twitter"></i
-        ></a>
-        <a href="#" class="plateform-link" aria-label="github"
-          ><i class="fa-brands fa-github"></i
-        ></a>
       </div>
     </form>
   </div>

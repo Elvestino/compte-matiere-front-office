@@ -1,27 +1,45 @@
-<main class="dashboard">
+<main class="dashboard-list">
   <div class="separator">
-    <div class="dashboard-service">Service</div>
-    <p>{{ getTotalCount() }}</p>
+    <div class="dashboard Service">
+      <span>Service</span>
+      <hr />
+      <p>{{ getTotalCount() }}</p>
+    </div>
   </div>
   <div class="separator">
-    <div class="dashboard-fournisseur">Fournisseur</div>
-    <p>{{ frnstotal() }}</p>
+    <div class="dashboard Fournisseur">
+      <span>Fournisseur</span>
+      <hr />
+      <p>{{ frnstotal() }}</p>
+    </div>
   </div>
   <div class="separator">
-    <div class="dashboard-facture">Facture</div>
-    <p>{{ facturetotal() }}</p>
+    <div class="dashboard Facture">
+      <span>Facture</span>
+      <hr />
+      <p>{{ facturetotal() }}</p>
+    </div>
   </div>
   <div class="separator">
-    <div class="dashboard-entree">Materiel entree</div>
-    <p>{{ entreetotal() }}</p>
+    <div class="dashboard entree">
+      <span>Materiel entree</span>
+      <hr />
+      <p>{{ entreetotal() }}</p>
+    </div>
   </div>
   <div class="separator">
-    <div class="dashboard-sortie">Materiel sortie</div>
-    <p>{{ sortietotal() }}</p>
+    <div class="dashboard sortie">
+      <span> Materiel sortie </span>
+      <hr />
+      <p>{{ sortietotal() }}</p>
+    </div>
   </div>
 
   <div class="separator">
-    <div class="dashboard-quitus">Quitus</div>
-    <p>{{ quitustotal() }}</p>
+    <div class="dashboard Quitus">
+      <span> Quitus </span>
+      <hr />
+      <p>{{ quitustotal() }}</p>
+    </div>
   </div>
 </main>

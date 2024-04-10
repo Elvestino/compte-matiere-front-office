@@ -1,5 +1,4 @@
-.dashboard {
-  border: 1px solid red;
+.dashboard-list {
   width: calc(100vw - 450px);
   height: 100vh;
   display: grid;
@@ -7,6 +6,42 @@
   justify-content: center;
   align-items: center;
   .separator {
-    border: 1px solid black;
+    margin: 0 50px 0 50px;
+    border: 1px solid rgba(0, 0, 0, 0.253);
+    border-radius: 12px;
+    display: grid;
+    .dashboard {
+      border-radius: 12px;
+      padding: 30px;
+      color: white;
+      text-align: center;
+      span {
+        font-size: 25px;
+      }
+      hr {
+        color: black;
+      }
+      p {
+        font-size: 90px;
+      }
+      &.Service {
+        background-color: rgb(0, 204, 255);
+      }
+      &.Fournisseur {
+        background-color: rgb(9, 248, 81);
+      }
+      &.Facture {
+        background-color: rgb(241, 67, 67);
+      }
+      &.entree {
+        background-color: rgb(0, 204, 255);
+      }
+      &.sortie {
+        background-color: rgb(9, 248, 81);
+      }
+      &.Quitus {
+        background-color: rgb(241, 67, 67);
+      }
+    }
   }
 }
