@@ -1,0 +1,12 @@
+.dashboard {
+  border: 1px solid red;
+  width: calc(100vw - 450px);
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  .separator {
+    border: 1px solid black;
+  }
+}

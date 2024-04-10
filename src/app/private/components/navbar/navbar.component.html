@@ -1,84 +1,60 @@
-<div class="btn">
-  <div class="users">
-    <span>Utilisateur</span>
-    <button type="button" class="btn-user"><i class="fa fa-user"></i></button>
-    <span class="tooltiptext">
-      <ul>
-        <span>Utilisateur</span>
-        <hr />
-        @for (item of data; track $index) {
-        <li>Immatricule : {{ item.immatricule }}</li>
-        <li>Nom Complet : {{ item.nomComplet }}</li>
-        <li>Grade : {{ item.grade }}</li>
-        }
-      </ul>
-    </span>
+<nav class="app-navbar">
+  <div class="nav-heading">
+    <div class="user-info">
+      <span class="info"
+        ><i class="fa fa-user"></i>
+        <span class="user-name">RABEHEVITRA Fitiavana Nalahatra</span></span
+      >
+
+      <span class="info"><i class="fa fa-id-card"></i> 456 467</span>
+
+      <span class="info"><i class="fa fa-at"></i> Stagiaire</span>
+    </div>
+
+    <div class="user-info">
+      <span class="info"><i class="fa fa-clock"></i> {{ heureActuelle }}</span>
+
+      <span class="info"
+        ><i class="fa fa-calendar"></i> {{ dateAujourdhui }}</span
+      >
+    </div>
   </div>
 
-  <div class="logout">
-    <span>Deconnection</span>
-    <button type="button" class="btn-nav" (click)="logOut()">
-      <i class="fa fa-power-off"></i>
-    </button>
-  </div>
-  <div class="timeandyear">
-    <div class="heure">
-      <label for="time">Heure :</label><span> {{ heureActuelle }}</span>
-    </div>
-    <div class="date">
-      <label for="year">Date :</label><span> {{ dateAujourdhui }}</span>
-    </div>
-  </div>
-</div>
-<nav class="app-navbar d-flex flex-column justify-center flex-align-center">
-  @if (open) {
-  <button
-    type="button"
-    class="btn-nav-control left"
-    name="close navbar"
-    aria-label="close navbar"
-    (click)="OpenHome()"
-  >
-    <i class="fa fa-chevron-left"></i>
-  </button>
-  } @else {
-  <button
-    type="button"
-    class="btn-nav-control right"
-    name="open navbar"
-    aria-label="open navbar"
-    (click)="CloseHome()"
-  >
-    <i class="fa fa-chevron-right"></i>
-  </button>
-  }
   <!-- -----------ROUTES--------------- -->
 
-  @if (open) {
-  <a routerLink="" routerLinkActive="" class="nav-link">
-    <i class="fa fa-home"></i> Acceuil
-  </a>
-  <a routerLink="fournisseur" routerLinkActive="active" class="nav-link">
-    <i class="fa fa-users"></i> Fournisseur
-  </a>
-  <a routerLink="service" routerLinkActive="active" class="nav-link">
-    <i class="fa-solid fa-gears"></i>
-    Service
-  </a>
-  <a routerLink="materiel" routerLinkActive="active" class="nav-link">
-    <i class="fa fa-pencil"></i> Materiel
-  </a>
-  <a routerLink="journal" routerLinkActive="active" class="nav-link">
-    <i class="fa fa-book"></i> Journal
-  </a>
-  <a routerLink="grandLivre" routerLinkActive="active" class="nav-link">
-    <i class="fa-solid fa-book-open"></i> Grand Livre
-  </a>
-  <a routerLink="quitus" routerLinkActive="active" class="nav-link">
-    <i class="fa-solid fa-receipt"></i> Quitus
-  </a>
-  <a routerLink="graphe" routerLinkActive="active" class="nav-link">
-    <i class="fa fa-dashboard"></i> Tableau de Bord
-  </a>
-  }
+  <div class="nav-links">
+    <a
+      routerLink="/apps"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="nav-link"
+    >
+      <i class="fa fa-home"></i> Acceuil
+    </a>
+    <a routerLink="graphe" routerLinkActive="active" class="nav-link">
+      <i class="fa fa-dashboard"></i> Tableau de Bord
+    </a>
+    <a routerLink="fournisseur" routerLinkActive="active" class="nav-link">
+      <i class="fa fa-users"></i> Fournisseur
+    </a>
+    <a routerLink="service" routerLinkActive="active" class="nav-link">
+      <i class="fa-solid fa-gears"></i>
+      Service
+    </a>
+    <a routerLink="materiel" routerLinkActive="active" class="nav-link">
+      <i class="fa fa-pencil"></i> Materiel
+    </a>
+    <a routerLink="journal" routerLinkActive="active" class="nav-link">
+      <i class="fa fa-book"></i> Journal
+    </a>
+    <a routerLink="grandLivre" routerLinkActive="active" class="nav-link">
+      <i class="fa-solid fa-book-open"></i> Grand Livre
+    </a>
+    <a routerLink="quitus" routerLinkActive="active" class="nav-link">
+      <i class="fa-solid fa-receipt"></i> Quitus
+    </a>
+  </div>
+  <div class="log">
+    <button class="logout-btn btn bg-danger">Se deconnecter</button>
+  </div>
 </nav>
