@@ -1,9 +1,9 @@
 <main class="print-quitus fill-view">
   <div class="title">
-    <h1>Est ce le model que vous voulez imprimer ?</h1>
+    <h3>Veuillez appuyer sur le donnee a imprimer</h3>
   </div>
 
-  <table class="section-table" #content>
+  <table class="section-table">
     <thead class="table-heading">
       <tr class="heading">
         <th>Nom de Service</th>
@@ -18,7 +18,7 @@
     </thead>
     <tbody class="table-body">
       @for (item of quitusdata; track $index) {
-      <tr class="data">
+      <tr class="data" (click)="modifAquitus(item)">
         <td>{{ item.service.nomService }}</td>
         <td>{{ item.objetQuitus }}</td>
         <td>{{ item.ReferenceQuitus }}</td>
@@ -30,12 +30,68 @@
       }
     </tbody>
   </table>
+  <div class="title">
+    <h4>Voici le model que vous allez imprimer</h4>
+  </div>
+  <div class="form-add-quitus" #content>
+    <form class="form" [formGroup]="QuitusForm">
+      <div class="form-add-section">
+        <div class="service">
+          <!-- -----------------Num service--------------- -->
+          <label for="nomservice">Nom du service :</label>
+          <select
+            name="nomservice"
+            id="nomservice"
+            formControlName="nomService"
+          >
+            @for(service of servicedata; track $index){
+            <option value="{{ service.nomService }}">
+              {{ service.nomService }}
+            </option>
+            }
+          </select>
+        </div>
+
+        <div class="quitus-formulaire">
+          <!-- -----------------referenceQuitus--------------- -->
+          <label for="referenceQuitus">Reference :</label>
+          <input type="text" formControlName="ReferenceQuitus" />
+        </div>
+        <div class="quitus-formulaire">
+          <label for="objetQuitus">Objet </label>
+          <input type="text" formControlName="objetQuitus" />
+        </div>
+
+        <div class="quitus-formulaire">
+          <!-- -----------------montantQuitus--------------- -->
+          <label for="montantQuitus">Montant :</label>
+          <input type="text" formControlName="montantQuitus" />
+          <label for="ar">Ar</label>
+        </div>
+        <div class="quitus-formulaire">
+          <!-- -----------------exerciceAnnee--------------- -->
+          <label for="exerciceAnnee">Exercice(Annee) :</label>
+          <input type="text" formControlName="exerciceAnnee" />
+        </div>
+        <div class="quitus-formulaire">
+          <!-- -----------------date--------------- -->
+          <label for="dateQuitus">Date :</label>
+          <input type="date" formControlName="dateQuitus" id="dateQuitus" />
+        </div>
+        <div class="quitus-formulaire">
+          <!-- -----------------observation--------------- -->
+          <label for="observation">Observation :</label>
+          <input type="text" formControlName="observateur" />
+        </div>
+      </div>
+    </form>
+  </div>
   <div class="acceptandcancel">
     <button type="submit" class="btn btn-success" (click)="printQuitus()">
-      Oui
+      Imprimer
     </button>
     <button type="submit" class="btn btn-danger" (click)="closePrint()">
-      Non
+      Annuler
     </button>
   </div>
 </main>
