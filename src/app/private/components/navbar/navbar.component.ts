@@ -23,17 +23,14 @@ export class NavbarComponent implements OnInit {
   dateAujourdhui: string;
   immatricule: any;
   userData: any;
-  animateClass: string =
-    'animate__animated animate__fadeInLeft animate__infinite infinite';
+
   data: any[] = [];
   open: boolean = true;
   OpenHome() {
     this.open = false;
-    this.animateClass;
   }
   CloseHome() {
     this.open = true;
-    this.animateClass;
   }
   logOut() {
     this.AuthService.logOut();
@@ -43,21 +40,6 @@ export class NavbarComponent implements OnInit {
     setInterval(() => {
       this.obtenirHeureActuelle();
     }, 1000);
-    // this.AuthService.check().then((isLoggedIn) => {
-    //   if (isLoggedIn) {
-    //     const token = localStorage.getItem('access_token'); // Récupérez le token
-
-    //     // Envoyez le token directement dans le header de la requête au backend
-    //     this.http
-    //       .get<any>(`${this.apiUrl}/auth/check-login`, {
-    //         headers: { Authorization: `Bearer ${token}` },
-    //       })
-    //       .subscribe((userData) => {
-    //         this.userData = userData;
-    //         console.log(userData);
-    //       });
-    //   }
-    // });
   }
 
   obtenirHeureActuelle(): any {

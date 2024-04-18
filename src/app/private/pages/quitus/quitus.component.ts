@@ -26,8 +26,8 @@ export class QuitusComponent implements OnInit {
     private service: ServiceService,
     private formBuilder: FormBuilder
   ) {
-    this.getService();
     this.getQuitus();
+    this.getService();
   }
   add = 'Enregistrement Quitus';
   formHeader = 'Confirmer';
@@ -76,14 +76,16 @@ export class QuitusComponent implements OnInit {
     });
   }
   getQuitus() {
-    this.QuitusS.findAll().subscribe({
-      next: (res) => {
+    console.log('getQuitus() called');
+    this.QuitusS.findAll().subscribe(
+      (res) => {
         this.quitusdata = res;
+        console.log('Quitus data:', this.quitusdata);
       },
-      error: (err) => {
+      (err) => {
         console.error(err);
-      },
-    });
+      }
+    );
   }
 
   openPrint() {
@@ -98,6 +100,8 @@ export class QuitusComponent implements OnInit {
 
   ngOnInit(): void {
     this.getQuitus();
+    this.getService();
+
     this.search.valueChanges
       .pipe(
         debounceTime(300),
@@ -123,6 +127,7 @@ export class QuitusComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           }).then(() => {
+            console.log('Before calling getQuitus()');
             this.getQuitus();
             this.clear();
             this.closeModal();
