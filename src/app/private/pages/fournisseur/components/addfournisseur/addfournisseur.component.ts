@@ -51,51 +51,49 @@ export class AddfournisseurComponent implements OnInit {
 
   isSubmitting: boolean = false;
   isRegisterSuccess: boolean = false;
-  modifdata: boolean = false;
+  modifdata: any[] = [];
   formHeader = 'Valider';
 
   submitFournisseur() {
-    if (this.modifdata) {
-      this.modifdata = false;
-      this.modifSubmit();
-    } else {
-      this.isSubmitting = true;
-      console.log('enregister leka ty');
-      this.PrivateService.create(this.FournisseurForm.value).subscribe({
-        next: (result) => {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Fournisseur enregistre',
-            showConfirmButton: false,
-            timer: 1500,
-          }).then((res) => {
-            this.isSubmitting = false;
-            this.isRegisterSuccess = true;
-            this.closeForm();
-          });
-        },
-        error: () => {
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Fournisseur deja enregistree',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          console.log('inona le erreur : ', this.FournisseurForm.value);
+    // if (this.modifdata) {
+    //   this.modifSubmit();
+    // } else {
+    this.isSubmitting = true;
+    console.log('enregister leka ty');
+    this.PrivateService.create(this.FournisseurForm.value).subscribe({
+      next: (result) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Fournisseur enregistre',
+          showConfirmButton: false,
+          timer: 1500,
+        }).then((res) => {
           this.isSubmitting = false;
-        },
-      });
-    }
+          this.isRegisterSuccess = true;
+          this.closeForm();
+        });
+      },
+      error: () => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Fournisseur deja enregistree',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log('inona le erreur : ', this.FournisseurForm.value);
+        this.isSubmitting = false;
+      },
+    });
   }
+  //}
   @Input() fournisseurData: any = new EventEmitter();
 
   ngOnInit() {
     if (this.fournisseurData) {
       console.log('mofifier leka ty');
-      this.formHeader = 'Modifier';
-      this.title = ['Modifier Fournisseur'];
+
       this.FournisseurForm.patchValue({
         nomFrns: this.fournisseurData.nomFrns,
         prenomFrns: this.fournisseurData.prenomFrns,
@@ -112,6 +110,7 @@ export class AddfournisseurComponent implements OnInit {
       this.fournisseurData.numFrns
     ).subscribe({
       next: (res) => {
+        this.title = ['Modifier Fournisseur'];
         this.formHeader = 'Modifier';
         this.isSubmitting = false;
 

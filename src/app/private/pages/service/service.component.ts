@@ -9,7 +9,6 @@ import { ServiceService } from '../../service/service.service';
 import Swal from 'sweetalert2';
 import { RouterLink } from '@angular/router';
 import { PrintServiceComponent } from './components/print-service/print-service.component';
-import { BehaviorSubject, Subject, switchMap, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-service',
@@ -21,40 +20,15 @@ import { BehaviorSubject, Subject, switchMap, takeUntil } from 'rxjs';
     RouterLink,
   ],
   templateUrl: './service.component.html',
-  styleUrl: './service.component.scss',
+  styleUrls: ['./service.component.scss'],
 })
-export class ServiceComponent implements OnInit, OnDestroy {
-  private readonly unsubscribe$: Subject<void> = new Subject<void>();
-  private readonly refresh$: BehaviorSubject<undefined> =
-    new BehaviorSubject<undefined>(undefined);
-
+export class ServiceComponent {
   constructor(
     private service: ServiceService,
     private formBuilder: FormBuilder
-  ) {}
-
-  ngOnInit(): void {
-    this.refresh$
-      .pipe(
-        switchMap(() => {
-          return this.service.findAll();
-        }),
-        takeUntil(this.unsubscribe$)
-      )
-      .subscribe({
-        next: (res) => {
-          this.data = res;
-        },
-        error: (err) => {
-          console.error(err);
-        },
-      });
+  ) {
+    this.getService();
   }
-
-  refresh() {
-    this.refresh$.next(undefined);
-  }
-
   data: any[] = [];
   openSubmit: boolean = false;
   isSubmitting: boolean = false;
@@ -69,6 +43,17 @@ export class ServiceComponent implements OnInit, OnDestroy {
     typeService: ['', [Validators.required]],
   });
 
+  getService() {
+    this.service.findAll().subscribe(
+      (res) => {
+        this.data = res;
+        console.log('service enregs:', res);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
   clear() {
     this.serviceForm = this.formBuilder.group({
       numService: '',
@@ -80,7 +65,6 @@ export class ServiceComponent implements OnInit, OnDestroy {
   }
   openPrint() {
     this.PrintComponent = !this.PrintComponent;
-    this.refresh();
   }
 
   submitservice() {
@@ -98,10 +82,11 @@ export class ServiceComponent implements OnInit, OnDestroy {
             showConfirmButton: false,
             timer: 1500,
           }).then((res) => {
-            this.refresh();
+            console.log('Service créé avec succès:', res);
             this.isSubmitting = false;
             this.isRegisterSuccess = false;
             this.clear();
+            this.getService();
           });
         },
         error: () => {
@@ -142,7 +127,6 @@ export class ServiceComponent implements OnInit, OnDestroy {
         this.openSubmit = false;
         this.data = res;
         console.log(res);
-        this.refresh();
       },
       error: (error) => {
         console.error(error);
@@ -171,7 +155,6 @@ export class ServiceComponent implements OnInit, OnDestroy {
         if (result.isConfirmed) {
           this.service.remove(numService).subscribe({
             next: (res) => {
-              this.refresh();
               this.clear();
               swalWithBootstrapButtons.fire({
                 title: 'Supprimer',
@@ -202,10 +185,5 @@ export class ServiceComponent implements OnInit, OnDestroy {
           });
         }
       });
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
   }
 }

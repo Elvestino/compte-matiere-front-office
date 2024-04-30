@@ -37,7 +37,7 @@ export const routes: Routes = [
         path: 'materiel',
         component: MaterielComponent,
         children: [
-          { path: 'facture', component: FactureComponent },
+          { path: '', component: FactureComponent },
           { path: 'entree', component: EntreeComponent },
           { path: 'sortie', component: SortieComponent },
         ],

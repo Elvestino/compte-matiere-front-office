@@ -76,11 +76,9 @@ export class QuitusComponent implements OnInit {
     });
   }
   getQuitus() {
-    console.log('getQuitus() called');
     this.QuitusS.findAll().subscribe(
       (res) => {
         this.quitusdata = res;
-        console.log('Quitus data:', this.quitusdata);
       },
       (err) => {
         console.error(err);
@@ -127,7 +125,6 @@ export class QuitusComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           }).then(() => {
-            console.log('Before calling getQuitus()');
             this.getQuitus();
             this.clear();
             this.closeModal();
