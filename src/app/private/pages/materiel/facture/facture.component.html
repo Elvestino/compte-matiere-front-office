@@ -126,7 +126,16 @@
     </div>
   </section>
   <!-- ----------------------table------------------------- -->
+
   <section class="table">
+    <div class="searchbarre">
+      <input
+        type="text"
+        id="search"
+        placeholder="Recherche..."
+        [formControl]="search"
+      />
+    </div>
     <table class="section-table-facture">
       <thead class="table-heading-facture">
         <tr class="heading">

@@ -1,13 +1,161 @@
 @if (isFournisseurComponentOpen) {
-<app-addfournisseur
-  (close)="closeCard()"
-  [fournisseurData]="selectedData"
-></app-addfournisseur>
+<main class="add-fournisseur fill-view">
+  <div class="form-container">
+    <button
+      class="btn-close-form"
+      type="button"
+      aria-label="close buttton"
+      (click)="closeCard()"
+    >
+      <i class="fa fa-times"></i>
+    </button>
+    <form
+      class="style-form"
+      [formGroup]="FournisseurForm"
+      (submit)="submitFournisseur()"
+    >
+      <div class="container-form">
+        <h1>{{ title }}</h1>
+        <hr />
+
+        <div class="container-form nomFrns">
+          <label for="nomFrns">Nom </label>
+          <input
+            type="text"
+            placeholder="ex: RASOLOFO "
+            formControlName="nomFrns"
+            required
+          />
+          @if (nomFrns?.touched && nomFrns?.errors?.["required"]) {
+          <span class="error-text"> Entrer votre nom, s'il vous plait. </span>
+          }
+        </div>
+        <div class="container-form prenomFrns">
+          <label for="prenomFrns">Prenom </label>
+          <input
+            type="text"
+            placeholder="ex: Richard Guerdo"
+            formControlName="prenomFrns"
+            required
+          />
+          @if (prenomFrns?.touched && prenomFrns?.errors?.["required"]) {
+          <span class="error-text"> Entrer prenom, s'il vous plait. </span>
+          }
+        </div>
+        <div class="container-form adrsFrns">
+          <label for="adrsFrns">Adresse </label>
+          <input
+            type="text"
+            placeholder="ex: Antananarivo"
+            formControlName="adrsFrns"
+            required
+          />
+          @if (adrsFrns?.touched && adrsFrns?.errors?.["required"]) {
+          <span class="error-text">
+            Entrer votre adresse, s'il vous plait.
+          </span>
+          }
+        </div>
+        <div class="container-form telFrns">
+          <label for="telFrns">Contact</label>
+          <input
+            type="text"
+            placeholder="ex: 0340000000"
+            formControlName="telFrns"
+            required
+          />
+          @if (telFrns?.touched && telFrns?.errors?.["required"]) {
+          <span class="error-text">
+            Entrer votre numero de telephone, s'il vous plait.
+          </span>
+          }
+        </div>
+        <div class="container-form typeFrns">
+          <label for="typeFrns">Fournisseur venant du </label>
+          <input
+            type="type"
+            placeholder="ex : Poste"
+            formControlName="typeFrns"
+            required
+          />
+          @if (typeFrns?.touched && typeFrns?.errors?.["required"]) {
+          <span class="error-text">
+            Entrer d'ou vous venez, s'il vous plait.
+          </span>
+          }
+        </div>
+
+        <div class="btn">
+          @if (FournisseurForm.valid) {
+          <button
+            class="{{
+              isRegisterSuccess
+                ? 'btn btn-success transition'
+                : 'btn btn-primary transition'
+            }}"
+            type="submit"
+          >
+            @if(!isSubmitting && !isRegisterSuccess) { {{ formHeader }} }
+          </button>
+          }
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+
 } @if (isOrdreComponentOpen) {
-<app-add-ordre
-  (close)="CloseCardOrdre()"
-  [OrdreData]="selectDataOrdre"
-></app-add-ordre>
+<main class="add-ordre fill-view">
+  <div class="form-container">
+    <button
+      class="btn-close-form"
+      type="button"
+      aria-label="close buttton"
+      (click)="CloseCardOrdre()"
+    >
+      <i class="fa fa-times"></i>
+    </button>
+    <form class="style-form" [formGroup]="OrdreForm" (submit)="AddOrdre()">
+      <div class="container-form">
+        <h1>{{ title }}</h1>
+        <hr />
+
+        <div class="container-form">
+          <label for="date">Date </label>
+          <input
+            type="date"
+            name="date"
+            id="date"
+            formControlName="dateOrdre"
+          />
+        </div>
+        <div class="container-form">
+          <label for="nomService">Numero du service </label>
+          <select formControlName="nomService" id="nomService">
+            @for(service of servicedata; track $index){
+            <option value="{{ service.nomService }}">
+              {{ service.nomService }}
+            </option>
+            }
+          </select>
+        </div>
+        <div class="container-form">
+          <label for="newannee">Annee du Journal </label>
+          <select name="newannee" id="newannee" formControlName="newannee">
+            @for(annee of AnnneeData; track $index){
+            <option value="{{ annee.newannee }}">{{ annee.newannee }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="btn">
+          <button type="submit" class="btn btn-primary">Valider</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+
 }@if(PrintComponent){
 <app-print-frns (close)="openPrint()"></app-print-frns>
 }@if(PrintComponentOrdre){

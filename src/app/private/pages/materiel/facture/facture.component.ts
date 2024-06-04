@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FactureService } from '../../../service/facture.service';
 import {
   FormBuilder,
+  FormControl,
   FormsModule,
   ReactiveFormsModule,
   Validators,
@@ -12,6 +13,7 @@ import { PrivateServiceService } from '../../../service/fournisseur.service';
 import Swal from 'sweetalert2';
 import { HttpClientModule } from '@angular/common/http';
 import { PrintFactureComponent } from '../component/print-facture/print-facture.component';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-facture',
@@ -26,7 +28,7 @@ import { PrintFactureComponent } from '../component/print-facture/print-facture.
   templateUrl: './facture.component.html',
   styleUrl: './facture.component.scss',
 })
-export class FactureComponent {
+export class FactureComponent implements OnInit {
   constructor(
     private facture: FactureService,
     private formBuilder: FormBuilder,
@@ -43,6 +45,7 @@ export class FactureComponent {
   openModif: boolean = false;
   dataFacture: any[] = [];
   dataFrns: any[] = [];
+  search = new FormControl();
   dataOrdre: any[] = [];
   isSubmitting: boolean = false;
   isRegisterSuccess: boolean = false;
@@ -58,6 +61,18 @@ export class FactureComponent {
     montantFacture: ['', [Validators.required]],
     nomFrns: ['', [Validators.required]],
   });
+  ngOnInit(): void {
+    this.getDataFacture();
+    this.search.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((searchterm, nbr) => this.facture.filterFrns(searchterm, nbr))
+      )
+      .subscribe((filteredItems) => {
+        this.dataFacture = filteredItems;
+      });
+  }
 
   clear() {
     this.formHeader = 'Confirmer';

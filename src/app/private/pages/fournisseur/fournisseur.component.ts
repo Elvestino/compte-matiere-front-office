@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AddOrdreComponent } from './components/add-ordre/add-ordre.component';
-import { AddfournisseurComponent } from './components/addfournisseur/addfournisseur.component';
 import { PrivateServiceService } from '../../service/fournisseur.service';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import Swal from 'sweetalert2';
 import { PrintFrnsComponent } from './components/print-frns/print-frns.component';
 import { RouterLink } from '@angular/router';
@@ -11,14 +14,16 @@ import { CommonModule } from '@angular/common';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { OrdreService } from '../../service/ordre.service';
 import { PrintOrdreComponent } from './components/print-ordre/print-ordre.component';
+import { FournisseurModel } from '../../models/fournisseur.models';
+import { OrdreModel } from '../../models/ordre.model';
+import { ServiceService } from '../../service/service.service';
+import { AnneeService } from '../../service/annee.service';
 
 @Component({
   selector: 'app-fournisseur',
   standalone: true,
   imports: [
     CommonModule,
-    AddfournisseurComponent,
-    AddOrdreComponent,
     PrintFrnsComponent,
     RouterLink,
     ReactiveFormsModule,
@@ -30,7 +35,11 @@ import { PrintOrdreComponent } from './components/print-ordre/print-ordre.compon
 export class FournisseurComponent implements OnInit {
   constructor(
     private PrivateService: PrivateServiceService,
-    private OrdreService: OrdreService
+    private OrdreService: OrdreService,
+    private ordreService: OrdreService,
+    private service: ServiceService,
+    private annee: AnneeService,
+    private formBuilder: FormBuilder
   ) {
     this.OrdreData();
     this.Data();
@@ -38,33 +47,48 @@ export class FournisseurComponent implements OnInit {
 
   items: any[] = [];
   ordre: any[] = [];
-  selectedData: any[] = [];
-  selectDataOrdre: any[] = [];
-  search = new FormControl();
+  isAddLivre: boolean = false;
 
+  search = new FormControl();
+  isModifAction: boolean = false;
   isFournisseurComponentOpen: boolean = false;
   PrintComponent: boolean = false;
   PrintComponentOrdre: boolean = false;
   isOrdreComponentOpen: boolean = false;
+
+  selectedData: FournisseurModel = {
+    numFrns: '',
+    nomFrns: '',
+    prenomFrns: '',
+    adrsFrns: '',
+    telFrns: '',
+    typeFrns: '',
+  };
+  selectDataOrdre: OrdreModel = {
+    numService: {
+      libelle: '',
+      nomService: '',
+      numService: '',
+      SOA: '',
+      typeService: '',
+    },
+    dateOrdre: new Date(),
+    newannee: {
+      newannee: 0,
+    },
+    numOrdre: '',
+  };
   closeCard() {
     this.isFournisseurComponentOpen = false;
-    this.selectedData = [];
-    this.Data();
   }
   openAddFrounisseur() {
     this.isFournisseurComponentOpen = true;
-    this.selectedData = [];
-    this.Data();
   }
   CloseCardOrdre() {
     this.isOrdreComponentOpen = false;
-    this.selectDataOrdre = [];
-    this.OrdreData();
   }
   OpenAddOrdre() {
     this.isOrdreComponentOpen = true;
-    this.selectDataOrdre = [];
-    this.OrdreData();
   }
   openPrint() {
     this.PrintComponent = !this.PrintComponent;
@@ -98,11 +122,27 @@ export class FournisseurComponent implements OnInit {
   }
 
   // -----------------------------UPDATE----------------------------
-  modifData(item: any) {
+  modifData(item: FournisseurModel) {
+    this.isModifAction = true;
+    this.FournisseurForm.patchValue({
+      nomFrns: item.nomFrns,
+      adrsFrns: item.adrsFrns,
+      prenomFrns: item.prenomFrns,
+      telFrns: item.telFrns,
+      typeFrns: item.typeFrns,
+    });
     this.selectedData = item;
     this.isFournisseurComponentOpen = true;
   }
-  modifDataOrdre(dataOrdre: any) {
+
+  modifDataOrdre(dataOrdre: OrdreModel) {
+    this.isModifAction = true;
+    this.OrdreForm.patchValue({
+      dateOrdre: new Date().toISOString().split('T')[0],
+      newannee: dataOrdre.newannee.newannee.toString(),
+
+      nomService: dataOrdre.numService.nomService,
+    });
     this.selectDataOrdre = dataOrdre;
     this.isOrdreComponentOpen = true;
   }
@@ -153,7 +193,7 @@ export class FournisseurComponent implements OnInit {
         }
       });
   }
-  deleteDataOrdre(numOrdre: number) {
+  deleteDataOrdre(numOrdre: string) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -197,5 +237,206 @@ export class FournisseurComponent implements OnInit {
           });
         }
       });
+  }
+
+  ////////////////////////////ADD FOURNISSEUR///////////////
+  title = 'Enregistrement ';
+
+  FournisseurForm = this.formBuilder.group({
+    nomFrns: ['', [Validators.required]],
+    prenomFrns: ['', [Validators.required]],
+    adrsFrns: ['', [Validators.required]],
+    telFrns: ['', [Validators.required]],
+    typeFrns: ['', [Validators.required]],
+  });
+
+  get nomFrns() {
+    return this.FournisseurForm.get('nomFrns');
+  }
+  get prenomFrns() {
+    return this.FournisseurForm.get('prenomFrns');
+  }
+  get adrsFrns() {
+    return this.FournisseurForm.get('adrsFrns');
+  }
+  get telFrns() {
+    return this.FournisseurForm.get('telFrns');
+  }
+  get typeFrns() {
+    return this.FournisseurForm.get('typeFrns');
+  }
+
+  isSubmitting: boolean = false;
+  isRegisterSuccess: boolean = false;
+  modifdata: any[] = [];
+  formHeader = 'Valider';
+
+  submitFournisseur() {
+    this.isSubmitting = true;
+
+    if (this.isModifAction == true) {
+      // requete send modif
+      this.title = 'Modifier Fournisseur';
+      this.formHeader = 'Modifier';
+      const updatedFrns = {
+        ...this.FournisseurForm.value,
+      };
+      this.PrivateService.update(
+        updatedFrns,
+        this.selectedData.numFrns
+      ).subscribe({
+        next: (res) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Fournisseur modifier',
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            this.Data();
+            this.FournisseurForm.reset();
+            this.isSubmitting = false;
+            this.isRegisterSuccess = false;
+            this.closeCard();
+          });
+        },
+        error: (err) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Erreur lors de la modification du fournisseur',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          console.error('Erreur lors de la modification :', err);
+          this.isSubmitting = false;
+          this.isRegisterSuccess = false;
+        },
+      });
+    } else {
+      this.isSubmitting = true;
+
+      this.PrivateService.create(this.FournisseurForm.value).subscribe({
+        next: (result) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Fournisseur enregistre',
+            showConfirmButton: false,
+            timer: 1500,
+          }).then((res) => {
+            this.isSubmitting = false;
+            this.isRegisterSuccess = true;
+            this.closeCard();
+          });
+        },
+        error: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Fournisseur deja enregistree',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          console.log('inona le erreur : ', this.FournisseurForm.value);
+          this.isSubmitting = false;
+        },
+      });
+    }
+  }
+
+  /////////////////////ORDRE///////////////////
+  servicedata: any[] = [];
+  AnnneeData: any[] = [];
+
+  OrdreForm = this.formBuilder.group({
+    numOrdre: ['', [Validators.required]],
+    dateOrdre: ['', [Validators.required]],
+    nomService: ['', [Validators.required]],
+    newannee: ['', [Validators.required]],
+  });
+
+  getService() {
+    this.service.findAll().subscribe((getAll) => {
+      this.servicedata = getAll;
+    });
+  }
+  getAnnee() {
+    this.annee.findAll().subscribe((getAllAnnee) => {
+      this.AnnneeData = getAllAnnee;
+    });
+  }
+  AddOrdre() {
+    this.isSubmitting = true;
+
+    if (this.isModifAction == true) {
+      // requete send modif
+      this.title = 'Modifier Ordre';
+      this.formHeader = 'Modifier';
+      const updatedOrdre = {
+        ...this.OrdreForm.value,
+      };
+      this.ordreService
+        .update(updatedOrdre, this.selectDataOrdre.numOrdre)
+        .subscribe({
+          next: (res) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Ordre modifier',
+              showConfirmButton: false,
+              timer: 1500,
+            }).then(() => {
+              this.Data();
+              this.OrdreForm.reset();
+              this.isSubmitting = false;
+              this.isRegisterSuccess = false;
+              this.CloseCardOrdre();
+            });
+          },
+          error: (err) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Erreur lors de la modification du ordre',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.error('Erreur lors de la modification :', err);
+            this.isSubmitting = false;
+            this.isRegisterSuccess = false;
+          },
+        });
+    } else {
+      this.isSubmitting = true;
+      this.ordreService.create(this.OrdreForm.value).subscribe({
+        next: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Ordre enregistre',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          this.isSubmitting = false;
+          this.isRegisterSuccess = false;
+          setTimeout(() => {
+            this.CloseCardOrdre();
+          }, 1000);
+        },
+        error: () => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'ordre deja enregistree',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          this.isSubmitting = false;
+        },
+      });
+    }
   }
 }

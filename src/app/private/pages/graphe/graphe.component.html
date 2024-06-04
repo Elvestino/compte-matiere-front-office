@@ -10,67 +10,100 @@
   </div>
 </div>
 <main class="dashboard-list">
-  <div class="separator">
-    <div class="dashboard Service">
-      <span>Service</span>
-      <hr />
-      <p>{{ getTotalCount() }}</p>
+  <div class="total">
+    <div class="separator">
+      <div class="dashboard Service">
+        <span>Service</span>
+        <hr />
+        <p>{{ getTotalCount() }}</p>
 
-      <button type="button" routerLink="../service">
-        Voir plus <i class="fa fa-arrow-right"></i>
-      </button>
+        <button type="button" routerLink="../service">
+          Voir plus <i class="fa fa-arrow-right"></i>
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="separator">
-    <div class="dashboard entree">
-      <span>Materiel entree</span>
-      <hr />
-      <p>{{ entreetotal() }}</p>
-      <button type="button" routerLink="../materiel/entree">
-        Voir plus <i class="fa fa-arrow-right"></i>
-      </button>
+    <div class="separator">
+      <div class="dashboard entree">
+        <span>Materiel entree</span>
+        <hr />
+        <p>{{ entreetotal() }}</p>
+        <button type="button" routerLink="../materiel/entree">
+          Voir plus <i class="fa fa-arrow-right"></i>
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="separator">
-    <div class="dashboard Facture">
-      <span>Facture</span>
-      <hr />
-      <p>{{ facturetotal() }}</p>
-      <button type="button" routerLink="../materiel/facture">
-        Voir plus <i class="fa fa-arrow-right"></i>
-      </button>
+    <div class="separator">
+      <div class="dashboard Facture">
+        <span>Facture</span>
+        <hr />
+        <p>{{ facturetotal() }}</p>
+        <button type="button" routerLink="../materiel/">
+          Voir plus <i class="fa fa-arrow-right"></i>
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="separator">
-    <div class="dashboard Fournisseur">
-      <span>Fournisseur</span>
-      <hr />
-      <p>{{ frnstotal() }}</p>
-      <button type="button" routerLink="../fournisseur">
-        Voir plus <i class="fa fa-arrow-right"></i>
-      </button>
+    <div class="separator">
+      <div class="dashboard Fournisseur">
+        <span>Fournisseur</span>
+        <hr />
+        <p>{{ frnstotal() }}</p>
+        <button type="button" routerLink="../fournisseur">
+          Voir plus <i class="fa fa-arrow-right"></i>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <div class="separator">
-    <div class="dashboard sortie">
-      <span> Materiel sortie </span>
-      <hr />
-      <p>{{ sortietotal() }}</p>
-      <button type="button" routerLink="../materiel/sortie">
-        Voir plus <i class="fa fa-arrow-right"></i>
-      </button>
+    <div class="separator">
+      <div class="dashboard sortie">
+        <span> Materiel sortie </span>
+        <hr />
+        <p>{{ sortietotal() }}</p>
+        <button type="button" routerLink="../materiel/sortie">
+          Voir plus <i class="fa fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="separator">
+      <div class="dashboard Quitus">
+        <span> Quitus </span>
+        <hr />
+        <p>{{ quitustotal() }}</p>
+        <button type="button" routerLink="../quitus">
+          Voir plus <i class="fa fa-arrow-right"></i>
+        </button>
+      </div>
     </div>
   </div>
-
-  <div class="separator">
-    <div class="dashboard Quitus">
-      <span> Quitus </span>
-      <hr />
-      <p>{{ quitustotal() }}</p>
-      <button type="button" routerLink="../quitus">
-        Voir plus <i class="fa fa-arrow-right"></i>
-      </button>
+</main>
+<main class="sect2">
+  <div class="chart first">
+    <div class="chart-first">
+      <div class="header-chart-first">
+        <h1>Suivi des materiels</h1>
+        <canvas id="bar_chart"></canvas>
+      </div>
+    </div>
+    <div class="chart-second">
+      <div class="chart-second-first">
+        <div class="header-chart-second">
+          <h1>Materiel entree et Sortie par an</h1>
+          <canvas id="bar_chart_emprunt"></canvas>
+        </div>
+      </div>
+      <!-- <div class="chart-second-second">
+        <div class="header-second-second">
+          <h1>Nombre d'adhesion par mois</h1>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div class="chart second">
+    <div class="chart-last-section">
+      <div class="last-section-header">
+        <h1>Nombre total</h1>
+        <canvas id="emprunter_chart"></canvas>
+      </div>
     </div>
   </div>
 </main>

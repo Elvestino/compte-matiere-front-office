@@ -1,2 +1,3 @@
 # compt-matiere-front-office
- angular frontend apps for compte matiere
+
+angular frontend apps for compte matiere

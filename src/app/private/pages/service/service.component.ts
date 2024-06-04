@@ -47,7 +47,6 @@ export class ServiceComponent {
     this.service.findAll().subscribe(
       (res) => {
         this.data = res;
-        console.log('service enregs:', res);
       },
       (err) => {
         console.error(err);

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EntreeService } from '../../../service/entree.service';
 import {
   FormBuilder,
+  FormControl,
   FormsModule,
   ReactiveFormsModule,
   Validators,
@@ -13,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { HttpClientModule } from '@angular/common/http';
 import { PrintEntreeComponent } from '../component/print-entree/print-entree.component';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-entree',
@@ -28,7 +30,7 @@ import { PrintEntreeComponent } from '../component/print-entree/print-entree.com
   templateUrl: './entree.component.html',
   styleUrl: './entree.component.scss',
 })
-export class EntreeComponent {
+export class EntreeComponent implements OnInit {
   constructor(
     private entree: EntreeService,
     private annee: AnneeService,
@@ -45,6 +47,7 @@ export class EntreeComponent {
   entreedata: any[] = [];
   facturedata: any[] = [];
   anneedata: any[] = [];
+
   PrintComponent: boolean = false;
   openModif: boolean = false;
   formHeader = 'Confirmer';
@@ -63,6 +66,9 @@ export class EntreeComponent {
     newannee: ['', [Validators.required]],
     destination: ['', [Validators.required]],
   });
+  ngOnInit(): void {
+    this.getEntree();
+  }
   clear() {
     this.formHeader = 'Confirmer';
     this.add = "Enregistrement d'un materiel d'entree";

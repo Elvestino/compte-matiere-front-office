@@ -1,5 +1,5 @@
 export interface FournisseurModel {
-  numFrns: number;
+  numFrns: string;
   nomFrns: string;
   prenomFrns: string;
   adrsFrns: string;

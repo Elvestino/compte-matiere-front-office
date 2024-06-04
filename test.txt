@@ -1,26 +1,17 @@
-.journal-heading {
-  margin-top: 30px;
-  grid-template-columns: 1fr 1fr 1fr;
-  display: grid;
-  .img {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-  }
-}
 .dashboard-list {
-  display: flex;
+  width: 100px;
+  margin-top: 20px;
   justify-content: center;
   align-items: center;
   .total {
-    display: flex;
-    margin: 80px 0 0 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     .separator {
-      margin: 0 30px 0 0;
+      margin: 0 50px 0 50px;
       border-radius: 12px;
       .dashboard {
         border-radius: 12px;
-        padding: 30px 60px;
+        padding: 20px 0 20px 0;
         color: white;
         text-align: center;
         span {
@@ -63,6 +54,7 @@
             font-size: 20px;
             background-color: rgb(9, 248, 81);
             color: white;
+
             width: 100%;
             outline: 0;
             border-radius: 8px;
@@ -168,6 +160,7 @@
     }
   }
 }
+
 @keyframes up-animation {
   from {
     opacity: 0;
@@ -176,112 +169,5 @@
   to {
     opacity: 1;
     transform: translateX(40px);
-  }
-}
-.sect2 {
-  display: grid;
-  grid-template-columns: 7fr 5fr;
-  padding: 20px;
-  gap: 40px;
-  .chart {
-    width: 100%;
-    max-height: 593px;
-    height: 100vh;
-
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-
-    gap: 20px;
-    &.first {
-      .chart-first {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        border: 1px solid var(--blue);
-        height: 100vh;
-        background-color: #eee;
-        padding: 10px;
-        border-radius: 8px;
-        .header-chart-first {
-          display: flex;
-          justify-content: space-between;
-          h1 {
-            font-size: 18px;
-            text-transform: uppercase;
-            font-weight: bold;
-          }
-          canvas {
-            width: 50px;
-            height: 50px;
-          }
-        }
-      }
-      .chart-second {
-        display: grid;
-        grid-template-columns: 12fr;
-        border-radius: 8px;
-        width: 100%;
-        height: 100vh;
-        max-height: 280px;
-        gap: 30px;
-
-        .chart-second-first {
-          display: flex;
-          padding: 10px;
-          justify-content: space-between;
-          border-radius: 8px;
-          background-color: #eee;
-          border: 1px solid var(--blue);
-          .header-chart-second {
-            h1 {
-              font-size: 18px;
-              text-transform: uppercase;
-              font-weight: bold;
-            }
-          }
-        }
-        // .chart-second-second {
-        //   display: flex;
-        //   justify-content: space-between;
-        //   border: 1px solid var(--blue);
-        //   padding: 10px;
-        //   background-color: #eee;
-        //   border-radius: 8px;
-        //   .header-second-second {
-        //     h1 {
-        //       font-size: 18px;
-        //       text-transform: uppercase;
-        //       font-weight: bold;
-        //     }
-        //   }
-        // }
-      }
-    }
-    &.second {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      border: 1px solid var(--blue);
-      height: 100vh;
-      background-color: #eee;
-      padding: 10px;
-      border-radius: 8px;
-      .chart-last-section {
-        display: flex;
-        justify-content: space-between;
-        .last-section-header {
-          h1 {
-            font-size: 18px;
-            text-transform: uppercase;
-            font-weight: bold;
-          }
-          #emprunter_chart {
-            width: 100%;
-            height: 550px;
-          }
-        }
-      }
-    }
   }
 }
