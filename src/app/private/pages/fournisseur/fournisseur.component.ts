@@ -11,13 +11,14 @@ import Swal from 'sweetalert2';
 import { PrintFrnsComponent } from './components/print-frns/print-frns.component';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
 import { OrdreService } from '../../service/ordre.service';
 import { PrintOrdreComponent } from './components/print-ordre/print-ordre.component';
 import { FournisseurModel } from '../../models/fournisseur.models';
 import { OrdreModel } from '../../models/ordre.model';
 import { ServiceService } from '../../service/service.service';
 import { AnneeService } from '../../service/annee.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-fournisseur',
@@ -39,6 +40,7 @@ export class FournisseurComponent implements OnInit {
     private ordreService: OrdreService,
     private service: ServiceService,
     private annee: AnneeService,
+    private http: HttpClient,
     private formBuilder: FormBuilder
   ) {
     this.OrdreData();
@@ -114,7 +116,29 @@ export class FournisseurComponent implements OnInit {
       .pipe(
         debounceTime(300),
         distinctUntilChanged(),
-        switchMap((searchterm) => this.PrivateService.filterFrns(searchterm))
+        switchMap((searchterm) =>
+          this.http.get<any[]>(`http://localhost:4080/api/fournisseur`).pipe(
+            map((data) => {
+              return data.filter((item) => {
+                return (
+                  item.nomFrns
+                    .toLowerCase()
+                    .includes(searchterm.toLowerCase()) ||
+                  item.prenomFrns
+                    .toLowerCase()
+                    .includes(searchterm.toLowerCase()) ||
+                  item.adrsFrns
+                    .toLowerCase()
+                    .includes(searchterm.toLowerCase()) ||
+                  item.typeFrns
+                    .toLowerCase()
+                    .includes(searchterm.toLowerCase()) ||
+                  item.telFrns.toLowerCase().includes(searchterm.toLowerCase())
+                );
+              });
+            })
+          )
+        )
       )
       .subscribe((filteredItems) => {
         this.items = filteredItems;
